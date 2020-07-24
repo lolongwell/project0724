@@ -1,0 +1,60 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页-优品易购"
+			}
+		}
+        ,{
+            "path" : "pages/groupBuy/groupBuy",
+            "style" : {
+				"navigationBarTitleText": "拼团专区"
+			}
+        }
+        ,{
+            "path" : "pages/order/order",
+            "style" : {
+				"navigationBarTitleText": "订单"
+			}
+			
+        }
+        ,{
+            "path" : "pages/my/my",
+            "style" : {
+				"navigationBarTitleText": "个人中心"
+			}
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "优品易购",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+	    "list": [{
+	      "pagePath": "pages/index/index",
+	      "text": "首页",
+		  "iconPath":"static/images/index1.png",
+		  "selectedIconPath":"static/images/index2.png"
+	    }, {
+	      "pagePath": "pages/groupBuy/groupBuy",
+	      "text": "拼团",
+		  "iconPath":"static/images/group1.png",
+		  "selectedIconPath":"static/images/group2.png"
+	    }, {
+	      "pagePath": "pages/order/order",
+	      "text": "订单",
+		  "iconPath":"static/images/order1.png",
+		  "selectedIconPath":"static/images/order2.png"
+	    }, {
+	      "pagePath": "pages/my/my",
+	      "text": "我的",
+		  "iconPath":"static/images/my1.png",
+		  "selectedIconPath":"static/images/my2.png"
+	    }],
+		"color":"#8a8a8a",
+		"selectedColor":"#d81e06"
+	}
+}
