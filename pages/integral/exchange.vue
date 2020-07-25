@@ -1,19 +1,31 @@
 <template>
 	<view class="intergral-exchange-box">
 		<view class="header">
-			<view class="left">
-				<view class="title">
-					
+			<view class="left ">
+				<view class="title ">
+					<span>积分狂欢</span>
+					<span>好礼</span>
+					<span>大派送</span>
 				</view>
-				<view class="content">
-					
+				<view class="content ">
+					<ul>
+						<li>积分兑换好礼赢，赶紧来参加吧！</li>
+						<li>每日签到 赚取积分</li>
+					</ul>
 				</view>
 			</view>
-			<view class="right">
-				
+			<view class="right ">
+
 			</view>
 
 		</view>
+		<view class="my-integral">
+			<span>我的积分</span>
+			<span>{{integral}}</span>
+		</view>
+	    <view class="turntable">
+	    	转盘
+	    </view>
 	</view>
 </template>
 
@@ -21,36 +33,81 @@
 	export default {
 		data() {
 			return {
-				moneys: ['999元', '1997元', '4998元', '9988元', '19888元', '其他'],
-				methods: ['支付宝', '微信'],
-				activeIndex: '',
-				methodIndex: ''
+
 			};
+		},
+		computed:{
+		    	integral(){
+					return this.$store.state.integral
+				}
 		},
 		methods: {
 
-			changMoney(val, i) {
-				this.activeIndex = i
-				console.log(i)
-				console.log(val)
-			},
 
-			changMethod(val, i) {
-				this.methodIndex = i
-			},
-
-			submit() {
-				//发送请求
-			}
 		}
 	};
 </script>
 
 <style lang="scss" scoped>
 	.intergral-exchange-box {
-		.header{
-			height: 300rpx;
-			background: red;
+
+		.header {
+			height: 200rpx;
+			display: flex;
+			padding: 0 30rpx;
+			margin-top: 40rpx;
+ 
+			.left {
+				flex: 3;
+				display: flex;
+				flex-direction: column;
+				.title {
+					flex: 1;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					font-weight: bold;
+					color: #303133;
+					// font-size: $font-base + 30rpx;
+
+					span {
+						&:nth-of-type(2) {
+							color: red;
+							margin-left: 30rpx;
+							margin-right: 10rpx;
+						}
+					}
+				}
+
+				.content {
+					flex: 2;
+					padding-top: 30rpx;
+					color: #999;
+					font-size: 20rpx;
+				}
+
+			}
+
+			.right {
+				flex: 1;
+				background: blue;
+			}
+		}
+
+		.my-integral {
+			margin-top: 30rpx;
+			height: 100rpx;
+			border-top: 1px solid #999;
+			border-bottom: 1px solid #999;
+            padding: 20rpx 0 0 100rpx;
+			font-size: 30rpx;
+			span{
+				&:nth-of-type(2){
+					margin-left: 10rpx;
+					font-size: 40rpx;
+					color: $my-color;
+				}
+			}
 		}
 	}
 </style>

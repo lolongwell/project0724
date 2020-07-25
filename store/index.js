@@ -21,7 +21,8 @@ const state = {
 
 	cartData: [], 
 	addressList: [],
-	balance: '0.00'
+	balance: '0.00', // 余额
+	integral:0 // 积分
 };
 
 const getters = {
@@ -231,6 +232,10 @@ const mutations = {
 	balanceUpdate(state, balance){
 		state.balance = balance;
 	},
+	integralUpdate(state, integral){
+		state.integral = integral;
+	},
+	
 
 	updateKid(state, id) {
 		updateUserKid(id,()=>{
