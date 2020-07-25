@@ -66,6 +66,12 @@
 		    "style": {
 		        "navigationBarTitleText": ""
 		    }
+		},
+		{
+		    "path": "pages/login/resetPassword",
+		    "style": {
+		        "navigationBarTitleText": "修改密码"
+		    }
 		}
     ],
 	"globalStyle": {

@@ -8,8 +8,7 @@
 		</view>
 		<view class="pay-moneys">
 			<uni-list class='pay-money'>
-				<uni-list-item title="" :class="{'method-active':index === methodIndex}" v-for="(item,index) in methods" class="item"
-				 @click="changMethod(item,index)" note="">{{item}}</uni-list-item>
+				<uni-list-item title=""  :class="{'method-active':index === methodIndex}" v-for="(item,index) in methods" class="item" @click="changMethod(item,index)" note="">{{item}}</uni-list-item>
 			</uni-list>
 		</view>
 		<view class="submit">
@@ -25,7 +24,7 @@
 				moneys: ['999元', '1997元', '4998元', '9988元', '19888元', '其他'],
 				methods: ['支付宝', '微信'],
 				activeIndex: '',
-				methodIndex: ''
+				methodIndex:''
 			};
 		},
 		methods: {
@@ -35,13 +34,13 @@
 				console.log(i)
 				console.log(val)
 			},
-
-			changMethod(val, i) {
+				
+			changMethod(val,i){
 				this.methodIndex = i
 			},
-
-			submit() {
-				//发送请求
+				
+			submit(){
+				 //发送请求
 			}
 		}
 	};
@@ -50,18 +49,17 @@
 <style lang="scss" scoped>
 	.in-money-box {
 		height: 100%;
-		padding: 0 30rpx;
 
 		.in-moneys {
 			height: 100px;
 			width: 100%;
-			margin-top: 30rpx;
-			background: #fff;
+			background: red;
 
 			.change-moneys {
 				height: 100%;
 				width: 100%;
 				padding: 5rpx 10rpx;
+				background: pink;
 				display: flex;
 				flex-wrap: wrap;
 				display: flex;
@@ -86,8 +84,7 @@
 				}
 			}
 		}
-
-		.pay-money {
+	    .pay-money{
 			width: 100%;
 			height: 200rpx;
 			margin-top: 30rpx;
@@ -95,31 +92,31 @@
 			justify-content: center;
 			align-items: center;
 			padding: 0 10rpx;
-
-			.method-active {
+				
+			.method-active{
 				border: 1px solid red;
 			}
-
-			.item {
+			.item{
 				flex: 1;
 				width: 20%;
 				height: 100rpx;
-				margin: 0 30rpx;
+				margin: 0 30rpx ;
 				background: pink;
 				display: flex;
 				justify-content: center;
 				align-items: center;
 			}
 		}
-
-		.submit {
+			
+		.submit{
 			margin-top: 40rpx;
-
-			button {
+				
+			button{
 				background: $my-color;
 				color: #fff;
-			}
+				width: 80%;
+			}		
 		}
-
+		
 	}
 </style>
