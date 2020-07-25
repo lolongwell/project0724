@@ -37,18 +37,35 @@
 		</view>
 		
 		<uni-tab :dataSource="tabList" @handle="switchTab"></uni-tab>
-        <view v-for="mod in filterModules">
-            <product-list
-                class="product-list __space"
-                :title="mod.typename"
-                :more="true"
-                :typeId="mod.typecode"
-                :url="cUrl(mod.typecode,mod.typename)"
-            ></product-list>
-            <!--  #ifdef MP-WEIXIN --> 
-            <view class="__space"></view>
-            <!--  #endif -->
+        <view class="hot" v-show="showTab == 0">
+        	<view v-for="mod in filterModules">
+        	    <product-list
+        	        class="product-list __space"
+        	        :title="mod.typename"
+        	        :more="true"
+        	        :typeId="mod.typecode"
+        	        :url="cUrl(mod.typecode,mod.typename)"
+        	    ></product-list>
+        	    <!--  #ifdef MP-WEIXIN --> 
+        	    <view class="__space"></view>
+        	    <!--  #endif -->
+        	</view>
         </view>
+		
+		<view class="integral" v-show="showTab == 1">
+			<view v-for="mod in filterModules">
+			    <product-list
+			        class="product-list __space"
+			        :title="mod.typename"
+			        :more="true"
+			        :typeId="mod.typecode"
+			        :url="cUrl(mod.typecode,mod.typename)"
+			    ></product-list>
+			    <!--  #ifdef MP-WEIXIN --> 
+			    <view class="__space"></view>
+			    <!--  #endif -->
+			</view>
+		</view>
 
 		<!-- 情感装 -->
 		<!-- <title-product-list
@@ -177,14 +194,14 @@ export default {
 			tabList: [
 				{text: '热门'},
 				{text: '积分乐兑'}
-			]
+			],
+			showTab: 0
 		};
 	},
 	computed: {
         ...mapState(['cartData', 'hasLogin']),
         filterModules(){ // 过滤展示 1<= 序号 <= 9 的模块
             let data = JSON.parse(JSON.stringify(this.modules));
-			console.log('data', data)
             data = data.sort(function(a,b){
                 return a.orderNum - b.orderNum;
             })
@@ -354,6 +371,7 @@ export default {
 		},
 		switchTab(val) {
 			console.log(val)
+			this.showTab = val.index
 		}
 	}
 };

@@ -9,7 +9,12 @@
 		<view class="goods-floor">
 			<!-- 左侧楼层 -->
 			<ul class="floor-nav">
-				<li v-for="(item, index) in floorNav" :key="item.id" @click="setFloorNavMountClick(index)">{{ item.name }}</li>
+				<li 
+					v-for="(item, index) in floorNav" 
+					:key="item.id" 
+					:class="curIndex == index ? 'selected' : ''"
+					@click="setFloorNavMountClick(index)"
+				>{{ item.name }}</li>
 			</ul>
 			<!-- 右侧的内容区域 -->
 			<ul class="floor-list">
@@ -87,7 +92,8 @@
 						name: '小地家族'
 					}
 				],
-				floorList: []
+				floorList: [],
+				curIndex: 0
 			};
 		},
 		onShow() {
@@ -115,6 +121,7 @@
 		methods: {
 			setFloorNavMountClick(index) {
 				console.log(index)
+				this.curIndex = index
 				switch (index) {
 					case 0:
 						this.floorList = [
@@ -301,5 +308,8 @@
 				}
 			}
 		}
+	}
+	.selected {
+		color: #007AFF;
 	}
 </style>

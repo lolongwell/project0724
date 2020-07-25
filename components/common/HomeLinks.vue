@@ -54,6 +54,13 @@ export default {
 	},
 	methods: {
         Gl(url) {
+			let params = url.split('?')[1].split('&')
+			params.forEach(v => {
+				if (v.indexOf('type') != -1) {
+					let type = v.split('=')[1]
+					uni.setStorageSync('type', type)
+				}
+			})
             uni.switchTab({
             	url: url
             })
