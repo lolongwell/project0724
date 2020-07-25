@@ -95,6 +95,7 @@
 					flex: 5;
 					display: flex;
 					flex-direction: column;
+					flex-wrap: wrap;
 					.top,
 					.middle,
 					.bottom {
@@ -107,7 +108,8 @@
 
 						.price {
 							flex: 1;
-
+                            color: red;
+							font-weight: bolder;
 							span {
 								margin-left: 10rpx;
 							}

@@ -23,23 +23,44 @@
 			<span>我的积分</span>
 			<span>{{integral}}</span>
 		</view>
-	    <view class="turntable">
-	    	转盘
-	    </view>
+		<view class="turntable">
+			转盘
+		</view>
+		<view class="exchange-list-box">
+			<exchange-list :intergralList="intergralList"></exchange-list>
+		</view>
 	</view>
 </template>
 
 <script>
+	import ExchangeList from '@/components/integral/exchange-list.vue'
 	export default {
+		components: {ExchangeList},
 		data() {
 			return {
-
+				intergralList: [
+					{
+					url: '../../static/images/default.png',
+					name: '商品名商品名商品名商品名商品名商品名商品名商品名',
+					integral: 2000
+				     },
+					 {
+					 url: '../../static/images/default.png',
+					 name: '商品名商品名商品名商品名商品名商品名商品名商品名',
+					 integral: 2000
+					  },
+					  {
+					  url: '../../static/images/default.png',
+					  name: '商品名商品名商品名商品名商品名商品名商品名商品名',
+					  integral: 2000
+					   },
+				]
 			};
 		},
-		computed:{
-		    	integral(){
-					return this.$store.state.integral
-				}
+		computed: {
+			integral() {
+				return this.$store.state.integral
+			}
 		},
 		methods: {
 
@@ -56,11 +77,12 @@
 			display: flex;
 			padding: 0 30rpx;
 			margin-top: 40rpx;
- 
+
 			.left {
 				flex: 3;
 				display: flex;
 				flex-direction: column;
+
 				.title {
 					flex: 1;
 					display: flex;
@@ -99,10 +121,11 @@
 			height: 100rpx;
 			border-top: 1px solid #999;
 			border-bottom: 1px solid #999;
-            padding: 20rpx 0 0 100rpx;
+			padding: 20rpx 0 0 100rpx;
 			font-size: 30rpx;
-			span{
-				&:nth-of-type(2){
+
+			span {
+				&:nth-of-type(2) {
 					margin-left: 10rpx;
 					font-size: 40rpx;
 					color: $my-color;
