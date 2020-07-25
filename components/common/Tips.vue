@@ -69,7 +69,7 @@ export default {
         display: inline-block;
         width: 22rpx;
         height: 22rpx;
-        background-image: url("../../static/images/icon-tips.png");
+        background-image: url("../../static/icon-tips.png");
         background-position: center center;
         background-repeat: no-repeat;
         background-size: 100% 100%;

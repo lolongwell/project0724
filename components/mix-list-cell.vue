@@ -81,7 +81,7 @@
 	.mix-list-cell{
 		display:flex;
 		align-items:baseline;
-		padding: 20rpx;
+		padding: 20rpx $page-row-spacing;
 		line-height:60rpx;
 		position:relative;
 		
@@ -102,7 +102,7 @@
 			align-self: center;
 			font-size:30rpx;
 			color:$font-color-base;
-			margin-left:10rpx;
+			margin-left:$uni-spacing-row-sm;
 		}
 		.cell-tit{
 			flex: 1;
