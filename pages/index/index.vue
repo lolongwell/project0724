@@ -1,5 +1,5 @@
 <template>
-	<view class="main">
+	<view>
 		首页
 	</view>
 </template>
@@ -21,7 +21,5 @@
 </script>
 
 <style lang="scss">
-.main {
-		color: #DD524D;
-	}
+
 </style>
