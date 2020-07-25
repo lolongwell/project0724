@@ -1,9 +1,13 @@
 <template>
 	<view class="_hd">
-		<button v-if="!hasLogin" open-type="getUserInfo" class="_p" lang="zh_CN" @getuserinfo="getUserInfo">
-			<view class="image"><image class="img" src="../../static/missing-face.png" mode=""></image></view>
-			<p>点击登录</p>
-		</button>
+		<view v-if="!hasLogin" open-type="getUserInfo" class="_p" lang="zh_CN" @getuserinfo="getUserInfo">
+			<view class="image"><image class="img" src="../../static/images/missing-face.png" mode=""></image></view>
+		     <ul class="header-info">
+		     	<li title="" note="" class="item">ID:</li>
+		     	<li title="" note="" class="item">余额:</li>
+				<li title="" note="" class="item">积分:</li>
+		     </ul>
+		</view>
 
 		<view v-if="hasLogin" class="_p _ent">
 			<view class="_i-en"><open-data class="_hd" type="userAvatarUrl"></open-data></view>
@@ -193,9 +197,11 @@ export default {
 <style lang="scss" scoped>
 ._hd {
 	margin-top: 10rpx;
-	padding: 100rpx 0;
+	padding: 30rpx 0;
 	border-radius: 10rpx;
 	box-shadow: 0 3px 3px -3px #ccc;
+	background: $my-color;
+	height: 450rpx;
 }
 .enter-mode {
 	padding-left: 30rpx !important;
@@ -211,9 +217,9 @@ export default {
 	display: flex;
 	.header-info{
 		height: 100%;
+		margin-left: 0rpx;
 		display: flex;
-		flex-direction: column;	
-			color: #fff;
+		flex-direction: column;		
 		item{
 			flex: 1;
 		}
@@ -232,7 +238,7 @@ export default {
 	._e-nnn,
 	._u-ppp {
 		padding-left: 35rpx;
-		font-size: $font-sm;
+		font-size: 12rpx;
 		margin-top: 10rpx;
 	}
 	&::after {
@@ -240,9 +246,9 @@ export default {
 	}
 	> .image {
 		text-align: center;
-		margin: 0 auto;
 		width: 155rpx;
 		height: 155rpx;
+	    margin-left: 50rpx;
 		border-radius: 50%;
 		border: 1px solid $base-green;
 		// padding: 10rpx;
@@ -261,8 +267,8 @@ export default {
 	}
 
 	> p {
-		font-size: $font-base;
-		margin-top: 10rpx;
+		font-size: 14rpx;
+		
 	}
 
 	._i-en {
@@ -291,7 +297,7 @@ export default {
 		border: 1px solid $border-color-dark;
 		border-right: none;
 		border-radius: 40rpx 0 0 40rpx;
-		font-size: $font-base;
+		font-size: 14rpx;
 		right: 0;
 		bottom: 0;
 		&::after {
