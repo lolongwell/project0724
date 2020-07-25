@@ -54,6 +54,18 @@
 		    "style" : {
 		    	"navigationBarTitleText": "积分兑换"
 		    }
+		},
+		{
+		    "path": "pages/address/address",
+		    "style": {
+		        "navigationBarTitleText": "收货地址"
+		    }
+		},
+		{
+		    "path": "pages/address/addressManage",
+		    "style": {
+		        "navigationBarTitleText": ""
+		    }
 		}
     ],
 	"globalStyle": {
