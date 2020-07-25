@@ -18,7 +18,7 @@
 			<list-cell iconFamily="wkicon" icon="icon-kefu" iconColor="#aa553b" title="资金记录" @eventClick="goLink('/pages/myMoney/history')"></list-cell>
 			<list-cell icon="icon-tuandui" iconColor="#aa883b" title="修改密码" @eventClick="goLink('/pages/login/resetPassword')"></list-cell>
 		</view>
-		<recommend-fruit class="recommend __space"></recommend-fruit>
+		<!-- <recommend-fruit class="recommend __space"></recommend-fruit> -->
 		<!--  #ifdef MP-WEIXIN -->
 		<view class="__space"></view>
 		<!--  #endif -->
