@@ -88,13 +88,12 @@ export default {
 	border-radius: 10rpx;
 	box-shadow: 0 3px 3px -3px #ccc;
 	position: absolute;
-	top: 250rpx;
+	top: 380rpx;
 	left: 5%;
-	height: 150rpx;
 	width: 90%;
 	.order-item {
 		@include flex-center;
-		height: 120rpx;
+		height: 80rpx;
 		flex: 1;
 		font-size: $font-sm;
 		color: $font-color-dark;
@@ -129,7 +128,7 @@ export default {
 }
 
 .history-section {
-	margin-top: 15rpx;
+	margin-top: 100rpx;
 	background: #fff;
 	border-radius: 10rpx;
 	box-shadow: 0 3px 3px -3px #ccc;

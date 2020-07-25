@@ -197,7 +197,7 @@ export default {
 <style lang="scss" scoped>
 ._hd {
 	margin-top: 10rpx;
-	padding: 30rpx 0;
+	padding: 100rpx 0;
 	border-radius: 10rpx;
 	box-shadow: 0 3px 3px -3px #ccc;
 	background: $my-color;
@@ -217,9 +217,9 @@ export default {
 	display: flex;
 	.header-info{
 		height: 100%;
-		margin-left: 0rpx;
 		display: flex;
-		flex-direction: column;		
+		flex-direction: column;	
+			color: #fff;
 		item{
 			flex: 1;
 		}
