@@ -193,12 +193,7 @@ export default {
 <style lang="scss" scoped>
 ._hd {
 	margin-top: 10rpx;
-<<<<<<< HEAD
-	background: #fff;
-	padding: 50rpx 0 30rpx;
-=======
 	padding: 100rpx 0;
->>>>>>> 1a6cc2c086e68b8e81ca4bd23c65a345af27bdeb
 	border-radius: 10rpx;
 	box-shadow: 0 3px 3px -3px #ccc;
 }
@@ -211,9 +206,6 @@ export default {
 	height: auto;
 	border: none;
 	background-color: rgba(0, 0, 0, 0);
-<<<<<<< HEAD
-	position: relative;
-=======
 	position: relative;
 	margin-top: 10rpx;
 	display: flex;
@@ -226,7 +218,6 @@ export default {
 			flex: 1;
 		}
 	}
->>>>>>> 1a6cc2c086e68b8e81ca4bd23c65a345af27bdeb
 	&._ent {
 		text-align: left;
 		padding-left: 25rpx;
