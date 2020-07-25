@@ -65,7 +65,7 @@ export default {
           }
          ul {
              display: flex;
-             font-size: 0.7rem;
+             font-size: 0.5rem;
              &.default {
                  justify-content: space-around;
              }
@@ -77,8 +77,8 @@ export default {
                  }
              }
              li {
-                 height: 2rem;
-                 line-height: 2rem;
+                 height: 1.5rem;
+                 line-height: 1.5rem;
                 &.active {
                     border-bottom: 2px solid #1BB5F1;
                     margin-bottom: -1px;
