@@ -72,6 +72,12 @@
 		    "style": {
 		        "navigationBarTitleText": "修改密码"
 		    }
+		},
+		{
+		    "path": "pages/detail/detail",
+		    "style": {
+		        "navigationBarTitleText": "商品详情"
+		    }
 		}
     ],
 	"globalStyle": {

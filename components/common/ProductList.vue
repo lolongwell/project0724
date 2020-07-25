@@ -25,7 +25,7 @@ import ProductAPI from '../../api/product/product';
 export default {
 	name: 'ProductList',
 	props: {
-		data: {
+		goodData: {
 			type: Array
         },
         typeId: {
@@ -73,7 +73,7 @@ export default {
         }
     },
     watch: {
-        data: {
+        goodData: {
 			handler: function(val) {
                 console.log(val)
 				if (val.length) {
@@ -84,8 +84,8 @@ export default {
 		}
     },
     mounted() {
-        if(this.data.length) {
-            this.listData = this.data;
+        if(this.goodData.length) {
+            this.listData = this.goodData;
         }else {
             if(this.typeId) this.sj();
         }

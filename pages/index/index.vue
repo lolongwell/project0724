@@ -184,6 +184,7 @@ export default {
         ...mapState(['cartData', 'hasLogin']),
         filterModules(){ // 过滤展示 1<= 序号 <= 9 的模块
             let data = JSON.parse(JSON.stringify(this.modules));
+			console.log('data', data)
             data = data.sort(function(a,b){
                 return a.orderNum - b.orderNum;
             })
@@ -198,39 +199,39 @@ export default {
 		}
 	},
 	onLoad(options) {
-		if (this.loadTimes == 0) this.getAD();
-		let kid = options.kid;
+		// if (this.loadTimes == 0) this.getAD();
+		// let kid = options.kid;
 		// 设置kid
-		let currkid = uni.getStorageSync('user').kid;
-		if (!currkid) {
-			uni.setStorageSync('share-kid', kid);
-			// 若登录
-			if (this.hasLogin) {
-				// update kid
-				this.$_log('invite-kid', kid);
-				this.$store.commit('updateKid', kid);
-			}
-		}
+		// let currkid = uni.getStorageSync('user').kid;
+		// if (!currkid) {
+		// 	uni.setStorageSync('share-kid', kid);
+		// 	// 若登录
+		// 	if (this.hasLogin) {
+		// 		// update kid
+		// 		this.$_log('invite-kid', kid);
+		// 		this.$store.commit('updateKid', kid);
+		// 	}
+		// }
 	},
 	onShow() {
-		if (this.loadTimes) this.closeAd();
-		this.loadTimes++;
+		// if (this.loadTimes) this.closeAd();
+		// this.loadTimes++;
         this.loadData();
         this.getModules();
 		if (this.cartData.length) {
 			uni.setTabBarBadge({
-				index: 1,
+				index: 2,
 				text: this.cartData.length.toString()
 			});
 		} else {
 			uni.removeTabBarBadge({
-				index: 1
+				index: 2
 			});
 		}
 	},
 	methods: {
 		getAD() {
-			this.$refs['ad'].close();
+			// this.$refs['ad'].close();
 			FileAPI.getFileByName('广告').then(res => {
 				let data = res.data.obj.results;
 				if (data.length) {
@@ -251,7 +252,6 @@ export default {
 		},
 		getModules() {
 			OrderAPI.getDic('spfl').then(res=>{
-				console.log(res)
                 this.modules =  res.data.data;
 			})
 		},
