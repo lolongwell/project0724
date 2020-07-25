@@ -85,19 +85,21 @@ export default {
 .order-section {
 	@include section;
 	padding: 18rpx 0 28rpx;
-	border-radius: 0 0 10rpx 10rpx;
+	border-radius: 10rpx;
 	box-shadow: 0 3px 3px -3px #ccc;
 	position: absolute;
-	top: 250rpx;
-	left: 0;
-	height: 150rpx;
-	width: 100%;
+	top: 380rpx;
+	left: 5%;
+	width: 90%;
 	.order-item {
 		@include flex-center;
-		height: 120rpx;
-		border-radius: 10rpx;
+		height: 80rpx;
+		flex: 1;
 		font-size: $font-sm;
 		color: $font-color-dark;
+		&:nth-of-type(1){
+			border-right: 1px solid #333;
+		}
 		
 	}
 	.yticon {
@@ -126,7 +128,7 @@ export default {
 }
 
 .history-section {
-	margin-top: 15rpx;
+	margin-top: 100rpx;
 	background: #fff;
 	border-radius: 10rpx;
 	box-shadow: 0 3px 3px -3px #ccc;

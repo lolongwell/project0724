@@ -24,7 +24,37 @@
             "style" : {
 				"navigationBarTitleText": "个人中心"
 			}
-        }
+        },
+		{
+		    "path" : "pages/myMoney/inMoney",
+		    "style" : {
+		    	"navigationBarTitleText": "充值"
+		    }
+		},
+		{
+		    "path" : "pages/myMoney/outMoney",
+		    "style" : {
+		    	"navigationBarTitleText": "提现"
+		    }
+		},
+		{
+		    "path" : "pages/myMoney/wallet",
+		    "style" : {
+		    	"navigationBarTitleText": "余额"
+		    }
+		},
+		{
+		    "path" : "pages/myMoney/history",
+		    "style" : {
+		    	"navigationBarTitleText": "资金记录"
+		    }
+		},
+		{
+		    "path" : "pages/integral/exchange",
+		    "style" : {
+		    	"navigationBarTitleText": "积分兑换"
+		    }
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
