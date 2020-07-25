@@ -67,7 +67,7 @@
 
 		.item {
 			display: flex;
-			padding: 0 30rpx;
+			padding: 0 $page-row-spacing;
 			margin:  10rpx;
             background-color: #fff;
 			box-shadow: 0 0 10rpx 2rpx #999;

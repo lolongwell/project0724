@@ -87,7 +87,7 @@
 	    .pay-money{
 			width: 100%;
 			height: 200rpx;
-			margin-top: 30rpx;
+			margin-top: $page-row-spacing;
 			display: flex;
 			justify-content: center;
 			align-items: center;
