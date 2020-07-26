@@ -3,7 +3,7 @@
 		<view class="in-moneys">
 			<ul class='change-moneys'>
 				<li title="" class="item" :class="{'active':index === activeIndex}" @click="changMoney(item,index)" note=""
-				 v-for="(item,index) in moneys">
+				 v-for="(item,index) in moneys" :key="index">
 				 <span v-if="item !== '其他'">{{item}}</span>
 				 <input  v-else  class="other" @input="otherHandle"  v-model="other" type="text" :value="other"  placeholder="其他" placeholder-style="color:#fff"/>
 				 </li>
@@ -12,7 +12,7 @@
 		</view>
 		<view class="pay-moneys">
 			<ul class='pay-money'>
-				<li title=""  :class="{'method-active':index === methodIndex}" v-for="(item,index) in methods" class="item" @click="changMethod(item,index)" note="">{{item}}</li>
+				<li title=""  :class="{'method-active':index === methodIndex}" v-for="(item,index) in methods" :key="index" class="item" @click="changMethod(item,index)" note="">{{item}}</li>
 			</ul>
 		</view>
 		<view class="submit">
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+	
 	export default {
 		data() {
 			return {
