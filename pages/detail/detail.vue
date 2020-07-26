@@ -41,6 +41,71 @@
 			<view class="right" @click="purchase">立即购买</view>
 		</view>
 
+		<view class="popup spec" :class="specClass" @touchmove.stop.prevent="stopPrevent" @click="toggleSpec">
+			<view class="mask"></view>
+			<view class="layer attr-content" @click.stop="stopPrevent">
+				<view class="product-intro">
+					<view class="left">
+						<image src="../../static/emptyCart.jpg" mode=""></image>
+					</view>
+					<view class="right">
+						<view class="r-name item">
+							名字
+						</view>
+						<view class="r-price item">
+							价格
+						</view>
+						<view class="r-type item">
+							团购类型：
+							<span>10rentuan</span>
+						</view>
+					</view>
+				</view>
+				<view class="product-form">
+					<form @submit="formSubmit" @reset="formReset">
+						<view class="uni-form-item uni-column">
+							<view class="title">switch</view>
+							<view>
+								<switch name="switch" />
+							</view>
+						</view>
+						<view class="uni-form-item uni-column">
+							<view class="title">radio</view>
+							<radio-group name="radio">
+								<label>
+									<radio value="radio1" /><text>选项一</text>
+								</label>
+								<label>
+									<radio value="radio2" /><text>选项二</text>
+								</label>
+							</radio-group>
+						</view>
+						<view class="uni-form-item uni-column">
+							<view class="title">checkbox</view>
+							<checkbox-group name="checkbox">
+								<label>
+									<checkbox value="checkbox1" /><text>选项一</text>
+								</label>
+								<label>
+									<checkbox value="checkbox2" /><text>选项二</text>
+								</label>
+							</checkbox-group>
+						</view>
+						<view class="uni-form-item uni-column">
+							<view class="title">slider</view>
+							<slider value="50" name="slider" show-value></slider>
+						</view>
+						<view class="uni-form-item uni-column">
+							<view class="title">input</view>
+							<input class="uni-input" name="input" placeholder="这是一个输入框" />
+						</view>
+					
+					</form>
+				</view>
+				<!-- <button class="btn" @click="changeGMFS">完成</button> -->
+			</view>
+		</view>
+
 	</view>
 </template>
 
@@ -81,7 +146,7 @@
 				picList: [],
 				commentList: [],
 				product: {},
-				img:''
+				img: ''
 			};
 		},
 		components: {
@@ -139,7 +204,7 @@
 		},
 		methods: {
 			loadData(id) {
-                // 获得商品详情
+				// 获得商品详情
 
 				console.log(getApp())
 				ProductAPI.goodsDetail(id).then(res => {
@@ -147,24 +212,10 @@
 					this.product = res.data.obj;
 					this.img = getApp().globalData.BASE_URL + this.product.sppic
 					console.log(this.img)
-					// this.article = this.formatRichText(res.data.obj.content);
-					this.specList = res.data.obj.goodsJgList;
-					this.setPicList(res.data.obj);
-					this.pj.num = parseInt(res.data.obj.xjdzs) + 0;
-					// this.specSelected = this.specList[0];
-					// this.specSelected.selected = true;
-					// this.product.price =  this.specSelected.jg;
+
 				});
 			},
-
-			setPicList(data) {
-				this.picList = [];
-				// if (data.pic && this.specList.length == 0) this.picList.push(this.pl(data.pic));
-				if (data.pic1) this.picList.push(this.pl(data.pic1));
-				if (data.pic2) this.picList.push(this.pl(data.pic2));
-				if (data.pic3) this.picList.push(this.pl(data.pic3));
-				if (data.pic4) this.picList.push(this.pl(data.pic4));
-			},
+			// 抽屉
 			toggleSpec() {
 				if (this.specClass === 'show') {
 					this.specClass = 'hide';
@@ -191,9 +242,8 @@
 
 				this.toggleSpec();
 			},
-			numberChange(e) {
-				this.number = e.number;
-			},
+		
+
 			selectSpec(item) {
 				this.specList.forEach(v => {
 					v.selected = false;
@@ -237,11 +287,12 @@
 					'<img style="max-width:100%;height:auto;display:block;margin-top:0;margin-bottom:0;"');
 				return newContent;
 			},
+			// todo立即购买
 			purchase() {
-				if (!this.hasLogin) {
-					this.showTokenInvalidMsg();
-					return;
-				}
+				// if (!this.hasLogin) {
+				// 	this.showTokenInvalidMsg();
+				// 	return;
+				// }
 				this.toggleSpec()
 
 			},
@@ -342,19 +393,22 @@
 		color: $font-color-base;
 		padding-bottom: 90rpx;
 		position: relative;
-        .img{
+
+		.img {
 			background: #fff;
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			z-index: -1;
-			uni-image{
+
+			uni-image {
 				// height: 100%;
 				// height: 400rpx;
 				// width: 100%;
 			}
-			
+
 		}
+
 		.intro {
 			background-color: white;
 			width: 95%;
@@ -369,9 +423,9 @@
 			.item {
 				flex: 1;
 				margin: 5px;
-					
-				&:nth-of-type(2){
-					span{
+
+				&:nth-of-type(2) {
+					span {
 						color: $base-red;
 					}
 				}
@@ -705,74 +759,46 @@
 
 		/* 规格选择弹窗 */
 		.attr-content {
-			padding: 10rpx 30rpx;
+			padding: 0 20rpx;
 
-			.a-t {
+			.product-intro {
 				display: flex;
 
-				image {
-					width: 170rpx;
-					height: 170rpx;
-					flex-shrink: 0;
-					margin-top: -40rpx;
-					border-radius: 8rpx;
-					border: 1px solid $border-color-base;
+				.left {
+					flex: 1;
+
+					uni-image {
+						width: 200rpx;
+						height: 200rpx;
+					}
+
+					img {
+						width: 50rpx;
+						height: 50rpx;
+					}
+
 				}
 
 				.right {
+					flex: 5;
 					display: flex;
+					padding: 20rpx;
 					flex-direction: column;
-					padding-left: 24rpx;
-					font-size: $font-sm + 2rpx;
-					color: $font-color-base;
-					line-height: 42rpx;
 
-					.price {
-						font-size: $font-lg;
-						color: $uni-color-primary;
-						margin-bottom: 10rpx;
-					}
+					.item {
+						flex: 1;
+						margin: 5rpx;
 
-					.selected-text {
-						margin-right: 10rpx;
+						&:nth-of-type(2) {
+							color: $base-red;
+							font-size: 40rpx;
+						}
 					}
 				}
+
 			}
 
-			.attr-list {
-				display: flex;
-				flex-direction: column;
-				font-size: $font-base + 2rpx;
-				color: $font-color-base;
-				padding-top: 30rpx;
-				padding-left: 10rpx;
-			}
-
-			.item-list {
-				padding: 20rpx 0 0;
-				display: flex;
-				flex-wrap: wrap;
-
-				text {
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					background: #eee;
-					margin-right: 20rpx;
-					margin-bottom: 20rpx;
-					border-radius: 100rpx;
-					min-width: 60rpx;
-					height: 60rpx;
-					padding: 0 20rpx;
-					font-size: $font-base;
-					color: $font-color-dark;
-				}
-
-				.selected {
-					background: #fbebee;
-					color: $uni-color-primary;
-				}
-			}
+			.product-form {}
 		}
 
 		/*  弹出层 */
