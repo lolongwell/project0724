@@ -3,7 +3,7 @@ let h = require("../request").default;
 let productAPI = {
 	productList(d) {
 		let o = {
-			goods: {
+			ptsp: {
 				"spfl": d.spfl,
 				"sxj": '1' 
 			},
@@ -16,7 +16,7 @@ let productAPI = {
 			}
 		}
 		o = JSON.stringify(o);
-		return h.postJson(`rest/yplgdata/goods_datagrid`, o, false);
+		return h.postJson(`/rest/yplgdata/ptsp_datagrid`, o, false);
 	},
 	goodsDetail(id) {
 		return h.postJson(`rest/yplgdata/goGoodsUpdate?id=${id}`, null, false);

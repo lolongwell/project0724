@@ -146,6 +146,9 @@ export default {
   height: 550rpx;
   line-height: 550rpx;
   text-align: center;
+  img {
+    width: 100%;
+  }
 }
 .ad-content {
   width: 450rpx;
