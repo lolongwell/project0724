@@ -2,17 +2,19 @@
 	<view class="in-money-box">
 		<view class="in-moneys">
 			<ul class='change-moneys'>
-				<li title="" class="item" :class="{'active':index === activeIndex}" @click="changMoney(item,index)" note=""
-				 v-for="(item,index) in moneys" :key="index">
-				 <span v-if="item !== '其他'">{{item}}</span>
-				 <input  v-else  class="other" @input="otherHandle"  v-model="other" type="text" :value="other"  placeholder="其他" placeholder-style="color:#fff"/>
-				 </li>
-	
+				<li title="" class="item" :class="{'active':index === activeIndex}" @click="changMoney(item,index)" note="" v-for="(item,index) in moneys"
+				 :key="index">
+					<span v-if="item !== '其他'">{{item}}</span>
+					<input v-else class="other" @input="otherHandle" v-model="other" type="text" :value="other" placeholder="其他"
+					 placeholder-style="color:#fff" />
+				</li>
+
 			</ul>
 		</view>
 		<view class="pay-moneys">
 			<ul class='pay-money'>
-				<li title=""  :class="{'method-active':index === methodIndex}" v-for="(item,index) in methods" :key="index" class="item" @click="changMethod(item,index)" note="">{{item}}</li>
+				<li title="" :class="{'method-active':index === methodIndex}" v-for="(item,index) in methods" :key="index" class="item"
+				 @click="changMethod(item,index)" note="">{{item}}</li>
 			</ul>
 		</view>
 		<view class="submit">
@@ -22,49 +24,59 @@
 </template>
 
 <script>
-	
 	export default {
 		data() {
 			return {
-				moneys: ['999元', '1997元', '4998元', '9988元', '19888元','其他'],
+				moneys: ['999元', '1997元', '4998元', '9988元', '19888元', '其他'],
 				methods: ['支付宝', '微信'],
 				activeIndex: '',
-				methodIndex:'',
-				money:'',
-				other:'',
-				method:''
+				methodIndex: '',
+				money: '',
+				other: '',
+				method: ''
 			};
 		},
 		methods: {
-           otherHandle(e){
-			   this.money= e.detail.value   
-		   },
+			otherHandle(e) {
+				this.money = e.detail.value
+			},
 			changMoney(val, i) {
 				this.activeIndex = i
 				// console.log(i)
 				// console.log(val)
-				this.money=val
-				console.log('this.money',this.money)
+				this.money = val
+				console.log('this.money', this.money)
+
 			},
-				
-			changMethod(val,i){
+
+			changMethod(val, i) {
 				this.methodIndex = i
 				this.method = val
-				console.log('this.method',this.method)
+
+				//验证选择的金额
+				if (!this.money) {
+					this.$api.msg('请选择充值金额');
+					return;
+				}
+
+
+				console.log('this.method', this.method)
 			},
-				
-			submit(){
-				console.log('this.money',this.money)
-				 //发送请求
-				 // uni.navigateTo({
-				 // 	url: `/pages/oreder/detail`
-				 // });
-				 if(this.money && this.method &&this.method === '微信'){
-					 uni.navigateTo({
-					 	url: `/pages/order/detail`
-					 });
-				 }
-				
+
+			submit() {
+				console.log('this.money', this.money)
+				//发送请求
+				// uni.navigateTo({
+				// 	url: `/pages/oreder/detail`
+				// });
+				if (this.money && this.method && this.method === '微信') {
+					uni.navigateTo({
+						url: `/pages/order/detail`
+					});
+				}else{
+					// 调用微信的接口
+				}
+
 			}
 		}
 	};
@@ -105,16 +117,17 @@
 					justify-content: center;
 					align-items: center;
 					border-radius: 4px;
-						
-					.other{
+
+					.other {
 						text-align: center;
-						 font-size:35rpx;
-						 color: #fff;
+						font-size: 35rpx;
+						color: #fff;
 					}
 				}
 			}
 		}
-	    .pay-money{
+
+		.pay-money {
 			width: 100%;
 			height: 200rpx;
 			margin-top: $page-row-spacing;
@@ -122,31 +135,32 @@
 			justify-content: center;
 			align-items: center;
 			padding: 0 10rpx;
-				
-			.method-active{
+
+			.method-active {
 				border: 1px solid red;
 			}
-			.item{
+
+			.item {
 				flex: 1;
 				width: 20%;
 				height: 100rpx;
-				margin: 0 30rpx ;
+				margin: 0 30rpx;
 				background: pink;
 				display: flex;
 				justify-content: center;
 				align-items: center;
 			}
 		}
-			
-		.submit{
+
+		.submit {
 			margin-top: 40rpx;
-				
-			button{
+
+			button {
 				background: $my-color;
 				color: #fff;
 				width: 80%;
-			}		
+			}
 		}
-		
+
 	}
 </style>

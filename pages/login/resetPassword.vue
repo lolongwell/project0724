@@ -5,25 +5,19 @@
 				<li class="input-item">
 					<icon type="success" class="icon-item" size="20" />
 					<input type="number" placeholder="手机号" v-model="form.phone" />
-					<span v-show="isPhone" class=" v-item">请填写手机号码</span>
-					<span v-show="errorPhone" class=" v-item">请填写正确的手机号</span>
 				</li>
 				<li class="input-item">
 					<icon type="success" class="icon-item" size="20" />
 					<input type="password" placeholder="请设置密码" v-model="form.password1" />
-					<span v-show="isPassword1" class="v-item">请填写密码</span>
 				</li>
 				<li class="input-item">
 					<icon type="success" class="icon-item" size="20" />
 					<input type="password" placeholder="请确认密码" v-model="form.password2" />
-					<span v-show="isPassword2" class="v-item">请填写确认密码</span>
 				</li>
 				<li class="input-item">
 					<icon type="success" class="icon-item" size="20" />
 					<input type="" placeholder="验证码" v-model="form.captcha" />
 					<span class="captcha" @click="getCaptcha">获取验证码</span>
-					<span v-show='isCaptcha' class="v-item">请填写验证码</span>
-					<span v-show='errorCaptcha' class="v-item">请填写正确的验证码</span>
 				</li>
 				<li class="input-item sumit">
 					<button type="default" @click="resetPassword">确 认</button>
@@ -43,12 +37,6 @@
 					password2: '',
 					captcha: ''
 				},
-				isPhone: false,
-				errorPhone: false,
-				isPassword1: false,
-				isPassword2: false,
-				isCaptcha: false,
-				errorCaptcha: false,
 			};
 
 		},
@@ -61,32 +49,23 @@
 				console.log(this.form)
 				// 校验
 				var reg = /^1[3|4|5|7|8][0-9]{9}$/
-				if (this.form.phone === '') {
-					this.isPhone = true
-				}else{
-					this.isPhone = false
+				if (!this.form.phone) {
+					uni.showToast({
+						title: '请输入手机号！',
+						duration: 3000,
+						icon: 'none'
+					});
+					return;
 				}
-				if(this.form.phone && !reg.test(this.form.phone)){
-					this.errorPhone = true
-				}else{
-					this.errorPhone = false
+				if (!reg.test(this.form.phone)) {
+					uni.showToast({
+						title: '请输入正确的手机号！',
+						duration: 3000,
+						icon: 'none'
+					});
+					return;
 				}
-				if(this.form.password1 === ''){
-					console.log('0000')
-					this.isPassword1 = true
-				}else{
-					this.isPassword1 = false
-				}
-				if(this.form.password2 === ''){
-					this.isPassword2 = true
-				}else{
-					this.isPassword2 = false
-				}
-				if(this.form.captcha === ''){
-					this.isCaptcha = true
-				}else{
-					this.isCaptcha = true
-				}
+				
 			}
 		}
 
