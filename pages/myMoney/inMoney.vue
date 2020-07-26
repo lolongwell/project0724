@@ -12,7 +12,7 @@
 			</uni-list>
 		</view>
 		<view class="submit">
-			<button type="default" @click="submit">立即充值</button>
+			<button type="default" @click="submit('submit',{})">立即充值</button>
 		</view>
 	</view>
 </template>
@@ -24,7 +24,9 @@
 				moneys: ['999元', '1997元', '4998元', '9988元', '19888元', '其他'],
 				methods: ['支付宝', '微信'],
 				activeIndex: '',
-				methodIndex:''
+				methodIndex:'',
+				money:'',
+				method:''
 			};
 		},
 		methods: {
@@ -33,14 +35,27 @@
 				this.activeIndex = i
 				console.log(i)
 				console.log(val)
+				this.money=val
+				console.log('this.money',this.money)
 			},
 				
 			changMethod(val,i){
 				this.methodIndex = i
+				this.method = val
+				console.log('this.method',this.method)
 			},
 				
 			submit(){
 				 //发送请求
+				 // uni.navigateTo({
+				 // 	url: `/pages/oreder/detail`
+				 // });
+				 if(this.money && this.method &&this.method === '微信'){
+					 uni.navigateTo({
+					 	url: `/pages/oreder/detail`
+					 });
+				 }
+				
 			}
 		}
 	};
