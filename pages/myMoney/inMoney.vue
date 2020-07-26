@@ -1,15 +1,19 @@
 <template>
 	<view class="in-money-box">
 		<view class="in-moneys">
-			<uni-list class='change-moneys'>
-				<uni-list-item title="" class="item" :class="{'active':index === activeIndex}" @click="changMoney(item,index)" note=""
-				 v-for="(item,index) in moneys">{{item}}</uni-list-item>
-			</uni-list>
+			<ul class='change-moneys'>
+				<li title="" class="item" :class="{'active':index === activeIndex}" @click="changMoney(item,index)" note=""
+				 v-for="(item,index) in moneys" :key="index">
+				 <span v-if="item !== '其他'">{{item}}</span>
+				 <input  v-else  class="other" @input="otherHandle"  v-model="other" type="text" :value="other"  placeholder="其他" placeholder-style="color:#fff"/>
+				 </li>
+	
+			</ul>
 		</view>
 		<view class="pay-moneys">
-			<uni-list class='pay-money'>
-				<uni-list-item title=""  :class="{'method-active':index === methodIndex}" v-for="(item,index) in methods" class="item" @click="changMethod(item,index)" note="">{{item}}</uni-list-item>
-			</uni-list>
+			<ul class='pay-money'>
+				<li title=""  :class="{'method-active':index === methodIndex}" v-for="(item,index) in methods" :key="index" class="item" @click="changMethod(item,index)" note="">{{item}}</li>
+			</ul>
 		</view>
 		<view class="submit">
 			<button type="default" @click="submit('submit',{})">立即充值</button>
@@ -22,20 +26,23 @@
 	export default {
 		data() {
 			return {
-				moneys: ['999元', '1997元', '4998元', '9988元', '19888元', '其他'],
+				moneys: ['999元', '1997元', '4998元', '9988元', '19888元','其他'],
 				methods: ['支付宝', '微信'],
 				activeIndex: '',
 				methodIndex:'',
 				money:'',
+				other:'',
 				method:''
 			};
 		},
 		methods: {
-
+           otherHandle(e){
+			   this.money= e.detail.value   
+		   },
 			changMoney(val, i) {
 				this.activeIndex = i
-				console.log(i)
-				console.log(val)
+				// console.log(i)
+				// console.log(val)
 				this.money=val
 				console.log('this.money',this.money)
 			},
@@ -47,13 +54,13 @@
 			},
 				
 			submit(){
-				console.log('充值')
+				console.log('this.money',this.money)
 				 //发送请求
 				 // uni.navigateTo({
 				 // 	url: `/pages/oreder/detail`
 				 // });
 				 if(this.money && this.method &&this.method === '微信'){
-					uni.navigateTo({
+					 uni.navigateTo({
 					 	url: `/pages/order/detail`
 					 });
 				 }
@@ -98,6 +105,12 @@
 					justify-content: center;
 					align-items: center;
 					border-radius: 4px;
+						
+					.other{
+						text-align: center;
+						 font-size:35rpx;
+						 color: #fff;
+					}
 				}
 			}
 		}
