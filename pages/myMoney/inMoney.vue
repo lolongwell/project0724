@@ -60,7 +60,7 @@
 				 // });
 				 if(this.money && this.method &&this.method === '微信'){
 					 uni.navigateTo({
-					 	url: `/pages/oreder/detail`
+					 	url: `/pages/order/detail`
 					 });
 				 }
 				
