@@ -16,7 +16,7 @@ let productAPI = {
 			}
 		}
 		o = JSON.stringify(o);
-		return h.postJson(`rest/yrgdata/goods_datagrid`, o, false);
+		return h.postJson(`rest/yplgdata/goods_datagrid`, o, false);
 	},
 	goodsDetail(id) {
 		return h.postJson(`rest/yrgdata/goGoodsUpdate?id=${id}`, null, false);

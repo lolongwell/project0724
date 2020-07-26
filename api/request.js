@@ -2,12 +2,12 @@
 // let BASE_URL = "https://m.myxiaodi.com/yrg/";
 let BASE_URL = "http://amghgdm.cn/yplg/";
 
-let debug = process.env.NODE_ENV !== "development";
+let debug = process.env.NODE_ENV === "development";
 import store from '../store/index';
 const getURL = function(url) {
 	//#ifndef MP-WEIXIN
 	if (!debug) url = BASE_URL + url;
-	else url = "api/" + url;
+	else url = url;
 	//#endif
 
 	//#ifdef MP-WEIXIN
