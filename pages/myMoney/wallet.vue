@@ -21,17 +21,18 @@
 				userMsg: {},
 				phone: '',
 				enterName: '',
-				authCode: ''
+				authCode: '',
+				balance: 0 //余额
 			};
 		},
 
 		mounted() {
-
+            this.balance = uni.getStorageSync('user').yue;
 		},
 		computed: {
-			balance() {
-				return this.$store.state.balance
-			}
+			// balance() {
+			// 	return this.$store.state.balance
+			// }
 		},
 		methods: {}
 

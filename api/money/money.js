@@ -14,6 +14,11 @@ let moneyAPI = {
 		d = JSON.stringify(d);
 		return h.postJson(`rest/userAddressController`, d);
 	},
+	
+	// 资金记录
+	hostoryMoney(id){
+		return h.get(`rest/tbHyzjjlController/${id}`);
+	},
 	moneyList(d) {
 		let o = {
 		    dd : d,
