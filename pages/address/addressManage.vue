@@ -3,12 +3,10 @@
 		<view class="form">
 			<ul class="input-list">
 				<li class="input-item">
-					<input type="text" placeholder="收货人" v-model="form.person" />
+					<input type="text" placeholder="收货人" v-model="form.realname" />
 				</li>
 				<li class="input-item">
 					<input type="number" placeholder="手机号码" v-model="form.phone" />
-					<span v-show="isPhone" class=" v-item">请填写手机号码</span>
-					<span v-show="errorPhone" class=" v-item">请填写正确的手机号</span>
 				</li>
 				<li>
 					<span class="region">所属区域：</span>
@@ -24,10 +22,10 @@
 				</li>
 
 				<li class="input-item input-address">
-					<input type="text" placeholder="详细地址" v-model="form.adress" />
+					<input type="text" placeholder="详细地址" v-model="form.detail" />
 				</li>
 				<li class="input-item sumit">
-					<button type="default" @click="resetPassword"> 提 交</button>
+					<button type="default" @click="addSubmit"> 提 交</button>
 				</li>
 			</ul>
 		</view>
@@ -40,8 +38,8 @@
 			return {
 				form: {
 					phone: '',
-					person: '',
-					adress: ''
+					realname: '',
+					detail: ''
 				},
 				isPhone: false,
 				errorPhone: false,
@@ -58,42 +56,54 @@
 		},
 		methods: {
 
-			resetPassword() {
+			addSubmit() {
 				console.log(this.form)
 				// 校验
-				var reg = /^1[3|4|5|7|8][0-9]{9}$/
-				if (this.form.phone === '') {
-					this.isPhone = true
-				} else {
-					this.isPhone = false
+				if (!this.form.realname) {
+					this.$api.msg('请输入收货人');
+					return;
 				}
-				if (this.form.phone && !reg.test(this.form.phone)) {
-					this.errorPhone = true
-				} else {
-					this.errorPhone = false
+				if (!this.form.phone) {
+					this.$api.msg('请输入手机号码');
+					return;
 				}
+				if (!/(^1[3|4|5|7|8][0-9]{9}$)/.test(this.form.phone)) {
+					this.$api.msg('请输入正确的手机号码');
+					return;
+				}
+				if (!this.form.detail) {
+					this.$api.msg('请输入详细地址');
+					return;
+				}
+
+				// 新增地址-提交
+				orderAPI.addAddress(data).then(res => {
+					this.$_log('添加地址：', res.data);
+					uni.showToast({
+						title: '添加成功!',
+						icon: 'none'
+					});
+					uni.navigateBack();
+				});
 
 			},
 			// 获取省市区信息
 			bindPickerChange(e) {
 				console.log(e.detail)
 				this.regionId = e.detail.column
-				// this.index[this.regionId] = e.detail.value
-
 				if (this.regionId === 0) {
 					this.index[0] = e.detail.value
-
 				} else if (this.regionId === 1) {
 					this.index[1] = e.detail.value
 				} else {
 					this.index[2] = e.detail.value
 				}
-
+               // 省市数组
 				console.log(this.index)
 			},
 			change(e) {
 				this.index = e.detail.value
-				console.log(val)
+				console.log(this.index)
 			}
 
 		}

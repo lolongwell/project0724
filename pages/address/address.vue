@@ -16,11 +16,13 @@
 		<view class="add-adress">
 			<button class="add-btn" @click="add('add',{})">新增地址</button>
 			<!-- <button @eventClick="goLink('/pages/address/addressManage')">添加收货地址</button> -->
+		    <!--  @click="add('add',{})" -->
 		</view>
 	</view>
 </template>
 
 <script>
+	 import orderAPI from '@/api/order/order.js';
 	export default {
 		data() {
 			return {
@@ -80,12 +82,36 @@
 		computed: {
 
 		},
+		mounted(){
+			this.getList()
+		      console.log(OrderAPI)	
+		},
 		methods: {
+			
+			getList(){
+				console.log(333)
+				let u = uni.getStorageSync('user').id;
+				orderAPI.getAddressList({userId: u}).then(res=>{
+					console.log(11111)
+					// this.$_log('地址列表：', res.data);
+					this.addressList = res.data.obj.results;
+				})
+			},
 			add() {
 				uni.navigateTo({
 					url: `/pages/address/addressManage`
 				});
 			}
+			
+			// check(d) {
+			// 	this.$api.prePage().addressData = d;
+			// 	uni.navigateBack();
+			// },
+			// add(type, d) {
+			// 	uni.navigateTo({
+			// 		url: `/pages/address/addressManage?type=${type}&data=${JSON.stringify(d)}`
+			// 	});
+			// }
 
 		}
 	};
