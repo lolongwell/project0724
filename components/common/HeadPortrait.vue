@@ -1,11 +1,11 @@
 <template>
 	<view class="_hd">
-		<view v-if="!hasLogin" open-type="getUserInfo" class="_p" lang="zh_CN" @getuserinfo="getUserInfo">
+		<view v-if="!hasLogin" class="_p" lang="zh_CN" @click="getUserInfo">
 			<view class="image"><image class="img" src="../../static/images/missing-face.png" mode=""></image></view>
 		     <ul class="header-info">
-		     	<li title="" note="" class="item">ID:</li>
-		     	<li title="" note="" class="item">余额:</li>
-				<li title="" note="" class="item">积分:</li>
+		     	<li title="" note="" class="item">ID：</li>
+		     	<li title="" note="" class="item">余额：</li>
+				<li title="" note="" class="item">积分：</li>
 		     </ul>
 		</view>
 
@@ -81,36 +81,41 @@ export default {
 	methods: {
 		getUserInfo(e) {
 			this.$_log('1.授权返回值: ', e);
-			if (this.hasLogin) return;
-			if (e.detail.userInfo) {
-				uni.showLoading({
-					title: '授权中...',
-					mask: true
-				});
-				uni.setStorageSync('userData', e.detail || null);
-				uni.login({
-					success: res => {
-						if (res.code) {
-							this.authCode = res.code;
-							uni.setStorageSync('auth-code', res.code);
-							this.$store.commit('statusChange', 'auth_code_state', true);
-							this.$_log('2.wx.login返回值: ', res.code);
-							uni.hideLoading();
-							this.getSessionKey();
-						} else {
-							console.log('登录失败！' + res.errMsg);
-						}
-					}
-				});
-			} else {
-				uni.showModal({
-					title: '警告',
-					content: '您点击了拒绝授权，将无法进入小程序，请授权之后再进入!!!',
-					showCancel: false,
-					confirmText: '返回授权',
-					success: res => {}
-				});
-			}
+			uni.login({
+				success(res) {
+					console.log(res)
+				}
+			})
+			// if (this.hasLogin) return;
+			// if (e.detail.userInfo) {
+			// 	uni.showLoading({
+			// 		title: '授权中...',
+			// 		mask: true
+			// 	});
+			// 	uni.setStorageSync('userData', e.detail || null);
+			// 	uni.login({
+			// 		success: res => {
+			// 			if (res.code) {
+			// 				this.authCode = res.code;
+			// 				uni.setStorageSync('auth-code', res.code);
+			// 				this.$store.commit('statusChange', 'auth_code_state', true);
+			// 				this.$_log('2.wx.login返回值: ', res.code);
+			// 				uni.hideLoading();
+			// 				this.getSessionKey();
+			// 			} else {
+			// 				console.log('登录失败！' + res.errMsg);
+			// 			}
+			// 		}
+			// 	});
+			// } else {
+			// 	uni.showModal({
+			// 		title: '警告',
+			// 		content: '您点击了拒绝授权，将无法进入小程序，请授权之后再进入!!!',
+			// 		showCancel: false,
+			// 		confirmText: '返回授权',
+			// 		success: res => {}
+			// 	});
+			// }
 		},
 		getSessionKey(data) {
 			AuthAPI.getOpenId({ code: this.authCode }).then(res => {
@@ -216,10 +221,12 @@ export default {
 	margin-top: 10rpx;
 	display: flex;
 	.header-info{
-		height: 100%;
+		height: 155rpx;
 		margin-left: 0rpx;
 		display: flex;
 		flex-direction: column;		
+		justify-content: space-around;
+		align-items: flex-start;
 		item{
 			flex: 1;
 		}

@@ -27,12 +27,12 @@
 
 <script>
 import { mapState } from 'vuex';
-
+import HeadPortrait from '@/components/common/HeadPortrait.vue'
 import listCell from '@/components/mix-list-cell';
 
 export default {
 	name: 'My',
-	components: { listCell },
+	components: { listCell, HeadPortrait },
 	data() {
 		return {
 			count:{
