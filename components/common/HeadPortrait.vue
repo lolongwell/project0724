@@ -1,5 +1,15 @@
 <template>
 	<view class="_hd">
+<<<<<<< HEAD
+		<view v-if="!hasLogin" class="_p" lang="zh_CN" @click="getUserInfo">
+			<view class="image"><image class="img" src="../../static/images/missing-face.png" mode=""></image></view>
+		     <ul class="header-info">
+		     	<li title="" note="" class="item">ID：</li>
+		     	<li title="" note="" class="item">余额：</li>
+				<li title="" note="" class="item">积分：</li>
+		     </ul>
+		</view>
+=======
 		<button v-if="!hasLogin" open-type="getUserInfo" class="_p" lang="zh_CN" @getuserinfo="getUserInfo">
 			<view class="image">
 				<image class="img" src="../../static/missing-face.png" mode=""></image>	
@@ -7,6 +17,7 @@
 			<p>点击登录</p>
 
 		</button>
+>>>>>>> 36009573f97e2dfde843e3407ff3ba37577e33b2
 
 		<view v-if="hasLogin" class="_p _ent">
 			<view class="_i-en image">
@@ -28,6 +39,93 @@
 </template>
 
 <script>
+<<<<<<< HEAD
+import { mapState } from 'vuex';
+import AuthAPI from '../../api/auth/auth';
+export default {
+	name: '',
+	props: {
+		kmc: {
+			type: String,
+			default: ''
+		}
+	},
+	data() {
+		return {
+			userMsg: {},
+			phone: '',
+			enterName: '',
+			authCode: '' 
+		};
+	},
+	onShareAppMessage(res) {
+		if (res.from === 'button') {
+			console.log(res.target);
+		}
+		let user = uni.getStorageSync('user');
+		console.log(user.kid);
+		return {
+			title: '果小地',
+			path: `/pages/userCenter/userCenter?kid=${user.kid}`
+		};
+	},
+	mounted() {
+		this.getUM();
+		let user = uni.getStorageSync('user');
+		this.phone = user.mobilePhone;
+		if (user.kid != null) {
+			// this.isEnterpriseUser = true;
+			this.$store.commit('updateIsEnterpriseUser', true);
+			this.enterName = user.kmc; 
+			this.phone = user.mobilePhone;
+		}
+		if (user.kid != null && !!user.iskmain) {
+			this.$store.commit('updateIsEnterpriseAdmin', true);
+			// this.isEnterpriseAdmin = true;
+		}
+	},
+	computed: {
+		...mapState(['hasLogin', 'isEnterpriseUser', 'isEnterpriseAdmin'])
+	},
+	methods: {
+		getUserInfo(e) {
+			this.$_log('1.授权返回值: ', e);
+			uni.login({
+				success(res) {
+					console.log(res)
+				}
+			})
+			// if (this.hasLogin) return;
+			// if (e.detail.userInfo) {
+			// 	uni.showLoading({
+			// 		title: '授权中...',
+			// 		mask: true
+			// 	});
+			// 	uni.setStorageSync('userData', e.detail || null);
+			// 	uni.login({
+			// 		success: res => {
+			// 			if (res.code) {
+			// 				this.authCode = res.code;
+			// 				uni.setStorageSync('auth-code', res.code);
+			// 				this.$store.commit('statusChange', 'auth_code_state', true);
+			// 				this.$_log('2.wx.login返回值: ', res.code);
+			// 				uni.hideLoading();
+			// 				this.getSessionKey();
+			// 			} else {
+			// 				console.log('登录失败！' + res.errMsg);
+			// 			}
+			// 		}
+			// 	});
+			// } else {
+			// 	uni.showModal({
+			// 		title: '警告',
+			// 		content: '您点击了拒绝授权，将无法进入小程序，请授权之后再进入!!!',
+			// 		showCancel: false,
+			// 		confirmText: '返回授权',
+			// 		success: res => {}
+			// 	});
+			// }
+=======
 	import {
 		mapState
 	} from 'vuex';
@@ -73,6 +171,7 @@
 				// this.$store.commit('updateIsEnterpriseAdmin', true);
 				// this.isEnterpriseAdmin = true;
 			}
+>>>>>>> 36009573f97e2dfde843e3407ff3ba37577e33b2
 		},
 		computed: {
 			...mapState(['hasLogin', 'isEnterpriseUser', 'isEnterpriseAdmin'])
@@ -196,7 +295,56 @@
 </script>
 
 <style lang="scss" scoped>
+<<<<<<< HEAD
+._hd {
+	margin-top: 10rpx;
+	padding: 30rpx 0;
+	border-radius: 10rpx;
+	box-shadow: 0 3px 3px -3px #ccc;
+	background: $my-color;
+	height: 450rpx;
+}
+.enter-mode {
+	padding-left: 30rpx !important;
+}
+._p {
+	text-align: center;
+	padding: 0;
+	height: auto;
+	border: none;
+	background-color: rgba(0, 0, 0, 0);
+	position: relative;
+	margin-top: 10rpx;
+	display: flex;
+	.header-info{
+		height: 155rpx;
+		margin-left: 0rpx;
+		display: flex;
+		flex-direction: column;		
+		justify-content: space-around;
+		align-items: flex-start;
+		item{
+			flex: 1;
+		}
+	}
+	&._ent {
+		text-align: left;
+		padding-left: 25rpx;
+		display: flex;
+	}
+	._r {
+		flex: 1;
+	}
+	._e-n {
+		padding-left: 35rpx;
+	}
+	._e-nnn,
+	._u-ppp {
+		padding-left: 35rpx;
+		font-size: 12rpx;
+=======
 	._hd {
+>>>>>>> 36009573f97e2dfde843e3407ff3ba37577e33b2
 		margin-top: 10rpx;
 		background: #fff;
 		padding: 80rpx 0 130rpx;
