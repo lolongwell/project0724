@@ -78,12 +78,12 @@
     "h5" : {
         "devServer" : {
             "https" : false,
-			"port" : 8080, //端口号
+			"port" : 8080, 
 			 "disableHostCheck" : true,
 			 "proxy" : {
 				"/" : {
-					"target" : "http://amghgdm.cn/yplg/", //目标接口域名
-					 "changeOrigin" : true  //是否跨域
+					"target" : "http://47.110.253.31:8080/yplg/", 
+					 "changeOrigin" : true
 				}
 			}
         }

@@ -1,15 +1,15 @@
 <template>
   <ul class="good-list">
-    <li v-for="(item, index) in goodListData" :key="index" @click="goGoodDetail(item.id)">
-      <img class="pic" :src="item.url" alt="">
+    <li v-for="(item, index) in newGoodListData" :key="index" @click="goGoodDetail(item.id)">
+      <img class="pic" :src="item.sppic" alt="">
       <view class="detail">
-        <text class="tit">{{item.title}}</text>
+        <text class="tit">{{item.pymc}}</text>
         <view class="fl">
-          <text>拼团即返 {{item.rebate}}</text>
-          <text>{{item.type}}</text>
+          <text>拼团即返 {{item.spfl}}%</text>
+          <text>{{item.ptlx == 2 ? '二人团' : item.ptlx == 5 ? '五人团' : item.ptlx == 10 ? '十人团' : ''}}</text>
         </view>
         <view class="price">
-          <text>￥{{item.price}}</text>
+          <text>￥{{item.ptjg}}</text>
           <img src="../../static/images/car.png" alt="">
         </view>
       </view>
@@ -18,9 +18,20 @@
 </template>
 
 <script>
+const {globalData} = getApp();
   export default {
     name: 'goodList',
     props: ['goodListData'],
+    computed: {
+      newGoodListData() {
+       let {goodListData} = this
+       goodListData.forEach(v => {
+         v.sppic = globalData.BASE_URL + v.sppic
+       })
+       console.log(goodListData)
+       return goodListData
+      }
+    },
     methods: {
       goGoodDetail(id) {
         uni.navigateTo({
