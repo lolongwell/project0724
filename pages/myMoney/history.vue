@@ -18,6 +18,7 @@
 </template>
 
 <script>
+	import moneyAPI from '@/api/money/money.js'
 	export default {
 		data() {
 			return {
@@ -52,7 +53,13 @@
 
 		},
 		methods: {
-
+			getList() {
+				// 用户id，本地获取
+				let id = 1
+				moneyAPI.hostoryMoney(id).then(res => {
+					this.historyList = res
+				})
+			}
 
 		}
 	};
@@ -68,12 +75,14 @@
 		.item {
 			display: flex;
 			padding: 0 $page-row-spacing;
-			margin:  10rpx;
-            background-color: #fff;
+			margin: 10rpx;
+			background-color: #fff;
 			box-shadow: 0 0 10rpx 2rpx #999;
-			&:nth-of-type(1){
+
+			&:nth-of-type(1) {
 				margin-top: 20rpx;
 			}
+
 			.left {
 				flex: 7;
 				display: flex;
@@ -102,7 +111,8 @@
 				margin-left: 20rpx;
 
 			}
-			.isMoreMoney{
+
+			.isMoreMoney {
 				color: red;
 			}
 		}

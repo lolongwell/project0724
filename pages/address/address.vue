@@ -1,19 +1,19 @@
 <template>
-	<view class="adress-box">
-		<view class="item" v-for="(item,index) in adressList">
+	<view class="detail-box">
+		<view class="item" v-for="(item,index) in detailList">
 			<view class="top">
 				<view class="left">
-					{{item.name}}
+					{{item.realname}}
 				</view>
 				<view class="right">
 					{{item.phone}}
 				</view>
 			</view>
 			<view class="bottom">
-				{{item.adress}}
+				{{item.detail}}
 			</view>
 		</view>
-		<view class="add-adress">
+		<view class="add-detail">
 			<button class="add-btn" @click="add('add',{})">新增地址</button>
 			<!-- <button @eventClick="goLink('/pages/address/addressManage')">添加收货地址</button> -->
 		    <!--  @click="add('add',{})" -->
@@ -26,55 +26,55 @@
 	export default {
 		data() {
 			return {
-				adressList: [{
-						name: '我是',
+				detailList: [{
+						realname: '我是',
 						phone: '10393838444',
-						adress: '我是地址1111'
+						detail: '我是详细地址1111'
 					},
 					{
-						name: '我是',
+						realname: '我是',
 						phone: '10393838444',
-						adress: '我是地址1111'
+						detail: '我是地址1111'
 					},
 					{
-						name: '我是',
+						realname: '我是',
 						phone: '10393838444',
-						adress: '我是地址1111'
+						detail: '我是地址1111'
 					},
 					{
-						name: '我是',
+						realname: '我是',
 						phone: '10393838444',
-						adress: '我是地址1111'
+						detail: '我是地址1111'
 					},
 					{
-						name: '我是',
+						realname: '我是',
 						phone: '10393838444',
-						adress: '我是地址1111'
+						detail: '我是地址1111'
 					},
 					{
-						name: '我是',
+						realname: '我是',
 						phone: '10393838444',
-						adress: '我是地址1111'
+						detail: '我是地址1111'
 					},
 					{
-						name: '我是',
+						realname: '我是',
 						phone: '10393838444',
-						adress: '我是地址1111'
+						detail: '我是地址1111'
 					},
 					{
-						name: '我是',
+						realname: '我是',
 						phone: '10393838444',
-						adress: '我是地址1111'
+						detail: '我是地址1111'
 					},
 					{
-						name: '我是',
+						realname: '我是',
 						phone: '10393838444',
-						adress: '我是地址1111'
+						detail: '我是地址1111'
 					},
 					{
-						name: '我是',
+						realname: '我是',
 						phone: '10393838444',
-						adress: '我是地址1111'
+						detail: '我是地址1111'
 					}
 				]
 			};
@@ -117,7 +117,7 @@
 </script>
 
 <style lang="scss" scoped>
-	.adress-box {
+	.detail-box {
 		height: 100%;
 		width: 100%;
 		display: flex;
@@ -150,7 +150,7 @@
 
 		}
 
-		.add-adress {
+		.add-detail {
 			position: fixed;
 			left: 50%;
 			transform: translate(-50%);

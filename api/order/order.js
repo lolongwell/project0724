@@ -33,6 +33,7 @@ let orderAPI = {
 		d = JSON.stringify(d);
 		return h.postJson(`rest/scDdController`, d);
 	},
+	
 	getAddressList(d){
 		let o = {
 		    address : {"userId":d.userId},
@@ -47,7 +48,7 @@ let orderAPI = {
 		o = JSON.stringify(o);
 		return h.postJson(`rest/userAddressController/address_datagrid`, o);
 	},
-	
+	// 收货地址-列表
 	addAddress(d){
 		d = JSON.stringify(d);
 		return h.postJson(`rest/userAddressController`, d);
@@ -93,7 +94,7 @@ let orderAPI = {
 	},
 	
 	getDic(d){
-		return h.postJson(`rest/yplgdata/getTypeNameListByLxcode?typeLxCode=${d}`, d,false);
+		return h.postJson(`rest/yrgdata/getTypeNameListByLxcode?typeLxCode=${d}`, d,false);
 	}
 }
 
