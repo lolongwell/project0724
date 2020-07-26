@@ -26,7 +26,15 @@
 			}
 			
 		}
-        ,{
+        ,
+		{
+		    "path" : "pages/myMoney/paySuccess",
+		    "style" : {
+				"navigationBarTitleText": "支付成功"
+			}
+			
+		}
+		,{
             "path" : "pages/my/my",
             "style" : {
 				"navigationBarTitleText": "个人中心"

@@ -84,7 +84,6 @@
 		},
 		mounted(){
 			this.getList()
-		      console.log(OrderAPI)	
 		},
 		methods: {
 			
