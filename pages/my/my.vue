@@ -128,7 +128,7 @@ export default {
 }
 
 .history-section {
-	margin-top: 100rpx;
+	margin-top: 120rpx;
 	background: #fff;
 	border-radius: 10rpx;
 	box-shadow: 0 3px 3px -3px #ccc;
