@@ -17,7 +17,8 @@
 				<li class="input-item">
 					<icon type="success" class="icon-item" size="20" />
 					<input type="" placeholder="验证码" v-model="form.captcha" />
-					<span class="captcha" @click="getCaptcha">获取验证码</span>
+					<span  v-if="!isSendCaptcha" class="captcha" @click="getCaptcha">{{text}}</span>
+					<span  v-else class="captcha" @click="getCaptcha">重新发送：{{timerNum}}</span>
 				</li>
 				<li class="input-item sumit">
 					<button type="default" @click="resetPassword">确 认</button>
@@ -37,12 +38,34 @@
 					password2: '',
 					captcha: ''
 				},
+				isSendCaptcha:false,
+				timeClock:null,
+				timerNum:60,
+				text:'获取验证码'
 			};
 
 		},
 		methods: {
 			// 获取验证码
             getCaptcha(){
+				//调取手机验证码接口
+				
+				//发送验证码
+				this.isSendCaptcha = true
+				this.timerNum = 60
+				clearInterval(this.timeClock);
+				if(this.isSendCaptcha){
+					
+					this.timer_num = 60;
+					    this.timeClock=setInterval(()=>{
+					        this.timerNum--;
+					        if (this.timerNum === 0) {
+					            clearInterval(this.timeClock);
+								this.isSendCaptcha = false
+                                this.text = '重新发送验证码'								
+					        } 
+					    },100)
+				}
 				
 			},
 			resetPassword() {
@@ -65,6 +88,50 @@
 					});
 					return;
 				}
+				if (!this.form.password1) {
+					uni.showToast({
+						title: '请输入设置密码！',
+						duration: 3000,
+						icon: 'none'
+					});
+					return;
+				}
+				if (this.form.password1.length < 6) {
+					uni.showToast({
+						title: '新密码必须大于6位！',
+						duration: 3000,
+						icon: 'none'
+					});
+					return;
+				}
+				if (!this.form.password2) {
+					uni.showToast({
+						title: '请输入确认密码！',
+						duration: 3000,
+						icon: 'none'
+					});
+					return;
+				}
+				if (this.form.password1 !== this.form.password2 ) {
+					uni.showToast({
+						title: '两次输入的密码不一致！',
+						duration: 3000,
+						icon: 'none'
+					});
+					return;
+				}
+				if (!this.form.captcha) {
+					uni.showToast({
+						title: '请输入验证码',
+						duration: 3000,
+						icon: 'none'
+					});
+					return;
+				}
+				
+				//获取验证码
+				this.getCaptcha()
+				
 				
 			}
 		}
