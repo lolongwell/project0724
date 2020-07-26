@@ -16,7 +16,6 @@
 		<!-- links -->
 		<home-links class="__space"></home-links>
 
-		<tips class="tips __space"></tips>
 		<!--  #ifdef MP-WEIXIN -->
 		<view class="__space"></view>
 		<!--  #endif -->
@@ -62,46 +61,27 @@
 
 <script>
 import { mapState } from 'vuex';
-import uniPopup from '@/components/uni-popup/uni-popup.vue';
 import HomeLinks from '@/components/common/HomeLinks.vue';
 import ProductList from '@/components/common/ProductList.vue'
 import UniTab from '@/components/uni-tab/uni-tab.vue'
-import ProductAPI from '../../api/product/product';
-import NewsAPI from '../../api/news/news';
-import FileAPI from '@/api/file/file';
 import OrderAPI from '@/api/order/order.js';
+import productAPI from '@/api/product/product.js';
 export default {
 	name: 'home',
-	components: { uniPopup, HomeLinks, ProductList, UniTab },
+	components: { HomeLinks, ProductList, UniTab },
 	data() {
 		return {
-			loadTimes: 0,
-			titleNViewBackground: '',
-			swiperCurrent: 0,
-            swiperLength: 0,
             modules: [],
-			//   **** banner属性 ****
 			indicatorDots: true,
 			autoplay: true,
 			interval: 5000,
 			duration: 200,
-			//   **** banner属性 ****
 			bannerList: [
 				'../../static/banners/b1.jpg',
 				'../../static/banners/b2.jpg',
 				'../../static/banners/b3.jpg'
 			], 
-			goodListSF: [],
-			goodsListZx:[],
-			goodsListSeason: [],
-			goodsListPre: [],
 			goodsList: [],
-			goodsListEmo: [],
-			customList: [],
-			// 广告
-			adLink: '',
-			adPicUrl: '',
-			newTaskPopup: true,
 			tabList: [
 				{text: '热门'},
 				{text: '积分乐兑'}
@@ -126,11 +106,11 @@ export default {
 			}
 		}
 	},
-	onLoad(options) {
-		
+	onLoad() {
+		this.getGoodList()
 	},
 	onShow() {
-        this.getModules();
+        // this.getModules();
 		if (this.cartData.length) {
 			uni.setTabBarBadge({
 				index: 2,
@@ -146,6 +126,11 @@ export default {
 		getModules() {
 			OrderAPI.getDic('spfl').then(res=>{
                 this.modules =  res.data.data;
+			})
+		},
+		getGoodList() {
+			productAPI.productList('spfl').then(res => {
+				console.log(res)
 			})
 		},
 		switchTab(val) {
