@@ -1,8 +1,8 @@
 <template>
 	<view class="icon-input">
 		<image class="img" :src="icon" mode=""></image>
-		<input class="ipt" type="text" @blur="getValue" value="" :placeholder="placeholderTxt" placeholder-class="ipt-placeholder" />
-		<view class="btn" v-show="hasBtn">
+		<input class="ipt" :type="iptType" @blur="getValue" value="" :placeholder="placeholderTxt" placeholder-class="ipt-placeholder" />
+		<view class="btn" v-show="hasBtn" @click="handleBtn">
 			{{btnTxt}}
 		</view>
 	</view>
@@ -12,6 +12,10 @@
 	export default {
 		name: "iconInput",
 		props: {
+			iptType: {
+				type: String,
+				default: 'text'
+			},
 			icon: {
 				type: String,
 				default: '../../static/images/default.png'
@@ -37,6 +41,9 @@
 		methods:{
 			getValue(e) {
 				this.$emit('getValue', e.detail.value)
+			},
+			handleBtn() {
+				this.$emit('handleBtn', this.btnTxt)
 			}
 		}
 	}
