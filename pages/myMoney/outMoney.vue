@@ -1,7 +1,7 @@
 <template>
 	<view class="out-money-box">
 		<!-- 余额组件 -->
-		<balance :height="height" :background="background">
+		<balance>
 			<p slot="title">我的余额（元）</p>
 		</balance>
 		<!-- 提现信息 -->
@@ -25,13 +25,14 @@
 
 		</view>
 		<!-- 提交 -->
-		<view class="submit-money-info" @click="submitMoneyInfo">
+		<view class="submit-money-info" @click="submitMoney">
 			<button type="default">立刻提现</button>
 		</view>
 	</view>
 </template>
 
 <script>
+	import moneyAPI from '@/api/money/money.js';
 	import Balance from '@/components/common/balance'
 	export default {
 		components: {
@@ -39,8 +40,6 @@
 		},
 		data() {
 			return {
-				height: '300rpx',
-				background: 'red',
 				form: {
 					money: '',
 					name: '',
@@ -53,11 +52,45 @@
 			};
 		},
 		methods: {
-			submitMoneyInfo() {
+			submitMoney() {
+				if (!this.form.money) {
+					this.$api.msg('请输入提现金额');
+					return;
+				}
+				if (!this.form.name) {
+					this.$api.msg('请输入持卡人姓名');
+					return;
+				}
+				if (this.form.bank ==='请选择银行' ) {
+					this.$api.msg('请选择银行');
+					return;
+				}
+				if (!this.form.card) {
+					this.$api.msg('请输入银行卡号');
+					return;
+				}
+				if (!/^([1-9]{1})(\d{14}|\d{18})$/.test(this.form.openBank)) {
+					this.$api.msg('请输入正确的银行卡号');
+					return;
+				}
+				
+				if (!this.form.openBank) {
+					this.$api.msg('请输入开户行');
+					return;
+				}
+				let data = JSON.parse(JSON.stringify(this.form));
+				// 提现-提交
+				moneyAPI.outMoney(data).then(res => {
+					// this.$_log('提现：', res.data);
+					uni.showToast({
+						title: '提现成功!',
+						icon: 'none'
+					});
+					uni.navigateBack();
+				});
 				console.log(this.form)
 			},
 			bindPickerChange: function(e) {
-				console.log('picker发送选择改变，携带值为', e)
 				this.index = e.target.value
 				
 				this.form.bank = this.array[this.index]

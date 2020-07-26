@@ -41,15 +41,31 @@
 </template>
 
 <script>
+	import moneyAPI from '@/api/money/money.js';
 	export default {
 		data() {
 			return {
-				name: '333333eeeeeeeeeeeeee33'
+				name: '333333eeeeeeeeeeeeee33',
+				form:{
+					name:'33333333'
+				}
 			};
 		},
 		methods: {
 			payHandle() {
             console.log('调用微信接口')
+			 let data = JSON.parse(JSON.stringify(this.form));
+			 // 提现-提交
+			 moneyAPI.inMoney(data).then(res => {
+			 	// this.$_log('提现：', res.data);
+			 	uni.showToast({
+			 		title: '提现成功!',
+			 		icon: 'none'
+			 	});
+			 	uni.navigateBack();
+			 });
+			 console.log(this.form)
+			   
 			}
 
 

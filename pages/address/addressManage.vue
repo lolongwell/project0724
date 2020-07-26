@@ -75,7 +75,7 @@
 					this.$api.msg('请输入详细地址');
 					return;
 				}
-
+                let data = JSON.parse(JSON.stringify(this.form));
 				// 新增地址-提交
 				orderAPI.addAddress(data).then(res => {
 					this.$_log('添加地址：', res.data);

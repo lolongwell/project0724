@@ -1,5 +1,5 @@
 <template>
-	<view class="balance-box" :style="{height:height,background:background}">
+	<view class="balance-box">
 		<slot name="title" class="title"></slot>
 		 <span class="balance">{{balance}}</span>
 	</view>
@@ -10,12 +10,6 @@
 		components: {
 		},	
 		prop:{
-			background:{
-				type:String
-			},
-			height:{
-				type:String
-			}
 		},
 		computed:{	
 			balance(){
