@@ -93,7 +93,7 @@ let orderAPI = {
 	},
 	
 	getDic(d){
-		return h.postJson(`rest/yrgdata/getTypeNameListByLxcode?typeLxCode=${d}`, d,false);
+		return h.postJson(`rest/yplgdata/getTypeNameListByLxcode?typeLxCode=${d}`, d,false);
 	}
 }
 

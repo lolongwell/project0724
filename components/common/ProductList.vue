@@ -84,6 +84,7 @@ export default {
 		}
     },
     mounted() {
+			console.log(55555)
         if(this.goodData.length) {
             this.listData = this.goodData;
         }else {
@@ -101,6 +102,7 @@ export default {
         sj() {
             ProductAPI.productList({ spfl: this.typeId }).then(res => {
                 let data = res.data.obj.results;
+				console.log(1111,data)
                 this.$emit('showOrHide',data)
 				this.setD(data, 'listData');
 			});

@@ -13,7 +13,7 @@ let FileAPI = {
 		    }
 		}
 		o = JSON.stringify(o);
-		return h.postJson(`rest/yrgdata/scfile_datagrid`, o,false);
+		return h.postJson(`rest/yplgdata/scfile_datagrid`, o,false);
 	},
 }
 

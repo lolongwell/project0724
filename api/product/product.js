@@ -19,7 +19,7 @@ let productAPI = {
 		return h.postJson(`rest/yplgdata/goods_datagrid`, o, false);
 	},
 	goodsDetail(id) {
-		return h.postJson(`rest/yrgdata/goGoodsUpdate?id=${id}`, null, false);
+		return h.postJson(`rest/yplgdata/goGoodsUpdate?id=${id}`, null, false);
 	},
 	goodComment(id) {
 		let o = {
@@ -35,7 +35,7 @@ let productAPI = {
 			}
 		}
 		o = JSON.stringify(o);
-		return h.postJson(`rest/yrgdata/goods_pj_datagrid`, o, false);
+		return h.postJson(`rest/yplgdata/goods_pj_datagrid`, o, false);
 	},
 	commitComment(d) {
 		return h.postJson(`rest/scGoodsPjController`, d);

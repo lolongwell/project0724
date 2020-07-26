@@ -33,101 +33,8 @@
 						拼团条件： 参与人数达到10人
 					</view>
 				</view>
-				<!-- <view class="right num-set">
-					<uni-number-box
-						class="step"
-						:min="1"
-						:max="99"
-						:value="number > 99 ? 99 : number"
-						:isMax="number >= 99 ? true : false"
-						:isMin="number === 1"
-						@eventChange="numberChange"
-					></uni-number-box>
-				</view> -->
 			</view>
-			<!-- <view v-if="specList.length" class="pick-size" @click="toggleSpec">
-				<view class="pick">
-					<text class="pick-title">选择规格</text>
-					<text class="selected-text">
-						{{ specSelected.gmfs2 || "请选择规格" }}
-						<text class="yticon icon-you icon-pos"></text>
-					</text>
-				</view>
-			</view> -->
 		</view>
-
-		<!-- <view class="source" v-if="specList.length == 0 && !hideSource">
-			<p>来源</p>
-			<ul>
-				<li>
-					<text>
-						果园名称：
-						<text>{{ product.gymc || '' }}</text>
-					</text>
-				</li>
-				<li>
-					<text>
-						地理位置：
-						<text>{{ product.dlwz || '' }}</text>
-					</text>
-				</li>
-				<li>
-					<text>
-						品种：
-						<text>{{ product.sgpz2 || '' }}</text>
-					</text>
-				</li>
-				<li>
-					<text>
-						年供应量：
-						<text>{{ product.ngyl || '' }}</text>
-					</text>
-					<text class="dj">
-						等级：
-						<text>{{ product.sgdj2 || '' }}</text>
-					</text>
-				</li>
-				<li>
-					<text>
-						认证资质：
-						<text>{{ product.rzzz || '' }}</text>
-					</text>
-				</li>
-			</ul>
-		</view> -->
-
-		<!-- <view class="evaluate">
-			<p>舌尖上的说说</p>
-			<view>
-				<p class="left">
-					本果品已集齐（
-					<span>{{ pj.num }}</span>
-					）个赞
-					<view class="icon"></view>
-				</p>
-				<p class="right">
-					差评率（
-					<span>{{ pj.rate }}%</span>
-					）
-					<view class="icon"></view>
-				</p>
-			</view>
-			<ul v-if="commentList.length">
-				<li v-for="c in commentList" :key="c.id">
-					<view class="name">
-						<view class="left">
-							<p>
-								<font>{{ hide(c.createBy) }}</font>
-								<font>{{ hide(c.createBy) }}（{{ c.createName }}）</font>
-							</p>
-						</view>
-						<view class="right">{{ c.createDate }}</view>
-					</view>
-					<view class="content">{{ c.pjnr }}</view>
-				</li>
-			</ul>
-			<view v-if="!commentList.length" class="no-comment"><text>暂无评价~</text></view>
-		</view> -->
 
 		<view class="big-tit">
 			—— 商品介绍 ——
@@ -138,24 +45,6 @@
 			<view class="left">账户余额：0.00</view>
 			<view class="right" @click="purchase">立即购买</view>
 		</view>
-		<!-- <view class="purchase">
-			<ul class="function-icon">
-				<li @click="t('index')" class="li">
-					<span class="icon icon-home"></span>
-					<span class="_name">首页</span>
-				</li>
-				<li @click="t('cart')" class="li">
-					<span class="icon icon-cart">
-						<span class="number" v-if="cartData.length">{{ cartData.length }}</span>
-					</span>
-					<span class="_name">购物车</span>
-				</li>
-			</ul>
-			<ul class="buy">
-				<li @click="addToCart">加入购物车</li>
-				<li @click="purchase">购买</li>
-			</ul>
-		</view> -->
 
 		<footer-logo></footer-logo>
 
@@ -200,12 +89,6 @@
 						</view>
 					</view>
 				</view>
-				<!-- <view class="attr-list">
-					<text>购买方式</text>
-					<view class="item-list">
-						<text v-for="(item, index) in specList" :key="index" class="tit" :class="{ selected: item.selected }" @click="selectSpec(item)">{{ item.gmfs2 }}</text>
-					</view>
-				</view> -->
 				<button class="btn" @click="changeGMFS">立即支付</button>
 			</view>
 		</view>
@@ -213,7 +96,6 @@
 </template>
 
 <script>
-// import share from "@/components/share";
 import ProductAPI from '../../api/product/product';
 import CartAPI from '../../api/cart/cart';
 import uniNumberBox from '@/components/uni-number-box.vue';
@@ -266,6 +148,7 @@ export default {
 	},
 	components: { uniNumberBox },
 	onLoad(option) {
+		console.log('option', option)
 		this.goodID = option.id;
 		if(option.source) this.hideSource = true;
 	},
@@ -313,9 +196,7 @@ export default {
 		}
 	},
 	methods: {
-		
 		loadData(id) {
-
 			ProductAPI.goodsDetail(id).then(res => {
 				this.$_log('商品详情：', res.data.obj);
 				this.product = res.data.obj;

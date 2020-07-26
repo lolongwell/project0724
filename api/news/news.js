@@ -13,11 +13,11 @@ let newsAPI = {
 		    }
 		}
 		o = JSON.stringify(o);
-		return h.postJson(`rest/yrgdata/news_datagrid`, o, false);
+		return h.postJson(`rest/yplgdata/news_datagrid`, o, false);
     },
     
     articleDetail(id){
-        return h.postJson(`rest/yrgdata/goNewsUpdate?id=${id}`, {}, false);
+        return h.postJson(`rest/yplgdata/goNewsUpdate?id=${id}`, {}, false);
     }
 }
 
