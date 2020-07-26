@@ -1,15 +1,15 @@
 <template>
 	<view class="in-money-box">
 		<view class="in-moneys">
-			<uni-list class='change-moneys'>
-				<uni-list-item title="" class="item" :class="{'active':index === activeIndex}" @click="changMoney(item,index)" note=""
-				 v-for="(item,index) in moneys">{{item}}</uni-list-item>
-			</uni-list>
+			<ul class='change-moneys'>
+				<li title="" class="item" :class="{'active':index === activeIndex}" @click="changMoney(item,index)" note=""
+				 v-for="(item,index) in moneys">{{item}}</li>
+			</ul>
 		</view>
 		<view class="pay-moneys">
-			<uni-list class='pay-money'>
-				<uni-list-item title=""  :class="{'method-active':index === methodIndex}" v-for="(item,index) in methods" class="item" @click="changMethod(item,index)" note="">{{item}}</uni-list-item>
-			</uni-list>
+			<ul class='pay-money'>
+				<li title=""  :class="{'method-active':index === methodIndex}" v-for="(item,index) in methods" class="item" @click="changMethod(item,index)" note="">{{item}}</li>
+			</ul>
 		</view>
 		<view class="submit">
 			<button type="default" @click="submit('submit',{})">立即充值</button>
