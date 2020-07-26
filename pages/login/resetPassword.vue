@@ -41,21 +41,38 @@
 				isSendCaptcha:false,
 				timeClock:null,
 				timerNum:60,
-				text:'获取验证码'
+				text:'获取验证码',
+				isChecked:false
 			};
 
 		},
 		methods: {
 			// 获取验证码
             getCaptcha(){
+				//校验
+				var reg = /^1[3|4|5|7|8][0-9]{9}$/
+				 if(!this.form.phone){
+					 uni.showToast({
+					 	title: '请输入手机号！',
+					 	duration: 3000,
+					 	icon: 'none'
+					 });
+					 return
+				 }
+				 if (!reg.test(this.form.phone)) {
+				 	uni.showToast({
+				 		title: '请输入正确的手机号！',
+				 		duration: 3000,
+				 		icon: 'none'
+				 	});
+				 	return;
+				 }
 				//调取手机验证码接口
-				
-				//发送验证码
+				//成功发送后再执行发送验证码
 				this.isSendCaptcha = true
 				this.timerNum = 60
 				clearInterval(this.timeClock);
 				if(this.isSendCaptcha){
-					
 					this.timer_num = 60;
 					    this.timeClock=setInterval(()=>{
 					        this.timerNum--;
@@ -71,6 +88,16 @@
 			resetPassword() {
 				console.log(this.form)
 				// 校验
+				this.check
+			
+				//获取验证码
+				this.getCaptcha()
+				
+				
+			},
+			// 校验
+			
+			check(){
 				var reg = /^1[3|4|5|7|8][0-9]{9}$/
 				if (!this.form.phone) {
 					uni.showToast({
@@ -128,12 +155,8 @@
 					});
 					return;
 				}
-				
-				//获取验证码
-				this.getCaptcha()
-				
-				
 			}
+			
 		}
 
 	};
