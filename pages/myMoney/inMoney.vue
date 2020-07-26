@@ -18,6 +18,7 @@
 </template>
 
 <script>
+	
 	export default {
 		data() {
 			return {
@@ -46,13 +47,14 @@
 			},
 				
 			submit(){
+				console.log('充值')
 				 //发送请求
 				 // uni.navigateTo({
 				 // 	url: `/pages/oreder/detail`
 				 // });
 				 if(this.money && this.method &&this.method === '微信'){
-					 uni.navigateTo({
-					 	url: `/pages/oreder/detail`
+					uni.navigateTo({
+					 	url: `/pages/order/detail`
 					 });
 				 }
 				

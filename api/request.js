@@ -1,6 +1,6 @@
 // let BASE_URL = "http://m.myxiaodi.com:8080/yrg/";
-let BASE_URL = "https://m.myxiaodi.com/yrg/";
-// let BASE_URL = "http://amghgdm.cn/yplg/";
+// let BASE_URL = "https://m.myxiaodi.com/yrg/";
+let BASE_URL = "http://amghgdm.cn/yplg/";
 
 let debug = process.env.NODE_ENV !== "development";
 import store from '../store/index';
