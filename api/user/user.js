@@ -7,8 +7,8 @@ let userAPI = {
 	updateUserBill(d) {
 		return h.postJson(`rest/userBillController/update`, d);
 	},
-	getUserBill(id) {
-		return h.get(`rest/userBillController/${id}`);
+	getUserInfo(id) {
+		return h.get(`/rest/user/${id}`);
 	}
 }
 
