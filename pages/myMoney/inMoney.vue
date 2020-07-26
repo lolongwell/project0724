@@ -3,7 +3,11 @@
 		<view class="in-moneys">
 			<ul class='change-moneys'>
 				<li title="" class="item" :class="{'active':index === activeIndex}" @click="changMoney(item,index)" note=""
-				 v-for="(item,index) in moneys">{{item}}</li>
+				 v-for="(item,index) in moneys">
+				 <span v-if="item !== '其他'">{{item}}</span>
+				 <input  v-else  class="other" @input="otherHandle"  v-model="other" type="text" :value="other"  placeholder="其他" placeholder-style="color:#fff"/>
+				 </li>
+	
 			</ul>
 		</view>
 		<view class="pay-moneys">
@@ -21,20 +25,23 @@
 	export default {
 		data() {
 			return {
-				moneys: ['999元', '1997元', '4998元', '9988元', '19888元', '其他'],
+				moneys: ['999元', '1997元', '4998元', '9988元', '19888元','其他'],
 				methods: ['支付宝', '微信'],
 				activeIndex: '',
 				methodIndex:'',
 				money:'',
+				other:'',
 				method:''
 			};
 		},
 		methods: {
-
+           otherHandle(e){
+			   this.money= e.detail.value   
+		   },
 			changMoney(val, i) {
 				this.activeIndex = i
-				console.log(i)
-				console.log(val)
+				// console.log(i)
+				// console.log(val)
 				this.money=val
 				console.log('this.money',this.money)
 			},
@@ -46,6 +53,7 @@
 			},
 				
 			submit(){
+				console.log('this.money',this.money)
 				 //发送请求
 				 // uni.navigateTo({
 				 // 	url: `/pages/oreder/detail`
@@ -96,6 +104,12 @@
 					justify-content: center;
 					align-items: center;
 					border-radius: 4px;
+						
+					.other{
+						text-align: center;
+						 font-size:35rpx;
+						 color: #fff;
+					}
 				}
 			}
 		}
