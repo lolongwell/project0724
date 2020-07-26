@@ -18,8 +18,10 @@ let productAPI = {
 		o = JSON.stringify(o);
 		return h.postJson(`/rest/yplgdata/ptsp_datagrid`, o, false);
 	},
+	//商品详情
 	goodsDetail(id) {
-		return h.postJson(`/rest/yplgdata/getPtspById?id=${id}`, null, false);
+		// return h.postJson(`rest/yplgdata/getPtspById/${id}`);
+		return h.postJson(`rest/yplgdata/getPtspById?id=${id}`, null, false);
 	},
 	goodComment(id) {
 		let o = {

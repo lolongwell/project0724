@@ -11,6 +11,7 @@
             <view class="kt">
               <view class="left">
                 <img :src="item.pic" alt="">
+				人团
                 <text>5人团</text>
               </view>
               <view class="right">
