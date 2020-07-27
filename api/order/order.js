@@ -38,8 +38,8 @@ let orderAPI = {
 		d = JSON.stringify(d);
 		return h.postJson(`rest/scDdController`, d);
 	},
-
-	getAddressList(d) {
+	
+	getAddressList(d){
 		let o = {
 			address: {
 				"userId": d.userId
@@ -102,8 +102,20 @@ let orderAPI = {
 		return h.postJson(`rest/scDdController/updateScDdspPjwc`, d);
 	},
 
-	getDic(d) {
-		return h.postJson(`rest/yrgdata/getTypeNameListByLxcode?typeLxCode=${d}`, d, false);
+	
+	getDic(d){
+		let o = {
+			spflsz : {},
+			dataGrid: {
+					// "field": "id,spfl,name",
+					"page": 1,
+					"rows": 8,
+					"order": "asc",
+					"sort": "id"
+			}
+		}
+		o = JSON.stringify(o);
+		return h.postJson(`/rest/yplgdata/spflsz_datagrid`, o, false);
 	}
 }
 

@@ -9,7 +9,7 @@
 			</swiper>
 
 		</view> -->
-		<img class="img" :src="img" mode=""></img>
+		<img class="img" :src="img" mode="" />
 		<view class="intro">
 			<view class="item">
 				{{product.spmc}}
@@ -267,8 +267,7 @@
 				ProductAPI.goodsDetail(id).then(res => {
 					this.$_log('商品详www情：', res.data.obj);
 					this.product = res.data.obj;
-					// this.img = getApp().globalData.BASE_URL + this.product.sppic
-					this.img = app.globalData.BASE_URL + this.product.sppic
+					this.img = this.product.sppic
 					this.article = this.product.spjs
 				});
 			},

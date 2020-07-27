@@ -9,9 +9,7 @@
 			</swiper>
 
 		</view> -->
-		<view class="img">
-			<image :src="product.sppic" mode=""></image>
-		</view>
+		<img class="img" :src="img" mode="" />
 		<view class="intro">
 			<view class="item">
 				{{product.spmc}}
@@ -256,7 +254,7 @@
 					// this.img = getApp().globalData.BASE_URL + this.product.sppic
 					this.img = this.product.sppic
 					console.log('this.product',this.product)
-
+					this.article = this.product.spjs
 				});
 			},
 
@@ -462,18 +460,12 @@
 		position: relative;
 
 		.img {
-			background: #fff;
-			display: flex;
-			justify-content: center;
-			align-items: center;
+			position: relative;
 			z-index: -1;
-
-			uni-image {
-				// height: 100%;
-				// height: 400rpx;
-				// width: 100%;
-			}
-
+			width: 100%;
+			height: 450rpx;
+			overflow: hidden;
+			// transform: scale(1.2);
 		}
 
 		.intro {

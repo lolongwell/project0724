@@ -14,14 +14,14 @@
 		<!--  #endif -->
 
 		<!-- links -->
-		<home-links class="__space"></home-links>
+		<home-links :dataList="modules" class="__space"></home-links>
 
 		<!--  #ifdef MP-WEIXIN -->
 		<view class="__space"></view>
 		<!--  #endif -->
 		<image src="../../static/images/banner1.jpg" mode="" @click="gotoIntegral" class="banner-img"></image>
 		<view class="banner-img banner-img2">
-			<image src="../../static/images/banner1.jpg" mode="" class="img"></image>
+			<image @click="goNewGoods" src="../../static/images/banner1.jpg" mode="" class="img"></image>
 			<image src="../../static/images/banner1.jpg" mode="" class="img"></image>
 		</view>
 
@@ -82,16 +82,16 @@
 		},
 		computed: {
 			...mapState(["cartData", "hasLogin"]),
-			filterModules() {
-				// 过滤展示 1<= 序号 <= 9 的模块
-				let data = JSON.parse(JSON.stringify(this.modules));
-				data = data.sort(function(a, b) {
-					return a.orderNum - b.orderNum;
-				});
-				return data.filter(function(a) {
-					return a.orderNum >= 1 && a.orderNum <= 9;
-				});
-			},
+			// filterModules() {
+			// 	// 过滤展示 1<= 序号 <= 9 的模块
+			// 	let data = JSON.parse(JSON.stringify(this.modules));
+			// 	data = data.sort(function(a, b) {
+			// 		return a.orderNum - b.orderNum;
+			// 	});
+			// 	return data.filter(function(a) {
+			// 		return a.orderNum >= 1 && a.orderNum <= 9;
+			// 	});
+			// },
 			cUrl() {
 				return function(code, name) {
 					return "/pages/productList/productList?type=" + code + "&title=" + name;
@@ -102,7 +102,7 @@
 			this.getGoodList();
 		},
 		onShow() {
-			// this.getModules();
+			this.getModules();
 			if (this.cartData.length) {
 				uni.setTabBarBadge({
 					index: 2,
@@ -117,7 +117,7 @@
 		methods: {
 			getModules() {
 				OrderAPI.getDic("spfl").then((res) => {
-					this.modules = res.data.data;
+					this.modules = res.data.obj.results
 				});
 			},
 			getGoodList() {
@@ -137,6 +137,11 @@
 			gotoIntegral() {
 				uni.navigateTo({
 					url: '/pages/integral/exchange'
+				})
+			},
+			goNewGoods() {
+				uni.navigateTo({
+					url: '/pages/newGoods/newGoods'
 				})
 			}
 		},
