@@ -84,6 +84,12 @@
         "navigationBarTitleText": "修改密码"
       }
     },
+	{
+	  "path": "pages/login/login",
+	  "style": {
+	    "navigationBarTitleText": "登录"
+	  }
+	},
     {
       "path": "pages/detail/detail",
       "style": {
