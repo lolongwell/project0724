@@ -94,7 +94,18 @@ let orderAPI = {
 	},
 	
 	getDic(d){
-		return h.postJson(`rest/yrgdata/getTypeNameListByLxcode?typeLxCode=${d}`, d,false);
+		let o = {
+			spflsz : {},
+			dataGrid: {
+					// "field": "id,spfl,name",
+					"page": 1,
+					"rows": 8,
+					"order": "asc",
+					"sort": "id"
+			}
+		}
+		o = JSON.stringify(o);
+		return h.postJson(`/rest/yplgdata/spflsz_datagrid`, o, false);
 	}
 }
 

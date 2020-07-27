@@ -3,19 +3,18 @@
     <img class="top-pic" src="../../static/banners/b1.jpg" alt="">
     <view class="box">
       <ul>
-        <li v-for="(item, index) in list" :key="index">
-          <img class="img" :src="item.pic" alt="">
+        <li v-for="(item, index) in list" :key="index" @click="goDetail(item.id)">
+          <img class="img" :src="item.sppic" alt="">
           <view class="detail">
-            <text>{{item.tit}}</text>
-            <text class="price">￥{{item.price}}</text>
+            <text>{{item.spmc}}</text>
+            <text class="price">￥{{item.ptjg}}</text>
             <view class="kt">
               <view class="left">
-                <img :src="item.pic" alt="">
-				人团
-                <text>5人团</text>
+                <img src="../../static/images/mp.png" alt="">
+                <text>{{item.ptlx == 2 ? '2人团' : item.ptlx == 5 ? '5人团' : item.ptlx == 10 ? '10人团' : ''}}</text>
               </view>
               <view class="right">
-                <img :src="item.pic" alt="">
+                <img src="../../static/images/wc.png" alt="">
                 <text>去开团</text>
               </view>
             </view>
@@ -27,30 +26,25 @@
 </template>
 
 <script>
+	import productAPI from "@/api/product/product.js";
+
   export default {
     name: 'newGoods',
     data() {
       return {
-        list: [
-          {
-            pic: '../../static/images/default.png',
-            tit: '2020范德萨发活动结束复检',
-            price: '333.00',
-            type: '1'
-          },
-          {
-            pic: '../../static/images/default.png',
-            tit: '2020范德萨发活动结束复检',
-            price: '333.00',
-            type: '1'
-          },
-          {
-            pic: '../../static/images/default.png',
-            tit: '2020范德萨发活动结束复检',
-            price: '333.00',
-            type: '1'
-          }
-        ]
+        list: []
+      }
+    },
+    onShow() {
+      productAPI.productList("spfl").then((res) => {
+        this.list = res.data.obj.results
+      });
+    },
+    methods: {
+      goDetail(id) {
+        uni.navigateTo({
+					url: '/pages/detail/detail?id=' + id
+				})
       }
     }
   }
