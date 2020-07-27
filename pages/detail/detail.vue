@@ -56,55 +56,73 @@
 							价格
 						</view>
 						<view class="r-type item">
-							团购类型：
+							<span>团购类型：</span>
 							<span>10rentuan</span>
 						</view>
 					</view>
 				</view>
 				<view class="product-form">
-					<form @submit="formSubmit" @reset="formReset">
-						<view class="uni-form-item uni-column">
-							<view class="title">switch</view>
-							<view>
-								<switch name="switch" />
+					<view class="item">
+						<view class="left">
+							<view class="">
+								规格
 							</view>
 						</view>
-						<view class="uni-form-item uni-column">
-							<view class="title">radio</view>
-							<radio-group name="radio">
-								<label>
-									<radio value="radio1" /><text>选项一</text>
-								</label>
-								<label>
-									<radio value="radio2" /><text>选项二</text>
-								</label>
-							</radio-group>
+						<view class="right ">
+							<span  class="select-btn" :class="{'type-active':i === typeIndex}"  v-for="(item,i) in paydetail.guige" @click="typeChange(item.name,item.id,i)">{{item.name}}</span>
 						</view>
-						<view class="uni-form-item uni-column">
-							<view class="title">checkbox</view>
-							<checkbox-group name="checkbox">
-								<label>
-									<checkbox value="checkbox1" /><text>选项一</text>
-								</label>
-								<label>
-									<checkbox value="checkbox2" /><text>选项二</text>
-								</label>
-							</checkbox-group>
+					</view>
+
+					<view class="item">
+						<view class="left">
+							<view class="">
+								购买数量
+							</view>
 						</view>
-						<view class="uni-form-item uni-column">
-							<view class="title">slider</view>
-							<slider value="50" name="slider" show-value></slider>
+						<view class="right num-set">
+							<uni-number-box class="step" :min="1" :max="99" :value="number > 99 ? 99 : number" :isMax="number >= 99 ? true : false"
+							 :isMin="number === 1" @eventChange="numberChange"></uni-number-box>
 						</view>
-						<view class="uni-form-item uni-column">
-							<view class="title">input</view>
-							<input class="uni-input" name="input" placeholder="这是一个输入框" />
+					</view>
+
+					<view class="item">
+						<view class="left">
+							<view class="">
+								支付方式
+							</view>
 						</view>
-					
-					</form>
+						<view class="right">
+							<span  class="select-btn"  :class="{'method-active':j === methodIndex}" v-for="(item,j) in paydetail.zhifu" @click="payChange(item.name,item.id,j)">{{item.name}}</span>
+						</view>
+					</view>
+					<view class="item">
+						<view class="left">
+							<view class="">
+								收货地址
+							</view>
+						</view>
+						<view class="right">
+							<view class="uni-list">
+								<view class="uni-list-cell">
+
+									<view class="uni-list-cell-db">
+										<picker @change="addressChange" :value="index" :range="paydetail.address">
+											<view class="uni-input">{{paydetail.address[index]}}</view>
+										</picker>
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+
+                      <button @click="payHandle" class="pay-money">立即支付</button>
 				</view>
-				<!-- <button class="btn" @click="changeGMFS">完成</button> -->
+				<!-- <view v-if="specList.length" class="pick-size" @click="toggleSpec"> -->
+
 			</view>
+			
 		</view>
+	</view>
 
 	</view>
 </template>
@@ -146,7 +164,37 @@
 				picList: [],
 				commentList: [],
 				product: {},
-				img: ''
+				img: '',
+				paydetail: {
+					guige: [{
+							name: '喜字',
+							id: 1
+						},
+						{
+							name: '喜字',
+							id: 2
+						},
+						{
+							name: '喜字',
+							id: 3
+						}
+					],
+					zhifu: [{
+						name: 'weixin',
+						id: 1
+					},
+					{
+						name: 'zhifubao',
+						id: 2
+					}],
+					address: [
+						'中国1', '中国1',
+						'中国1', '中国1'
+					]
+				},
+				index:0,
+				typeIndex:-1, // 规格初始索引
+				methodIndex:-1, // 支付方式初始索引
 			};
 		},
 		components: {
@@ -163,15 +211,15 @@
 		},
 		computed: {
 			...mapState(['status', 'hasLogin', 'cartData']),
-			q() {
-				return function(obj, attr) {
-					console.log(obj)
-					if (!obj) return '0.00';
-					console.log(obj[attr].toFixed(2))
-					if (obj[attr]) return obj[attr].toFixed(2);
-					else return '0.00';
-				};
-			},
+			// q() {
+			// 	return function(obj, attr) {
+			// 		console.log(obj)
+			// 		if (!obj) return '0.00';
+			// 		console.log(obj[attr].toFixed(2))
+			// 		// if (obj[attr]) return obj[attr].toFixed(2);
+			// 		// else return '0.00';
+			// 	};
+			// },
 			hide() {
 				return function(num) {
 					let _4num = num.substring(num.length - 4);
@@ -215,6 +263,8 @@
 
 				});
 			},
+		
+		
 			// 抽屉
 			toggleSpec() {
 				if (this.specClass === 'show') {
@@ -225,6 +275,33 @@
 				} else if (this.specClass === 'none') {
 					this.specClass = 'show';
 				}
+			},
+			//立即支付
+			payHandle(){
+				// 验证表单
+				
+			},
+			// 选择商品规格
+			typeChange(val,id,index){
+				this.typeIndex = index
+				console.log('this.typeIndex', this.typeIndex)
+				console.log('规格',val)
+				console.log('规格id',id)
+			},
+			// 选择支付方式
+			payChange(val,id,index){
+				this.methodIndex = index
+				console.log('规格',val)
+				console.log('规格id',id)
+			},
+			//选择数量
+			numberChange(e) {
+				this.number = e.number;
+			},
+			// 选择地址
+			addressChange(e) {
+				console.log('picker发送选择改变，携带值为', e.target.value)
+				this.index = e.target.value
 			},
 			changeGMFS() {
 				if (this.specSelected) this.product.price = this.specSelected.jg;
@@ -242,7 +319,7 @@
 
 				this.toggleSpec();
 			},
-		
+
 
 			selectSpec(item) {
 				this.specList.forEach(v => {
@@ -793,12 +870,77 @@
 							color: $base-red;
 							font-size: 40rpx;
 						}
+						&:nth-of-type(3) {
+							display: flex;
+							span{
+								flex: 1;
+								&:nth-of-type(2){
+									text-align: right;
+								}
+							}
+							
+						}
 					}
 				}
 
 			}
 
-			.product-form {}
+			.product-form {
+				display: flex;
+				flex-direction: column;
+				.item{
+					flex: 1;
+					display: flex;
+					margin: 20rpx;
+					justify-content: center;
+					align-items: center;
+					.left{
+						flex: 2;
+						
+					}
+					.right{
+						flex: 8;
+						text-align: right;
+						position: relative;
+					
+						.select-btn{
+							border: 1px solid #333;
+							display: inline-block;
+							padding: 5rpx;
+							margin: 5rpx;
+						}
+						.type-active,.method-active{
+							border: 1px solid $base-red;
+						}
+						uni-picker{
+							border: 1px solid #333;
+							text-align: left;
+						}
+						
+					}
+					
+					.num-set{
+						margin-right:30rpx ;
+						.uni-numbox{
+							// right: 0;
+							width: 100px;
+							position: absolute;
+							// right: 0;
+							left: 200px;
+							top: -20rpx;
+						}
+					}
+				}
+			}
+		    .pay-money{
+				height: 50rpx;
+				line-height: 50rpx;
+				font-size: $font-base;
+				margin-right: 20rpx;
+				margin-top: 20rpx;
+				background: $my-color;
+				color: #fff;
+			}
 		}
 
 		/*  弹出层 */
@@ -926,4 +1068,5 @@
 			margin-right: 10rpx;
 		}
 	}
+	
 </style>
