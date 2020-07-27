@@ -9,9 +9,7 @@
 			</swiper>
 
 		</view> -->
-		<view class="img">
-			<image :src="product.sppic" mode=""></image>
-		</view>
+		<img class="img" :src="img" mode=""></img>
 		<view class="intro">
 			<view class="item">
 				{{product.spmc}}
@@ -71,7 +69,7 @@
 							</view>
 						</view>
 						<view class="right ">
-							<span class="select-btn" :class="{'type-active':i === typeIndex}" v-for="(item,i) in paydetail.guige" @click="typeChange(item.name,item.id,i)">{{item.name}}</span>
+							<span class="select-btn" :class="{'type-active':i === typeIndex}" v-for="(item,i) in paydetail.guige" :key="i" @click="typeChange(item.name,item.id,i)">{{item.name}}</span>
 						</view>
 					</view>
 
@@ -94,7 +92,7 @@
 							</view>
 						</view>
 						<view class="right">
-							<span class="select-btn" :class="{'method-active':j === methodIndex}" v-for="(item,j) in method" @click="payChange(item.name,item.id,j)">{{item.name}}</span>
+							<span class="select-btn" :class="{'method-active':j === methodIndex}" v-for="(item,j) in method" :key="j" @click="payChange(item.name,item.id,j)">{{item.name}}</span>
 						</view>
 					</view>
 					<view class="item">
@@ -214,7 +212,6 @@
 			uniNumberBox
 		},
 		onLoad(option) {
-			console.log('idididid', option)
 			this.goodID = option.id;
 			if (option.source) this.hideSource = true;
 		},
@@ -266,15 +263,13 @@
 		methods: {
 			loadData(id) {
 				// 获得商品详情
-
-				console.log(getApp())
+				const app = getApp()
 				ProductAPI.goodsDetail(id).then(res => {
 					this.$_log('商品详www情：', res.data.obj);
 					this.product = res.data.obj;
 					// this.img = getApp().globalData.BASE_URL + this.product.sppic
-					this.img = this.product.sppic
-					console.log('this.product',this.product)
-
+					this.img = app.globalData.BASE_URL + this.product.sppic
+					this.article = this.product.spjs
 				});
 			},
 
@@ -486,18 +481,12 @@
 		position: relative;
 
 		.img {
-			background: #fff;
-			display: flex;
-			justify-content: center;
-			align-items: center;
+			position: relative;
 			z-index: -1;
-
-			uni-image {
-				// height: 100%;
-				// height: 400rpx;
-				// width: 100%;
-			}
-
+			width: 100%;
+			height: 450rpx;
+			overflow: hidden;
+			transform: scale(1.2);
 		}
 
 		.intro {
@@ -506,7 +495,7 @@
 			margin: 0 auto;
 			box-shadow: 0 3px 3px -3px #ccc;
 			border-radius: 10rpx;
-			margin-top: -30rpx;
+			margin-top: -60rpx;
 			display: flex;
 			flex-direction: column;
 			padding: 30rpx;

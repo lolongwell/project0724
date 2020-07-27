@@ -78,14 +78,17 @@
     "h5" : {
         "devServer" : {
             "https" : false,
-			"port" : 8080, 
-			 "disableHostCheck" : true,
-			 "proxy" : {
-				"/" : {
-					"target" : "http://47.110.253.31:8080/yplg/", 
-					 "changeOrigin" : true
-				}
-			}
+            "port" : 8080,
+            "disableHostCheck" : true,
+            "proxy" : {
+                "/" : {
+                    "target" : "http://sjblake.cn/yplg/",
+                    "changeOrigin" : true
+                }
+            }
+        },
+        "router" : {
+            "mode" : "hash"
         }
     }
 }

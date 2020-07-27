@@ -22,7 +22,7 @@ let productAPI = {
 	// 拼团商品-详情
 	goodsDetail(id) {
 		// return h.postJson(`rest/yplgdata/getPtspById/${id}`);
-		return h.postJson(`rest/yplgdata/getPtspById?id=${id}`, null, false);
+		return h.postJson(`rest/yplgdata/getPtspById?id=${id}`, id, false);
 	},
 	//积分商品-列表
 	integralList(d) {

@@ -178,7 +178,6 @@
 			},
 			sendCodeTime() {
 				console.log('zoule')
-
 				this.timerNum = 60
 				this.isSendCaptcha = true
 				clearInterval(this.timeClock);
@@ -190,7 +189,7 @@
 							clearInterval(this.timeClock);
 							this.isSendCaptcha = false
 						}
-					}, 100)
+					}, 1000)
 				}
 			}
 		}
