@@ -1,6 +1,6 @@
 <template>
   <ul class="good-list">
-    <li v-for="(item, index) in newGoodListData" :key="index" @click="goGoodDetail(item.id)">
+    <li v-for="(item, index) in goodListData" :key="index" @click="goGoodDetail(item.id)">
       <img class="pic" :src="item.sppic" alt="">
       <view class="detail">
         <text class="tit">{{item.pymc}}</text>
@@ -23,17 +23,19 @@ const {globalData} = getApp();
     name: 'goodList',
     props: ['goodListData'],
     computed: {
-      newGoodListData() {
-       let {goodListData} = this
-       goodListData.forEach(v => {
-         v.sppic = globalData.BASE_URL + v.sppic
-       })
-       console.log(goodListData)
-       return goodListData
-      }
+		
+      // newGoodListData() {
+      //  let {goodListData} = this
+      //  goodListData.forEach(v => {
+      //    v.sppic = globalData.BASE_URL + v.sppic
+      //  })
+      //  // console.log(goodListData)
+      //  return goodListData
+      // }
     },
     methods: {
       goGoodDetail(id) {
+		  console.log('goodListData',this.goodListData)
         uni.navigateTo({
            url: '/pages/detail/detail?id=' + id
         });
@@ -49,7 +51,7 @@ const {globalData} = getApp();
     padding: 20rpx;
     box-sizing: border-box;
     overflow-y: auto;
-    background: #ffffff;
+    
     li {
       float: left;
       display:  flex;
@@ -58,6 +60,7 @@ const {globalData} = getApp();
       width: calc(50% - 20rpx);
       border-radius: 16rpx;
       margin-top: 30rpx;
+	  background: #ffffff;
       &:nth-child(2n + 1) {
         margin-right: 30rpx;
       }

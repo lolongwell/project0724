@@ -1,33 +1,9 @@
 let h = require("../request").default;
 
-let productAPI = {
-	// 拼团商品-列表
-	productList(d) {
-		let o = {
-			ptsp: {
-				"spfl": d.spfl,
-				"sxj": '1' 
-			},
-			dataGrid: {
-				"field": "id,spfl,name",
-				"page": 1,
-				"rows": 1000,
-				"order": "desc",
-				"sort": "createDate"
-			}
-		}
-		o = JSON.stringify(o);
-		return h.postJson(`/rest/yplgdata/ptsp_datagrid`, o, false);
-	},
-	// 拼团商品-详情
-	goodsDetail(id) {
-		// return h.postJson(`rest/yplgdata/getPtspById/${id}`);
-		return h.postJson(`rest/yplgdata/getPtspById?id=${id}`, null, false);
-	},
-	//积分商品-列表
+let integralAPI = {
 	integralList(d) {
 		let o = {
-			jfsp: {
+			ptsp: {
 				"jfspfl": d.jfspfl,
 				"sxj": '1' 
 			},
@@ -42,12 +18,11 @@ let productAPI = {
 		o = JSON.stringify(o);
 		return h.postJson(`rest/yplgdata/jfsp_datagrid`, o, false);
 	},
-	//积分商品-详情
-	integralDetail(id) {
+	//商品详情
+	goodsDetail(id) {
 		// return h.postJson(`rest/yplgdata/getPtspById/${id}`);
-		return h.postJson(`rest/yplgdata/getJfspById?id=${id}`, null, false);
+		return h.postJson(`rest/yplgdata/getPtspById?id=${id}`, null, false);
 	},
-	
 	goodComment(id) {
 		let o = {
 			goods_pj: {
@@ -69,4 +44,4 @@ let productAPI = {
 	}
 }
 
-export default productAPI;
+export default integralAPI;

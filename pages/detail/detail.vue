@@ -10,7 +10,7 @@
 
 		</view> -->
 		<view class="img">
-			<image :src="img" mode=""></image>
+			<image :src="product.sppic" mode=""></image>
 		</view>
 		<view class="intro">
 			<view class="item">
@@ -25,7 +25,7 @@
 				运费：{{product.yf}}
 			</view>
 			<view class="item">
-				拼团条件： 参与人数达到10人
+				拼团条件： 参与人数达到{{product.ptlx}}人
 			</view>
 		</view>
 
@@ -46,18 +46,20 @@
 			<view class="layer attr-content" @click.stop="stopPrevent">
 				<view class="product-intro">
 					<view class="left">
-						<image src="../../static/emptyCart.jpg" mode=""></image>
+						<!-- <image :src="product.sppic" mode=""></image> -->
+						<image :src="img" mode=""></image>
 					</view>
 					<view class="right">
 						<view class="r-name item">
-							名字
+							{{product.spfl2}}
+							
 						</view>
 						<view class="r-price item">
-							价格
+							￥{{product.ptjg}}
 						</view>
 						<view class="r-type item">
 							<span>团购类型：</span>
-							<span>10rentuan</span>
+							<span>{{product.ptlx}}人团</span>
 						</view>
 					</view>
 				</view>
@@ -69,7 +71,7 @@
 							</view>
 						</view>
 						<view class="right ">
-							<span  class="select-btn" :class="{'type-active':i === typeIndex}"  v-for="(item,i) in paydetail.guige" @click="typeChange(item.name,item.id,i)">{{item.name}}</span>
+							<span class="select-btn" :class="{'type-active':i === typeIndex}" v-for="(item,i) in paydetail.guige" @click="typeChange(item.name,item.id,i)">{{item.name}}</span>
 						</view>
 					</view>
 
@@ -92,7 +94,7 @@
 							</view>
 						</view>
 						<view class="right">
-							<span  class="select-btn"  :class="{'method-active':j === methodIndex}" v-for="(item,j) in paydetail.zhifu" @click="payChange(item.name,item.id,j)">{{item.name}}</span>
+							<span class="select-btn" :class="{'method-active':j === methodIndex}" v-for="(item,j) in method" @click="payChange(item.name,item.id,j)">{{item.name}}</span>
 						</view>
 					</view>
 					<view class="item">
@@ -115,12 +117,12 @@
 						</view>
 					</view>
 
-                      <button @click="payHandle" class="pay-money">立即支付</button>
+					<button @click="payHandle" class="pay-money">立即支付</button>
 				</view>
 				<!-- <view v-if="specList.length" class="pick-size" @click="toggleSpec"> -->
 
 			</view>
-			
+
 		</view>
 	</view>
 
@@ -180,21 +182,32 @@
 						}
 					],
 					zhifu: [{
-						name: 'weixin',
-						id: 1
-					},
-					{
-						name: 'zhifubao',
-						id: 2
-					}],
+							name: 'weixin',
+							id: 1
+						},
+						{
+							name: 'zhifubao',
+							id: 2
+						}
+					],
 					address: [
 						'中国1', '中国1',
 						'中国1', '中国1'
 					]
 				},
-				index:0,
-				typeIndex:-1, // 规格初始索引
-				methodIndex:-1, // 支付方式初始索引
+				method:[
+					{
+						name:'微信',
+						id:'wxzf'
+					},
+					{
+						name:'余额支付',
+						id:'yezf'
+					}
+				],
+				index: 0,
+				typeIndex: -1, // 规格初始索引
+				methodIndex: -1, // 支付方式初始索引
 			};
 		},
 		components: {
@@ -258,13 +271,14 @@
 				ProductAPI.goodsDetail(id).then(res => {
 					this.$_log('商品详www情：', res.data.obj);
 					this.product = res.data.obj;
-					this.img = getApp().globalData.BASE_URL + this.product.sppic
-					console.log(this.img)
+					// this.img = getApp().globalData.BASE_URL + this.product.sppic
+					this.img = this.product.sppic
+					console.log('this.product',this.product)
 
 				});
 			},
-		
-		
+
+
 			// 抽屉
 			toggleSpec() {
 				if (this.specClass === 'show') {
@@ -277,22 +291,22 @@
 				}
 			},
 			//立即支付
-			payHandle(){
+			payHandle() {
 				// 验证表单
-				
+
 			},
 			// 选择商品规格
-			typeChange(val,id,index){
+			typeChange(val, id, index) {
 				this.typeIndex = index
 				console.log('this.typeIndex', this.typeIndex)
-				console.log('规格',val)
-				console.log('规格id',id)
+				console.log('规格', val)
+				console.log('规格id', id)
 			},
 			// 选择支付方式
-			payChange(val,id,index){
+			payChange(val, id, index) {
 				this.methodIndex = index
-				console.log('规格',val)
-				console.log('规格id',id)
+				console.log('规格', val)
+				console.log('规格id', id)
 			},
 			//选择数量
 			numberChange(e) {
@@ -866,19 +880,28 @@
 						flex: 1;
 						margin: 5rpx;
 
+						&:nth-of-type(1) {
+							white-space:nowrap;
+							overflow:hidden;
+							text-overflow:ellipsis;
+						}
+
 						&:nth-of-type(2) {
 							color: $base-red;
 							font-size: 40rpx;
 						}
+
 						&:nth-of-type(3) {
 							display: flex;
-							span{
+
+							span {
 								flex: 1;
-								&:nth-of-type(2){
+
+								&:nth-of-type(2) {
 									text-align: right;
 								}
 							}
-							
+
 						}
 					}
 				}
@@ -888,40 +911,47 @@
 			.product-form {
 				display: flex;
 				flex-direction: column;
-				.item{
+
+				.item {
 					flex: 1;
 					display: flex;
 					margin: 20rpx;
 					justify-content: center;
 					align-items: center;
-					.left{
+
+					.left {
 						flex: 2;
-						
+
 					}
-					.right{
+
+					.right {
 						flex: 8;
 						text-align: right;
 						position: relative;
-					
-						.select-btn{
+
+						.select-btn {
 							border: 1px solid #333;
 							display: inline-block;
 							padding: 5rpx;
 							margin: 5rpx;
 						}
-						.type-active,.method-active{
+
+						.type-active,
+						.method-active {
 							border: 1px solid $base-red;
 						}
-						uni-picker{
+
+						uni-picker {
 							border: 1px solid #333;
 							text-align: left;
 						}
-						
+
 					}
-					
-					.num-set{
-						margin-right:30rpx ;
-						.uni-numbox{
+
+					.num-set {
+						margin-right: 30rpx;
+
+						.uni-numbox {
 							// right: 0;
 							width: 100px;
 							position: absolute;
@@ -932,7 +962,8 @@
 					}
 				}
 			}
-		    .pay-money{
+
+			.pay-money {
 				height: 50rpx;
 				line-height: 50rpx;
 				font-size: $font-base;
@@ -1068,5 +1099,4 @@
 			margin-right: 10rpx;
 		}
 	}
-	
 </style>
