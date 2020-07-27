@@ -10,7 +10,11 @@
 				</li>
 				<li>
 					<span class="region">所属区域：</span>
-					<view class="uni-list">
+					<view class="row b-b" @click="addressChange">
+						<text class="a-text">{{ form.address }}</text>
+						<text class="yticon icon-shouhuodizhi"></text>
+					</view>
+					<!-- <view class="uni-list">
 						<view class="uni-list-cell">
 							<view class="uni-list-cell-db">
 								<picker mode=multiSelector @change="change" @columnchange="bindPickerChange" :value="index" :range="array">
@@ -18,7 +22,7 @@
 								</picker>
 							</view>
 						</view>
-					</view>
+					</view> -->
 				</li>
 
 				<li class="input-item input-address">
@@ -39,6 +43,7 @@
 				form: {
 					phone: '',
 					realname: '',
+					address:'',
 					detail: ''
 				},
 				isPhone: false,
@@ -104,7 +109,17 @@
 			change(e) {
 				this.index = e.detail.value
 				console.log(this.index)
-			}
+			},
+			// 改变收货地址
+			addressChange() {
+				uni.chooseLocation({
+					success: data => {
+						console.info('dizhi', data);
+						// this.addressData.address = data.address;
+						this.form.address = data.address
+					}
+				});
+			},
 
 		}
 
@@ -129,7 +144,6 @@
 				// margin-top: 20rpx;
 				position: relative;
 				border-bottom: 1px solid #999;
-
 				input {
 					height: 100%;
 					position: absolute;
@@ -173,13 +187,18 @@
 				color: #333;
 				display: inline-block;
 				margin-top: 50rpx;
+				
 			}
+			
 
 			.uni-list {
 				background-color: transparent;
 				line-height: 60rpx;
 				padding-left: 20rpx;
 				// color: #999;
+			}
+			.a-text{
+				font-size: 15rpx;
 			}
 
 			.sumit {

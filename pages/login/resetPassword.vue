@@ -222,4 +222,8 @@
 			}
 		}
 	}
+	.uni-input-input{
+		width: 300px;
+		background: #fff;
+	}
 </style>

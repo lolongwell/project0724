@@ -1,6 +1,6 @@
 <template>
 	<view class="_hd">
-		<button v-if="!hasLogin" open-type="getUserInfo" class="_p" lang="zh_CN" @getuserinfo="getUserInfo">
+		<button v-if="!hasLogin" open-type="getUserInfo" class="_p" lang="zh_CN" @getuserinfo="getUserInfo" @click="login">
 			<view class="image">
 				<image class="img" src="../../static/missing-face.png" mode=""></image>	
 			</view>
@@ -184,6 +184,11 @@
 				};
 			},
 			goLogin() {},
+			login(){
+				uni.navigateTo({
+					url: `/pages/register/register`
+				});
+			},
 			invite() {
 				AuthAPI.getAccessToken().then(res => {
 					uni.navigateTo({
