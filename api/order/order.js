@@ -1,100 +1,109 @@
 let h = require("../request").default;
 
 let orderAPI = {
+	// 拼团信息-列表
+	ptList(id) {
+		
+		return h.get(`/rest/tbDdController/${id}`)
+	},
 	orderList(d) {
 		let o = {
-		    dd : d,
-		    dataGrid: {
-		        // "field": "id,spfl,name",
-		        "page": 1,
-		        "rows": 1000,
-		        "order": "desc",
-		        "sort": "createDate"
-		    }
+			dd: d,
+			dataGrid: {
+				// "field": "id,spfl,name",
+				"page": 1,
+				"rows": 1000,
+				"order": "desc",
+				"sort": "createDate"
+			}
 		}
 		o = JSON.stringify(o);
 		return h.postJson(`rest/scDdController/dd_datagrid`, o);
 	},
 	spList(d) {
 		let o = {
-		    ddsp: d,
-		    dataGrid: {
-		        // "field": "id,spfl,name",
-		        "page": 1,
-		        "rows": 1000,
-		        "order": "desc",
-		        "sort": "createDate"
-		    }
+			ddsp: d,
+			dataGrid: {
+				// "field": "id,spfl,name",
+				"page": 1,
+				"rows": 1000,
+				"order": "desc",
+				"sort": "createDate"
+			}
 		}
 		o = JSON.stringify(o);
 		return h.postJson(`rest/scDdController/ddsp_datagrid`, o);
 	},
-	createOrder(d){
+	createOrder(d) {
 		d = JSON.stringify(d);
 		return h.postJson(`rest/scDdController`, d);
 	},
-	
-	getAddressList(d){
+
+	getAddressList(d) {
 		let o = {
-		    address : {"userId":d.userId},
-		    dataGrid: {
-		        // "field": "id,spfl,name",
-		        "page": 1,
-		        "rows": 1000,
-		        "order": "desc",
-		        "sort": "createDate"
-		    }
+			address: {
+				"userId": d.userId
+			},
+			dataGrid: {
+				// "field": "id,spfl,name",
+				"page": 1,
+				"rows": 1000,
+				"order": "desc",
+				"sort": "createDate"
+			}
 		}
 		o = JSON.stringify(o);
 		return h.postJson(`rest/userAddressController/address_datagrid`, o);
 	},
 	// 收货地址-列表
-	addAddress(d){
+	addAddress(d) {
 		d = JSON.stringify(d);
 		return h.postJson(`rest/userAddressController`, d);
 	},
-	
-	updateAddress(d){
+
+	updateAddress(d) {
 		d = JSON.stringify(d);
 		return h.postJson(`rest/userAddressController/update`, d);
 	},
-	cancelOrder(id){
-		return h.postJson(`rest/scDdController/delete?id=${id}`,{});
+	cancelOrder(id) {
+		return h.postJson(`rest/scDdController/delete?id=${id}`, {});
 	},
-	delOrder(d){
+	delOrder(d) {
 		d = JSON.stringify(d);
 		return h.postJson(`rest/userAddressController/update`, d);
-    },
-    
-    orderDetail(id){
+	},
+
+	orderDetail(id) {
 		return h.get(`rest/scDdController/${id}`);
-    },
-	
+	},
+
 	getExpress(d) {
-		return h.postJson(`rest/scDdController/getWlxxByKdgsBmAndKddh?kdgsbm=${d.kdgs}&phone=${d.phone}&kddh=${d.dh}`,{});
-    },
-    
-	getInvoiceList(d){
+		return h.postJson(`rest/scDdController/getWlxxByKdgsBmAndKddh?kdgsbm=${d.kdgs}&phone=${d.phone}&kddh=${d.dh}`, {});
+	},
+
+	getInvoiceList(d) {
 		let o = {
-		    userbill : {"userId":d.userId},
-		    dataGrid: {
-		        // "field": "id,spfl,name",
-		        "page": 1,
-		        "rows": 1000,
-		        "order": "desc",
-		        "sort": "createDate"
-		    }
+			userbill: {
+				"userId": d.userId
+			},
+			dataGrid: {
+				// "field": "id,spfl,name",
+				"page": 1,
+				"rows": 1000,
+				"order": "desc",
+				"sort": "createDate"
+			}
 		}
 		o = JSON.stringify(o);
 		return h.postJson(`rest/userBillController/userbill_datagrid`, o);
 	},
-	
-	updateOrderCommentState(d){
+
+	updateOrderCommentState(d) {
 		return h.postJson(`rest/scDdController/updateScDdspPjwc`, d);
 	},
-	
-	getDic(d){
-		return h.postJson(`rest/yrgdata/getTypeNameListByLxcode?typeLxCode=${d}`, d,false);
+
+	getDic(d) {
+		return h.postJson(`rest/yrgdata/getTypeNameListByLxcode?typeLxCode=${d}`, d, false);
 	}
 }
 

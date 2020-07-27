@@ -9,6 +9,7 @@
 
 <script>
 	import UniTab from '@/components/uni-tab/uni-tab.vue'
+	import orderAPI from '@/api/order/order.js'
 	import OrderList from '@/components/order-list/order-list.vue'
 	export default {
 		name: 'order',
@@ -49,12 +50,30 @@
 			}
 			
 		},
+		onload(){
+			
+			
+		},
+		mounted(){
+			this.getList()
+		},
 		computed:{
 		},
 		methods:{
 			switchTab(data){
 				console.log(data)
 				this.orderStatus = data
+			},
+				
+			getList(){
+				console.log(111)
+					// 获取用户id
+				// let id = uni.getStorageSync('user')
+				let id = '2c93c2aa6eb0d56e016eb133a0be004f'
+				console.log('id',id)
+				orderAPI.ptList(id).then(res=>{
+					console.log('y')
+				})
 			}
 		}
 	}
