@@ -15,7 +15,7 @@
 				</view>
 			</view>
 			<view class="right ">
-
+				<image class="img"  src="../../static/images/default.png" mode=""></image>
 			</view>
 
 		</view>
@@ -34,27 +34,14 @@
 
 <script>
 	import ExchangeList from '@/components/integral/exchange-list.vue'
+	import productAPI from "@/api/product/product.js";
 	export default {
-		components: {ExchangeList},
+		components: {
+			ExchangeList
+		},
 		data() {
 			return {
-				intergralList: [
-					{
-					url: '../../static/images/default.png',
-					name: '商品名商品名商品名商品名商品名商品名商品名商品名',
-					integral: 2000
-				     },
-					 {
-					 url: '../../static/images/default.png',
-					 name: '商品名商品名商品名商品名商品名商品名商品名商品名',
-					 integral: 2000
-					  },
-					  {
-					  url: '../../static/images/default.png',
-					  name: '商品名商品名商品名商品名商品名商品名商品名商品名',
-					  integral: 2000
-					   },
-				]
+				intergralList: []
 			};
 		},
 		computed: {
@@ -62,8 +49,16 @@
 				return this.$store.state.integral
 			}
 		},
+		onLoad() {
+			this.getGoodList();
+		},
 		methods: {
-
+			getGoodList() {
+				productAPI.integralList("jfspfl").then((res) => {
+					this.intergralList = res.data.obj.results
+					console.log('this.intergralList', this.intergralList)
+				});
+			},
 
 		}
 	};
@@ -112,7 +107,10 @@
 
 			.right {
 				flex: 1;
-				background: blue;
+				.img{
+					width:100%;
+					height: 100%;
+				}
 			}
 		}
 

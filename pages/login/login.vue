@@ -17,7 +17,6 @@
 		</view>
 
 		<view class="buttons"><a class="orange button large" @click="login">登录</a></view>
-		<view class="footer"><img class="_footer" src="../../static/login-footer.png" alt="" /></view>
 	</view>
 </template>
 
