@@ -3,7 +3,8 @@
 		// 全局变量
 		globalData: {
 			// BASE_URL: "http://47.110.253.31:8080/yplg/",
-			BASE_URL: "http://sjblake.cn/yplg/"
+			BASE_URL: "http://sjblake.cn/yplg/",
+			appId:'wx05de43db35c9393b'
 		},
 		onLaunch: function() {
 			console.log('App Launch')
