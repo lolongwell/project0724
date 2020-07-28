@@ -79,7 +79,7 @@
 
 			ul {
 				display: flex;
-				font-size: 0.5rem;
+				font-size: $font-base;
 
 				&.default {
 					justify-content: space-around;

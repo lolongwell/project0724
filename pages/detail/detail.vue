@@ -46,7 +46,7 @@
 				<view class="product-intro">
 					<view class="left">
 						<!-- <image :src="product.sppic" mode=""></image> -->
-						<image :src="img" mode=""></image>
+						<img :src="img"></img>
 					</view>
 					<view class="right">
 						<view class="r-name item">
@@ -893,15 +893,18 @@
 
 				.left {
 					flex: 1;
+					padding: 20rpx;
 
-					uni-image {
-						width: 200rpx;
-						height: 200rpx;
-					}
+					// uni-image {
+					// 	width: 200rpx;
+					// 	height: 200rpx;
+					// }
 
 					img {
 						width: 50rpx;
-						height: 50rpx;
+						width: 100%;
+						height: 100%;
+						// height: 50rpx;
 					}
 
 				}

@@ -135,6 +135,7 @@
 			getModules() {
 				OrderAPI.getDic("spfl").then((res) => {
 					this.modules = res.data.obj.results
+					console.log('this.modules',this.modules)
 				});
 			},
 			getGoodList() {
