@@ -2,11 +2,23 @@ let h = require("../request").default;
 
 let orderAPI = {
 	// 拼团信息-列表
-	ptList(id) {
-		
-		return h.get(`/rest/tbDdController/${id}`)
-	},
 	orderList(d) {
+		let o = {
+			dd: d,
+			dataGrid: {
+				// "field": "id,spfl,name",
+				"page": 1,
+				"rows": 1000,
+				"order": "desc",
+				"sort": "createDate"
+			}
+		}
+		o = JSON.stringify(o);
+		return h.postJson(`rest/tbDdController/dd_datagrid`, o);
+		
+		// return h.get(`/rest/tbDdController/${id}`)   //rest/tbDdController/dd_datagrid
+	},
+	orderList1(d) {
 		let o = {
 			dd: d,
 			dataGrid: {

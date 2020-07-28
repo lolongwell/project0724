@@ -7,19 +7,32 @@
 				</view>
 				<view class="right">
 					<view class="top">
-						{{item.name}}
+						{{item.spmc}}
 					</view>
 					<view class="middle">
 						<view class="price">
-							¥ {{item.price}}
+							¥ {{item.spdj}}
 							<span v-show="item.count">x {{item.count}}</span>
 						</view>
-						<view class="tip" v-show="orderStatus.index === 0">
+						<!-- todo：这里只有拼团信息状态才有 -->
+						<view class="tip" v-show="item.wczt === 0">
 							拼团中
 						</view>
 					</view>
 					<view class="bottom">
-						<button class="status" v-for="(val,i) in item.status">{{val}}</button>
+						<!-- todo:这里要区分：拼团信息卡片不能点击；待收货写死点击；已完成也是卡片不能点击 -->
+						<!-- <button class="status" v-for="(val,i) in item.status">{{val}}</button> -->
+						<!-- 拼团信息：卡片 -->
+						<button v-if="item.wczt === 0" class="status ptz-card">未拼中返：2000</button>
+						<!-- 待收货 -->
+						<view class="dsh-btn-box" v-else-if="item.wczt === 2">
+
+							<button class="status " v-for="(item,index) in thfsList" @click="thHandle(item.value)">{{item.name}}</button>
+
+						</view>
+
+						<!-- 已完成 -->
+						<button v-else-if="item.wczt === 3" class="status ywc-card">已购物返利：{{item.flmx}}</button>
 					</view>
 				</view>
 			</view>
@@ -28,8 +41,8 @@
 			</view>
 			<view class="bottom">
 				<ul>
-					<li>订单编号：{{item.orderCode}}</li>
-					<li>下单时间:{{item.timer}}</li>
+					<li>订单编号：{{item.ddh}}</li>
+					<li>下单时间:{{item.fktime}}</li>
 				</ul>
 			</view>
 		</view>
@@ -38,6 +51,7 @@
 </template>
 
 <script>
+	import orderAPI from '@/api/order/order.js'
 	export default {
 		components: {},
 		props: {
@@ -45,22 +59,38 @@
 				type: Array,
 				default: () => []
 			},
-			orderStatus: {
-				type: Object,
-				default: () => [{}]
-			}
 		},
 		data() {
 			return {
-
+				thfsList: [{
+						name: '兑换积分',
+						value: '2'
+					},
+					{
+						name: '提货',
+						value: '1'
+					}
+				]
 			}
 
 		},
-		mounted() {
-			console.log(this.goodsList)
-			console.log(this.orderStatus)
-		},
+		mounted() {},
 		methods: {
+			//点击提货方式：发送请求刷新列表
+			thHandle(val) {
+				console.log('val', val)
+				// 获取入参
+				let th = {
+					userId: uni.getStorageSync('user').userId,
+					thfs: val
+				}
+				// 发送请求，刷新列表
+				orderAPI.ptList(th).then(res => {
+					console.log('res',res)
+					// this.goodsList = this.goodsList2
+				})
+
+			}
 
 		}
 	}
@@ -84,7 +114,8 @@
 
 				.left {
 					flex: 2;
-                   margin-right: $page-row-spacing;
+					margin-right: $page-row-spacing;
+
 					image {
 						height: 100%;
 						width: 100%;
@@ -96,6 +127,7 @@
 					display: flex;
 					flex-direction: column;
 					flex-wrap: wrap;
+
 					.top,
 					.middle,
 					.bottom {
@@ -108,8 +140,9 @@
 
 						.price {
 							flex: 1;
-                            color: red;
+							color: red;
 							font-weight: bolder;
+
 							span {
 								margin-left: 10rpx;
 							}
@@ -126,11 +159,33 @@
 					.bottom {
 						margin-top: 20rpx;
 						display: flex;
+
+						.dsh-btn-box {
+							display: flex;
+
+							button {
+								&:nth-of-type(1) {
+									background-color: green;
+								}
+
+								&:nth-of-type(2) {
+									background-color: $my-color;
+								}
+							}
+
+						}
+
 						.status {
 							height: 50rpx;
 							line-height: 50rpx;
 							font-size: 10rpx;
 							margin-right: 10rpx;
+							color: #fff;
+						}
+
+						.ptz-card,
+						.ywc-card {
+							background: $my-color;
 						}
 
 					}
@@ -146,7 +201,7 @@
 
 			.bottom {
 				margin-top: 10rpx;
-                text-align: left;
+				text-align: left;
 				color: #aaa;
 			}
 
