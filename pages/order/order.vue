@@ -86,9 +86,7 @@
 						wczt: 0
 					}
 				],
-				goodsList2: [
-
-				],
+				goodsList2: [],
 				goodsList3: [{
 					url: '../../static/images/default.png',
 					spmc: '商品名1',
@@ -96,7 +94,8 @@
 					ddh: '00001',
 					fktime: '2020-2-2 10:30:30',
 					wczt: 2,
-					zjzt: 1 // 1提货 2兑换积分
+
+					// zjzt: 1 // 1提货 2兑换积分
 				}],
 				goodsList4: [{
 						url: '../../static/images/default.png',
@@ -106,7 +105,8 @@
 						fktime: '2020-2-2 10:30:30',
 						spsl: 1,
 						wczt: 3,
-						flmx: '￥194 + 93.00',
+						flmx: '',
+						thfs: 1,
 						zjzt: 1 // 1提货 2兑换积分
 
 					},
@@ -117,7 +117,17 @@
 						ddh: '00001',
 						fktime: '2020-2-2 10:30:30',
 						wczt: 3,
-						flmx: '￥194 + 93.00'
+						thfs: 2,
+						flmx: ''
+					},
+					{
+						url: '../../static/images/default.png',
+						spmc: '商品名1',
+						spdj: '8000.00',
+						ddh: '00001',
+						fktime: '2020-2-2 10:30:30',
+						wczt: 3,
+						flmx: '194 + 95.00'
 					}
 				],
 				cureentStatus: 0 // 默认订单状态为拼团信息
@@ -153,6 +163,8 @@
 			this.getList()
 			//测试
 			this.$store.commit('orderListUpdate', this.goodsList)
+
+
 		},
 		computed: {
 			orderStatus() {
@@ -179,7 +191,7 @@
 				// 	//4.更新全局orderList
 				// 	this.$store.commit('orderListUpdate', this.goodsList)
 				// })
-				console.log('测试数据',this.goodsList)
+				console.log('测试数据', this.goodsList)
 				this.$store.commit('orderListUpdate', this.goodsList)
 			}
 		}

@@ -4,6 +4,8 @@ import App from './App'
 
 import Json from './Json' 
 
+let h = require("./api/request").default;
+
 const msg = (title, duration = 1500, mask = false, icon = 'none') => {
 	if (Boolean(title) === false) {
 		return;
@@ -98,6 +100,18 @@ Vue.prototype.showTokenInvalidMsg = function() {
 			}
 		}
 	});
+}
+
+// 通过字典类型获取字典数据
+Vue.prototype.getDicData = function(type){
+			let o={
+				typegroupcode:type
+			}
+			console.log(o)
+	  		// o = JSON.stringify(o);
+	  		return  h.postJson(`/rest/yplgdata/getCacheTypeGroup`,o, false);
+
+	
 }
 
 App.mpType = 'app'

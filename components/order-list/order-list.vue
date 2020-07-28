@@ -24,15 +24,33 @@
 						<!-- <button class="status" v-for="(val,i) in item.status">{{val}}</button> -->
 						<!-- 拼团信息：卡片 -->
 						<button v-if="item.wczt === 0" class="status ptz-card">未拼中返：2000</button>
+
+
+
 						<!-- 待收货 -->
 						<view class="dsh-btn-box" v-else-if="item.wczt === 2">
-
 							<button class="status " v-for="(item,index) in thfsList" @click="thHandle(item.value)">{{item.name}}</button>
+						</view>
+						<!-- 已完成 -->
+						<view class="ywc-card-box" v-else-if="item.wczt === 3">
+							<!-- 拼团成功 -->
+
+							<view class="">
+								<!-- 已兑换积分 -->
+								<button v-show="item.thfs === 2 && item.flmx === '' " class="status ydh-card">已兑换积分：50</button>
+								<!-- 已提货 -->
+								<button v-show="item.thfs === 1 && item.flmx === '' " class="status yth-card">已提货</button>
+							</view>
+							<view class="">
+								<!--拼团不成功返利 -->
+								<button v-show="item.flmx !== ''" class=" status fl-card">￥{{item.flmx}}</button>
+							</view>
+
+
 
 						</view>
+						<!-- <button v-else-if="item.wczt === 3" class="status ywc-card">已购物返利：￥{{item.flmx}}</button> -->
 
-						<!-- 已完成 -->
-						<button v-else-if="item.wczt === 3" class="status ywc-card">已购物返利：￥{{item.flmx}}</button>
 					</view>
 				</view>
 			</view>
@@ -74,18 +92,23 @@
 			}
 
 		},
-			
-		computed:{
-			orderList(){
+
+		computed: {
+			orderList() {
 				return this.$store.state.orderList
 			},
-			orderStatus(){
+			orderStatus() {
 				return this.$store.state.orderStatus
 			},
 		},
 		mounted() {
-			console.log('this.orderList',this.orderList)
-			console.log('this.orderStatus',this.orderStatus)
+			console.log('this.orderList', this.orderList)
+			console.log('this.orderStatus', this.orderStatus)
+
+
+			this.getDicData('thfs').then(res => {
+				console.log('res', res)
+			})
 		},
 		methods: {
 			//点击提货方式：发送请求刷新列表
@@ -94,15 +117,15 @@
 				let th = {
 					userId: uni.getStorageSync('user').userId,
 					thfs: val,
-					wczt:2
+					wczt: 2
 				}
 				// 2.发送请求，刷新列表
-				orderAPI.ptList(th).then(res => {
-					console.log('res',res)
+				orderAPI.orderList(th).then(res => {
+					console.log('res', res)
 					// this.goodsList = this.goodsList2
-					
+
 					// 3.todo:存入数据更新到全局
-						// this.$store.state.commit('orderListUpdate',this.goodsList)
+					// this.$store.state.commit('orderListUpdate',this.goodsList)
 				})
 
 			}
@@ -173,10 +196,11 @@
 
 					.bottom {
 						margin-top: 20rpx;
-						display: flex;
 
 						.dsh-btn-box {
 							display: flex;
+
+
 
 							button {
 								&:nth-of-type(1) {
@@ -190,12 +214,21 @@
 
 						}
 
+						.ywc-card-box {
+							display: flex;
+
+							.status {
+								flex: 1
+							}
+						}
+
 						.status {
 							height: 50rpx;
 							line-height: 50rpx;
 							font-size: 10rpx;
 							margin-right: 10rpx;
 							color: #fff;
+							background-color: $my-color;
 						}
 
 						.ptz-card,
