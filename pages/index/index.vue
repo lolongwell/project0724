@@ -98,7 +98,24 @@
 				};
 			},
 		},
-		onLoad() {
+		onLoad(option) {
+			// let ghbm = option.ghbm
+			let ghbm = '00010, 456454546, "曾小贤"'
+			if (ghbm) {
+				let paramArr = ghbm.split(',')
+				let yqm = paramArr[0], yqrId = paramArr[1]
+				console.log(yqm, yqrId)
+				const appId = getApp().globalData.appId
+				const local = window.location.href
+				console.log(appId)
+				console.log(local)
+				console.log(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${encodeURIComponent(local)}&response_type=code&scope=snsapi_userinfo#wechat_redirect`)
+				// let code = null
+				// if (code === null || code === '') {
+				// 	window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${encodeURIComponent(local)}&response_type=code&scope=snsapi_userinfo`
+				// }
+
+			}
 			this.getGoodList();
 		},
 		onShow() {

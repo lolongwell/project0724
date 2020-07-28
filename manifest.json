@@ -89,6 +89,8 @@
         },
         "router" : {
             "mode" : "hash"
-        }
+        },
+        "title" : "悠品乐购",
+        "domain" : "http://sjblake.cn"
     }
 }

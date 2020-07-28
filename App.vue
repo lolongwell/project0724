@@ -23,6 +23,9 @@
 	body {
 		background-color: $main-bg;
 	}
+	.uni-page-head-hd {
+		display: none!important;
+	}
 
 	/*
 			全局公共样式和字体图标
