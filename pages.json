@@ -1,164 +1,255 @@
 {
-  "pages": [
-    {
-      "path": "pages/index/index",
-      "style": {
-        "navigationBarTitleText": "首页-优品乐购"
-      }
-    },
-    {
-      "path": "pages/groupBuy/groupBuy",
-      "style": {
-        "navigationBarTitleText": "拼团专区"
-      }
-    },
-    {
-      "path": "pages/order/order",
-      "style": {
-        "navigationBarTitleText": "订单"
-      }
-    },
-    {
-      "path": "pages/order/detail",
-      "style": {
-        "navigationBarTitleText": "订单详情"
-      }
-    },
-    {
-      "path": "pages/myMoney/paySuccess",
-      "style": {
-        "navigationBarTitleText": "支付成功"
-      }
-    },
-    {
-      "path": "pages/my/my",
-      "style": {
-        "navigationBarTitleText": "个人中心"
-      }
-    },
-    {
-      "path": "pages/myMoney/inMoney",
-      "style": {
-        "navigationBarTitleText": "充值"
-      }
-    },
-    {
-      "path": "pages/myMoney/outMoney",
-      "style": {
-        "navigationBarTitleText": "提现"
-      }
-    },
-    {
-      "path": "pages/myMoney/wallet",
-      "style": {
-        "navigationBarTitleText": "余额"
-      }
-    },
-    {
-      "path": "pages/myMoney/history",
-      "style": {
-        "navigationBarTitleText": "资金记录"
-      }
-    },
-    {
-      "path": "pages/integral/exchange",
-      "style": {
-        "navigationBarTitleText": "积分兑换"
-      }
-    },
-    {
-      "path": "pages/address/address",
-      "style": {
-        "navigationBarTitleText": "我的收货地址"
-      }
-    },
-    {
-      "path": "pages/address/addressManage",
-      "style": {
-        "navigationBarTitleText": "添加收货地址"
-      }
-    },
-    {
-      "path": "pages/login/resetPassword",
-      "style": {
-        "navigationBarTitleText": "修改密码"
-      }
-    },
-	{
-	  "path": "pages/login/login",
-	  "style": {
-	    "navigationBarTitleText": "登录"
-	  }
-	},
-    {
-      "path": "pages/detail/detail",
-      "style": {
-        "navigationBarTitleText": "拼团详情"
-      }
-    },
-	{
-	    "path": "pages/detail/JFDetail",
-	   "style": {
-	     "navigationBarTitleText": "积分商品"
-	   }
-	},
-    {
-      "path": "pages/register/register",
-      "style": {
-        "navigationBarTitleText": "注册"
-      }
+	"pages": [{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页-优品乐购",
+				"app-plus": {
+					//#ifdef H5
+					"titleNView": false
+					//#endif
+				}
+			}
 		},
 		{
-      "path": "pages/newGoods/newGoods",
-      "style": {
-        "navigationBarTitleText": "新品"
-      }
-    }
-  ],
-  "globalStyle": {
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "优品易购",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
-  },
-  "tabBar": {
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "text": "首页",
-        "iconPath": "static/images/index1.png",
-        "selectedIconPath": "static/images/index2.png"
-      },
-      {
-        "pagePath": "pages/groupBuy/groupBuy",
-        "text": "拼团",
-        "iconPath": "static/images/group1.png",
-        "selectedIconPath": "static/images/group2.png"
-      },
-      {
-        "pagePath": "pages/order/order",
-        "text": "订单",
-        "iconPath": "static/images/order1.png",
-        "selectedIconPath": "static/images/order2.png"
-      },
-      {
-        "pagePath": "pages/my/my",
-        "text": "我的",
-        "iconPath": "static/images/my1.png",
-        "selectedIconPath": "static/images/my2.png"
-      }
-    ],
-    "color": "#8a8a8a",
-    "selectedColor": "#d81e06"
-  },
-  "condition": {
-    "current": 0,
-    "list": [
-      {
-        "name": "",
-        "path": "",
-        "query": ""
-      }
-    ]
-  }
+			"path": "pages/groupBuy/groupBuy",
+			"style": {
+				"navigationBarTitleText": "拼团专区",
+				"app-plus": {
+					//#ifdef H5
+					"titleNView": false
+					//#endif
+				}
+			}
+		},
+		{
+			"path": "pages/order/order",
+			"style": {
+				"navigationBarTitleText": "订单",
+				"app-plus": {
+					//#ifdef H5
+					"titleNView": false
+					//#endif
+				}
+			}
+		},
+		{
+			"path": "pages/order/detail",
+			"style": {
+				"navigationBarTitleText": "订单详情",
+				"app-plus": {
+					//#ifdef H5
+					"titleNView": false
+					//#endif
+				}
+			}
+		},
+		{
+			"path": "pages/myMoney/paySuccess",
+			"style": {
+				"navigationBarTitleText": "支付成功",
+				"app-plus": {
+					//#ifdef H5
+					"titleNView": false
+					//#endif
+				}
+			}
+		},
+		{
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "个人中心",
+				"app-plus": {
+					//#ifdef H5
+					"titleNView": false
+					//#endif
+				}
+			}
+		},
+		{
+			"path": "pages/myMoney/inMoney",
+			"style": {
+				"navigationBarTitleText": "充值",
+				"app-plus": {
+					//#ifdef H5
+					"titleNView": false
+					//#endif
+				}
+			}
+		},
+		{
+			"path": "pages/myMoney/outMoney",
+			"style": {
+				"navigationBarTitleText": "提现",
+				"app-plus": {
+					//#ifdef H5
+					"titleNView": false
+					//#endif
+				}
+			}
+		},
+		{
+			"path": "pages/myMoney/wallet",
+			"style": {
+				"navigationBarTitleText": "余额",
+				"app-plus": {
+					//#ifdef H5
+					"titleNView": false
+					//#endif
+				}
+			}
+		},
+		{
+			"path": "pages/myMoney/history",
+			"style": {
+				"navigationBarTitleText": "资金记录",
+				"app-plus": {
+					//#ifdef H5
+					"titleNView": false
+					//#endif
+				}
+			}
+		},
+		{
+			"path": "pages/integral/exchange",
+			"style": {
+				"navigationBarTitleText": "积分兑换",
+				"app-plus": {
+					//#ifdef H5
+					"titleNView": false
+					//#endif
+				}
+			}
+		},
+		{
+			"path": "pages/address/address",
+			"style": {
+				"navigationBarTitleText": "我的收货地址",
+				"app-plus": {
+					//#ifdef H5
+					"titleNView": false
+					//#endif
+				}
+			}
+		},
+		{
+			"path": "pages/address/addressManage",
+			"style": {
+				"navigationBarTitleText": "添加收货地址",
+				"app-plus": {
+					//#ifdef H5
+					"titleNView": false
+					//#endif
+				}
+			}
+		},
+		{
+			"path": "pages/login/resetPassword",
+			"style": {
+				"navigationBarTitleText": "修改密码",
+				"app-plus": {
+					//#ifdef H5
+					"titleNView": false
+					//#endif
+				}
+			}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录",
+				"app-plus": {
+					//#ifdef H5
+					"titleNView": false
+					//#endif
+				}
+			}
+		},
+		{
+			"path": "pages/detail/detail",
+			"style": {
+				"navigationBarTitleText": "拼团详情",
+				"app-plus": {
+					//#ifdef H5
+					"titleNView": false
+					//#endif
+				}
+			}
+		},
+		{
+			"path": "pages/detail/JFDetail",
+			"style": {
+				"navigationBarTitleText": "积分商品",
+				"app-plus": {
+					//#ifdef H5
+					"titleNView": false
+					//#endif
+				}
+			}
+		},
+		{
+			"path": "pages/register/register",
+			"style": {
+				"navigationBarTitleText": "注册",
+				"app-plus": {
+					//#ifdef H5
+					"titleNView": false
+					//#endif
+				}
+			}
+		},
+		{
+			"path": "pages/newGoods/newGoods",
+			"style": {
+				"navigationBarTitleText": "新品",
+				"app-plus": {
+					//#ifdef H5
+					"titleNView": false
+					//#endif
+				}
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "优品易购",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"list": [{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "static/images/index1.png",
+				"selectedIconPath": "static/images/index2.png"
+			},
+			{
+				"pagePath": "pages/groupBuy/groupBuy",
+				"text": "拼团",
+				"iconPath": "static/images/group1.png",
+				"selectedIconPath": "static/images/group2.png"
+			},
+			{
+				"pagePath": "pages/order/order",
+				"text": "订单",
+				"iconPath": "static/images/order1.png",
+				"selectedIconPath": "static/images/order2.png"
+			},
+			{
+				"pagePath": "pages/my/my",
+				"text": "我的",
+				"iconPath": "static/images/my1.png",
+				"selectedIconPath": "static/images/my2.png"
+			}
+		],
+		"color": "#8a8a8a",
+		"selectedColor": "#d81e06"
+	},
+	"condition": {
+		"current": 0,
+		"list": [{
+			"name": "",
+			"path": "",
+			"query": ""
+		}]
+	}
 }
