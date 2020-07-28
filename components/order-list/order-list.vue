@@ -43,7 +43,7 @@
 							</view>
 							<view class="">
 								<!--拼团不成功返利 -->
-								<button v-show="item.flmx !== ''" class=" status fl-card">￥{{item.flmx}}</button>
+								<button v-show="item.flmx !== ''" class=" status fl-card">已购物返利￥{{item.flmx}}</button>
 							</view>
 
 
@@ -80,15 +80,7 @@
 		},
 		data() {
 			return {
-				thfsList: [{
-						name: '兑换积分',
-						value: '2'
-					},
-					{
-						name: '提货',
-						value: '1'
-					}
-				]
+				thfsList: []  // 提货方式字典数据
 			}
 
 		},
@@ -104,11 +96,18 @@
 		mounted() {
 			console.log('this.orderList', this.orderList)
 			console.log('this.orderStatus', this.orderStatus)
-
-
+       
+            // 获取地点数据-提货方式
 			this.getDicData('thfs').then(res => {
-				console.log('res', res)
+			this.thfsList =	res.data.data.map(item=>{
+					return {
+						name:item.typename,
+						value:item.typecode
+					}
+				})
 			})
+			
+			// console.log('this.thfsList',this.thfsList)
 		},
 		methods: {
 			//点击提货方式：发送请求刷新列表
@@ -121,7 +120,7 @@
 				}
 				// 2.发送请求，刷新列表
 				orderAPI.orderList(th).then(res => {
-					console.log('res', res)
+					// console.log('res', res)
 					// this.goodsList = this.goodsList2
 
 					// 3.todo:存入数据更新到全局

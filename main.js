@@ -2,7 +2,7 @@ import Vue from 'vue'
 import store from './store'
 import App from './App'
 
-import Json from './Json' 
+import Json from './Json'
 
 let h = require("./api/request").default;
 
@@ -62,7 +62,7 @@ import HeadPortrait from "./components/common/HeadPortrait.vue";
 // Vue.component('TitleProductList', TitleProductList); 
 // Vue.component('RecommendFruit', RecommendFruit); 
 // Vue.component('LinkBox', LinkBox); 
-Vue.component('HeadPortrait', HeadPortrait); 
+Vue.component('HeadPortrait', HeadPortrait);
 // Vue.component('Links', Links); 
 // Vue.component('Contact', Contact); 
 
@@ -103,16 +103,13 @@ Vue.prototype.showTokenInvalidMsg = function() {
 }
 
 // 通过字典类型获取字典数据
-Vue.prototype.getDicData = function(type){
-			let o={
-				typegroupcode:type
-			}
-			console.log(o)
-	  		// o = JSON.stringify(o);
-	  		return  h.postJson(`/rest/yplgdata/getCacheTypeGroup`,o, false);
-
-	
+Vue.prototype.getDicData = function(type) {
+	return h.postJson(`/rest/yplgdata/getTypeNameListByLxcode?typeLxCode=${type}`, {});
 }
+// 根据
+// Vue.prototype.getDicData = function(type) {
+// 	return h.postJson(`/rest/yplgdata/getCacheTypeGroup?typegroupcode=${type}`, {});
+// }
 
 App.mpType = 'app'
 

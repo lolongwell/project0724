@@ -31,8 +31,9 @@
 			—— 商品介绍 ——
 		</view>
 		<view class="images" :class="{ 'pd-content': !hasImg }">
-			<rich-text :nodes="article"></rich-text>
+			<rich-text :nodes="article">{{product.spjs}}</rich-text>
 		</view>
+		
 
 		<view class="purchase">
 			<view class="left">账户余额：0.00</view>
@@ -49,7 +50,7 @@
 					</view>
 					<view class="right">
 						<view class="r-name item">
-							{{product.spfl2}}
+							{{product.spmc}}
 							
 						</view>
 						<view class="r-price item">
@@ -69,7 +70,7 @@
 							</view>
 						</view>
 						<view class="right ">
-							<span class="select-btn" :class="{'type-active':i === typeIndex}" v-for="(item,i) in paydetail.guige" :key="i" @click="typeChange(item.name,item.id,i)">{{item.name}}</span>
+							<span class="select-btn" :class="{'type-active':i === typeIndex}" v-for="(item,i) in product.spJgList" :key="i" @click="typeChange(item.spgg,item.id,item.jg,i)">{{item.spgg}}</span>
 						</view>
 					</view>
 
@@ -92,7 +93,7 @@
 							</view>
 						</view>
 						<view class="right">
-							<span class="select-btn" :class="{'method-active':j === methodIndex}" v-for="(item,j) in method" :key="j" @click="payChange(item.name,item.id,j)">{{item.name}}</span>
+							<span class="select-btn" :class="{'method-active':j === methodIndex}" v-for="(item,j) in method" :key="j" @click="payChange(item.name,item.value,j)">{{item.name}}</span>
 						</view>
 					</view>
 					<view class="item">
@@ -193,6 +194,7 @@
 						'中国1', '中国1'
 					]
 				},
+				// 支付方式
 				method:[
 					{
 						name:'微信',
@@ -206,6 +208,15 @@
 				index: 0,
 				typeIndex: -1, // 规格初始索引
 				methodIndex: -1, // 支付方式初始索引
+				// 提交给后台的支付入参
+				form:{
+					spmc:'',
+					spgg:'',
+					ptjg:'',
+					ptjg:'',
+					number:1,
+					zffs:''
+				}
 			};
 		},
 		components: {
@@ -214,6 +225,7 @@
 		onLoad(option) {
 			this.goodID = option.id;
 			if (option.source) this.hideSource = true;
+			
 		},
 		onShow(option) {
 			this.loadData(this.goodID);
@@ -268,8 +280,21 @@
 					this.$_log('商品详www情：', res.data.obj);
 					this.product = res.data.obj;
 					this.img = this.product.sppic
+					console.log(this.img)
 					this.article = this.product.spjs
 				});
+				
+				// 获取支付方式字典数据
+				this.getDicData('zffs').then(res=>{
+					console.log('res支付方hi',res)
+					this.method =  res.data.data.map(item=>{
+						return {
+							name:item.typename,
+							value:item.typecode
+						}
+					})
+				})
+				
 			},
 
 
@@ -287,11 +312,33 @@
 			//立即支付
 			payHandle() {
 				// 验证表单
-
+				console.log('this.form',this.form)
+				if(!this.form.spgg){
+					uni.showToast({
+						title: '请选择商品规格!',
+						icon: 'none'
+					});	
+				}
+				if(!this.form.zffs){
+					uni.showToast({
+						title: '请选择支付方式!',
+						icon: 'none'
+					});	
+				}
+				
+				// 获得入参
+				
+				// 请求前查看余额是否充足
+				
+				// 发送请求
+				//
+                 
 			},
 			// 选择商品规格
-			typeChange(val, id, index) {
+			typeChange(val, id, jg,index) {
 				this.typeIndex = index
+				this.product.ptjg = jg
+				this.form.spgg = val
 				console.log('this.typeIndex', this.typeIndex)
 				console.log('规格', val)
 				console.log('规格id', id)
@@ -299,12 +346,13 @@
 			// 选择支付方式
 			payChange(val, id, index) {
 				this.methodIndex = index
+				this.form.zffs = id
 				console.log('规格', val)
 				console.log('规格id', id)
 			},
 			//选择数量
 			numberChange(e) {
-				this.number = e.number;
+				this.form.number = e.number;
 			},
 			// 选择地址
 			addressChange(e) {
@@ -920,7 +968,7 @@
 						.select-btn {
 							border: 1px solid #333;
 							display: inline-block;
-							padding: 5rpx;
+							padding: 5rpx  20rpx;
 							margin: 5rpx;
 						}
 
