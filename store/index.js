@@ -10,25 +10,30 @@ const state = {
 	hasLogin: false,
 	isEnterpriseUser: false,
 	isEnterpriseAdmin: false,
-	
+
 	userInfo: {},
 	orderObj: {},
 	status: {
-		session_key_state: false, 
+		session_key_state: false,
 		token_state: false,
-		auth_code_state: false, 
+		auth_code_state: false,
 	},
 
-	cartData: [], 
+
+	cartData: [],
 	addressList: [],
 	balance: '0.00', // 余额
-	integral:0 // 积分
+	integral: 0, //, 积分
+	orderList: [], //订单信息
+	orderStatus: 0 //订单状态
 };
 
 const getters = {
 	hasLogin: state => state.hasLogin,
 	userInfo: state => state.userInfo,
-	cartData: state => state.cartData
+	cartData: state => state.cartData,
+	orderList: state => state.orderList,
+	orderStatus: state => state.orderStatus
 };
 
 function addCart(good, cb) {
@@ -41,7 +46,7 @@ function addCart(good, cb) {
 		gmfs: good.gmfs,
 		createName: good.createName,
 		createDate: new Date(),
-		zfzt: 0 
+		zfzt: 0
 	}).then(res => {
 		uni.showToast({
 			title: '添加成功'
@@ -79,7 +84,7 @@ function getPicUrl(url) {
 	return req.BASE_URL + url;
 }
 
-function updateUserKid(kid,cb) {
+function updateUserKid(kid, cb) {
 	let user = uni.getStorageSync('user');
 	user.kid = kid;
 	delete user.updateDate;
@@ -87,7 +92,7 @@ function updateUserKid(kid,cb) {
 	LoginAPI.wxLogin(user).then(res => {
 		console.info('更新kid', res.data);
 		uni.removeStorageSync('user');
-		uni.setStorageSync('user', res.data.data); 
+		uni.setStorageSync('user', res.data.data);
 		uni.removeStorage({
 			key: 'share-kid'
 		});
@@ -98,7 +103,7 @@ function updateUserKid(kid,cb) {
 const mutations = {
 	login(state, token) {
 		state.hasLogin = true;
-		uni.setStorage({ 
+		uni.setStorage({
 			key: 'TOKEN',
 			data: token
 		})
@@ -219,34 +224,39 @@ const mutations = {
 	},
 	statusChange(state, name, status) {
 		state[name] = status;
-		if(name == 'token_state' && status == false) this.commit('logout');
+		if (name == 'token_state' && status == false) this.commit('logout');
 	},
 
 	setOrderObj(state, obj) {
 		state.orderObj = obj;
 	},
-
+	orderStatusUpdate(state, orderStatus) {
+		state.orderStatus = orderStatus;
+	},
+	orderListUpdate(state, orderList) {
+		state.orderList = orderList;
+	},
 	setAddressList(state, obj) {
 		state.addressList = obj;
 	},
-	balanceUpdate(state, balance){
+	balanceUpdate(state, balance) {
 		state.balance = balance;
 	},
-	integralUpdate(state, integral){
+	integralUpdate(state, integral) {
 		state.integral = integral;
 	},
-	
+
 
 	updateKid(state, id) {
-		updateUserKid(id,()=>{
+		updateUserKid(id, () => {
 			state.isEnterpriseUser = true;
 		});
 	},
-	
+
 	updateIsEnterpriseUser(state, val) {
 		state.isEnterpriseUser = val;
 	},
-	
+
 	updateIsEnterpriseAdmin(state, val) {
 		state.isEnterpriseAdmin = val;
 	},

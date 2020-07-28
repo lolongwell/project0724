@@ -44,7 +44,8 @@ export default {
   methods: {
     handle (item, index) {
       this.active = index;
-      this.$emit('handle', {text: item.text, index: index});
+	  // 点击时将订单状态存入全局
+	  this.$store.commit('orderStatusUpdate',index)
     }
   }
 };

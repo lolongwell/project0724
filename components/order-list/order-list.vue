@@ -32,7 +32,7 @@
 						</view>
 
 						<!-- 已完成 -->
-						<button v-else-if="item.wczt === 3" class="status ywc-card">已购物返利：{{item.flmx}}</button>
+						<button v-else-if="item.wczt === 3" class="status ywc-card">已购物返利：￥{{item.flmx}}</button>
 					</view>
 				</view>
 			</view>
@@ -74,20 +74,35 @@
 			}
 
 		},
-		mounted() {},
+			
+		computed:{
+			orderList(){
+				return this.$store.state.orderList
+			},
+			orderStatus(){
+				return this.$store.state.orderStatus
+			},
+		},
+		mounted() {
+			console.log('this.orderList',this.orderList)
+			console.log('this.orderStatus',this.orderStatus)
+		},
 		methods: {
 			//点击提货方式：发送请求刷新列表
 			thHandle(val) {
-				console.log('val', val)
-				// 获取入参
+				// 1.获取入参
 				let th = {
 					userId: uni.getStorageSync('user').userId,
-					thfs: val
+					thfs: val,
+					wczt:2
 				}
-				// 发送请求，刷新列表
+				// 2.发送请求，刷新列表
 				orderAPI.ptList(th).then(res => {
 					console.log('res',res)
 					// this.goodsList = this.goodsList2
+					
+					// 3.todo:存入数据更新到全局
+						// this.$store.state.commit('orderListUpdate',this.goodsList)
 				})
 
 			}
