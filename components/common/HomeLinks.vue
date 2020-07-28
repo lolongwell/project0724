@@ -2,8 +2,9 @@
     <view>
 		<ul class="_lll">
 			<li v-for="item in dataList" :key="item.id" @click="Gl(item.id)">
-				<image :src="item.pic" mode="aspectFit" class="img"></image>
-				<view class="txt">小地家族</view>
+				<!-- <image :src="item.pic"  mode="aspectFit" class="img"></image> -->
+				<img :src="item.pic" class="img"></img>
+				<view class="txt">{{item.spfl2}}</view>
 			</li>
 		</ul>
     </view>
@@ -22,44 +23,15 @@ export default {
 	},
 	data() {
 		return {
-            links:[
-						{
-							url: '/pages/groupBuy/groupBuy?type=10&title=小地家族',
-							title: '小地家族'
-						},
-						{
-							url: '/pages/groupBuy/groupBuy?type=9&title=小地单挑',
-							title: '小地单挑'
-						},
-						{
-							url: '/pages/groupBuy/groupBuy?id=2c93c2aa6eba5e30016ebc45bc61000f&source=1',
-							title: '二十四鲜'
-						},
-						{
-							url: '/pages/groupBuy/groupBuy?type=5&title=抢鲜',
-							title: '抢鲜'
-						},
-						{
-							url: '/pages/groupBuy/groupBuy?id=2c93c2aa6ebce3fc016ebcf14d5e0003&source=1',
-							title: '88折会员卡'
-						},
-						{
-							url: '/pages/groupBuy/groupBuy?type=14&title=超级年卡&source=1',
-							title: '超级年卡'
-						},
-						{
-							url: '/pages/groupBuy/groupBuy?type=16&title=精选农场',
-							title: '精选农场'
-						},
-						{
-							url: '/pages/articleDetail/articleDetail?id=2c93c2aa723fb92a01724b010c830019',
-							title: '品牌故事'
-						}
-					]
+             imgUrl:[]
         };
 	},
 	onShow() {
-		console.log(11111,this.dataList)
+	},
+	onLoad(){
+	},
+	mounted(){
+     
 	},
 	methods: {
 		Gl(url) {
@@ -89,6 +61,7 @@ export default {
 	align-items: center;
     font-size: $font-sm;
     li{
+		flex: 1;
         width: calc(25% - 10rpx);
         box-sizing: border-box;
         text-align: right;
@@ -97,9 +70,12 @@ export default {
 		justify-content: center;
 		align-items: center;
 		margin: 30rpx 0;
+		padding: 10rpx;
         .img {
 			width: 80rpx;
+			width: 100%;
 			height: 80rpx;
+			height: 100%;
 		}
     }
 }
