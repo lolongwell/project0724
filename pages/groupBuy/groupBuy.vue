@@ -199,6 +199,7 @@
 			// width: 200rpx;
 			height: 100%;
 			overflow: auto;
+			padding-left:0 ;
 
 			li {
 				margin: 20rpx auto;
@@ -212,6 +213,7 @@
 			flex: 1;
 			height: 100%;
 			overflow: auto;
+			background-color: #fff;
 
 			li {
 				margin: 20rpx auto;
@@ -219,6 +221,10 @@
 				text-align: center;
 				box-sizing: border-box;
 				display: flex;
+				&:nth-of-type(1){
+					margin-top: 0;
+					padding-top: 0;
+				}
 
 				.good-img {
 					width: 180rpx;
@@ -239,6 +245,7 @@
 						height: 40rpx;
 						font-size: 32rpx;
 						overflow: hidden;
+						text-align: left;
 					}
 
 					.price {
@@ -289,6 +296,8 @@
 	}
 
 	.selected {
-		color: #007AFF;
+		color: $my-color;
+		background-color: #fff;
+		border-left: 2px solid $my-color;
 	}
 </style>
