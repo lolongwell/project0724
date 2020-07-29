@@ -53,7 +53,6 @@
 				if (item.text !== "热门" && item.text !== "积分乐兑") {
 					// 点击时将订单状态存入全局
 					this.$store.commit('orderStatusUpdate', index)
-
 				}
 
 			}

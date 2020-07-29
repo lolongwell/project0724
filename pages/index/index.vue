@@ -19,10 +19,10 @@
 		<!--  #ifdef MP-WEIXIN -->
 		<view class="__space"></view>
 		<!--  #endif -->
-		<image src="../../static/images/banner1.jpg" mode="" @click="gotoIntegral" class="banner-img"></image>
+		<image src="../../static/images/banner_1.png" mode="" @click="gotoIntegral" class="banner-img"></image>
 		<view class="banner-img banner-img2">
-			<image @click="goNewGoods" src="../../static/images/banner1.jpg" mode="" class="img"></image>
-			<image src="../../static/images/banner1.jpg" mode="" class="img"></image>
+			<image @click="goNewGoods" src="../../static/images/banner_2.png" mode="" class="img"></image>
+			<image src="../../static/images/banner_3.png" mode="" class="img"></image>
 		</view>
 
 		<uni-tab :dataSource="tabList" @handle="switchTab"></uni-tab>
@@ -225,21 +225,29 @@
 	}
 
 	.banner-img {
-		width: 100vw;
-		height: 300rpx;
+		width: 100%;
+		height: 280rpx;
 		padding: 20rpx;
-		margin-top: 20rpx;
+		// margin-top: 20rpx;
 		display: flex;
-		justify-content: space-around;
+		// justify-content: space-around;
 		align-items: center;
+		&:nth-of-type(1){
+			background-color: #fff;
+		}
 	}
 
 	.banner-img2 {
-		height: 150rpx;
+		// height: 150rpx;
 
 		.img {
-			width: calc(50% - 30rpx);
+			// width: calc(50% - 30rpx);
 			height: 100%;
+			border-radius: 15rpx;
+			flex: 1;
+			&:nth-of-type(1){
+				margin-right: 30rpx;
+			}
 		}
 	}
 

@@ -1,7 +1,7 @@
 <template>
     <view>
 		<ul class="_lll">
-			<li v-for="item in dataList" :key="item.id" @click="Gl(item.id)">
+			<li v-for="item in dataList" :key="item.id" @click="Gl(item.spfl)">
 				<!-- <image :src="item.pic"  mode="aspectFit" class="img"></image> -->
 				<img :src="item.pic" class="img"></img>
 				<view class="txt">{{item.spfl2}}</view>
@@ -34,17 +34,24 @@ export default {
      
 	},
 	methods: {
-		Gl(url) {
-			let params = url.split('?')[1].split('&')
-			params.forEach(v => {
-				if (v.indexOf('type') != -1) {
-					let type = v.split('=')[1]
-					uni.setStorageSync('type', type)
-				}
-			})
-				uni.switchTab({
-					url: url
-				})
+		Gl(type) {
+			
+			// console.log('url',url)
+			// let params = url.split('?')[1].split('&')
+			// console.log('params',params)
+			// params.forEach(v => {
+			// 	if (v.indexOf('type') != -1) {
+			// 		let type = v.split('=')[1]
+			// 		uni.setStorageSync('type', type)
+			// 	}
+			// })
+			// 	uni.switchTab({
+			// 		url: url
+			// 	})
+			this.$store.commit('ptspTypeUpdate',type)
+			uni.switchTab({
+				url: '../../pages/groupBuy/groupBuy'
+			});
 		}
 	}
 };
@@ -73,9 +80,10 @@ export default {
 		padding: 10rpx;
         .img {
 			width: 80rpx;
-			width: 100%;
+			// width: 100%;
 			height: 80rpx;
-			height: 100%;
+			border-radius: 10rpx;
+			// height: 100%;
 		}
     }
 }

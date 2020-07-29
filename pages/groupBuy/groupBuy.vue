@@ -1,33 +1,29 @@
 <template>
 	<view>
 		<ul class="group-type">
-			<li class="item" v-for="item in groupType" :key="item.text">
-				<image class="img" :src="item.url" mode=""></image>
-				<text>{{item.text}}</text>
+			<li class="item" v-for="item in groupType" :key="item.text" @click="ptTypeHandle(item.pt_value)">
+				<img class="img" :src="item.pt_url"></img>
+				<text>{{item.pt_name}}</text>
 			</li>
 		</ul>
 		<view class="goods-floor">
 			<!-- 左侧楼层 -->
 			<ul class="floor-nav">
-				<li 
-					v-for="(item, index) in floorNav" 
-					:key="item.id" 
-					:class="curIndex == index ? 'selected' : ''"
-					@click="setFloorNavMountClick(index)"
-				>{{ item.name }}</li>
+				<!-- <li :class="curIndex === -1"  @click="setFloorNavMountClick(-1)"> 全部</li> -->
+				<li v-for="(item, index) in floorNav" :key="item.id" :class="ptspType == item.spfl ? 'selected' : ''" @click="setFloorNavMountClick(index,item.spfl)">{{ item.spfl2 }}</li>
 			</ul>
 			<!-- 右侧的内容区域 -->
 			<ul class="floor-list">
 				<li v-for="item in floorList" :key="item.id">
-					<image class="good-img" src="../../static/images/default.png" mode=""></image>
+					<img class="good-img" :src="item.sppic"></img>
 					<view class="good-info">
-						<text class="tit">{{item.title}}</text>
-						<text class="price">￥ {{item.price}}</text>
-						<text class="rebate">拼团及返{{item.rebate}}</text>
+						<text class="tit">{{item.spmc}}</text>
+						<text class="price">￥ {{item.ptjg}}</text>
+						<text class="rebate">拼团即返{{item.flbfb}}%</text>
 						<view class="cart">
 							<view class="left">
 								<image class="p-icon" src="../../static/images/default.png" mode=""></image>
-								<text>{{item.type == '1' ? '2人团' : item.type == '2' ? '5人团' : item.type == '3' ? '10人团' : ''}}</text>
+								<text>{{item.ptlx == '2' ? '2人团' : item.type == '5' ? '5人团' : item.type == '10' ? '10人团' : ''}}</text>
 							</view>
 							<view class="right">
 								<image class="c-icon" src="../../static/images/default.png" mode=""></image>
@@ -41,24 +37,31 @@
 </template>
 
 <script>
+	import productAPI from '@/api/product/product.js'
+	import OrderAPI from "@/api/order/order.js";
 	export default {
 		name: "groupBuy",
 		components: {},
 		data() {
 			return {
+				// 拼团类型
 				groupType: [{
-						text: '十人拼团',
-						url: '../../static/images/default.png'
+						pt_name: '十人拼团',
+						pt_value: 10,
+						pt_url: '../../static/images/pt_10.png'
 					},
 					{
-						text: '五人拼团',
-						url: '../../static/images/default.png'
+						pt_name: '五人拼团',
+						pt_value: 5,
+						pt_url: '../../static/images/pt_5.png'
 					},
 					{
-						text: '二人拼团',
-						url: '../../static/images/default.png'
+						pt_name: '二人拼团',
+						pt_value: 5,
+						pt_url: '../../static/images/pt_2.png'
 					}
 				],
+				// 左侧商品类型数据
 				floorNav: [{
 						id: 1,
 						name: '全部'
@@ -92,110 +95,68 @@
 						name: '小地家族'
 					}
 				],
+				// 右侧商品列表数据
 				floorList: [],
-				curIndex: 0
+				curIndex: ''
 			};
 		},
+		computed: {
+			ptspType() {
+				return this.$store.state.ptspType
+			}
+		},
 		onShow() {
-			this.floorList = [
-				{
-					title: '2020款男鞋韩版潮鞋百搭...',
-					price: '358',
-					rebate: '25%',
-					type: '1'
-				},
-				{
-					title: '2020款男鞋韩版潮鞋百搭...',
-					price: '358',
-					rebate: '25%',
-					type: '1'
-				},
-				{
-					title: '2020款男鞋韩版潮鞋百搭...',
-					price: '358',
-					rebate: '25%',
-					type: '1'
-				}
-			]
+			// 获取右边的列表数据
+			this.getPtspList()
+			this.getPtlxList()
+		},
+		watch:{
+			ptspType(val){
+				console.log('val',val)
+				this.curIndex = val			
+			}
 		},
 		methods: {
-			setFloorNavMountClick(index) {
-				console.log(index)
-				this.curIndex = index
-				switch (index) {
-					case 0:
-						this.floorList = [
-							{
-								title: '2020款男鞋韩版潮鞋百搭...',
-								price: '358',
-								rebate: '25%',
-								type: '1'
-							},
-							{
-								title: '2020款男鞋韩版潮鞋百搭...',
-								price: '358',
-								rebate: '25%',
-								type: '1'
-							},
-							{
-								title: '2020款男鞋韩版潮鞋百搭...',
-								price: '358',
-								rebate: '25%',
-								type: '1'
-							}
-						]
-						break;
-					case 1:
-						this.floorList = [
-							{
-								title: '2020款男鞋韩版潮鞋百搭...',
-								price: '458',
-								rebate: '15%',
-								type: '2'
-							},
-							{
-								title: '2020款男鞋韩版潮鞋百搭...',
-								price: '458',
-								rebate: '15%',
-								type: '2'
-							},
-							{
-								title: '2020款男鞋韩版潮鞋百搭...',
-								price: '458',
-								rebate: '15%',
-								type: '2'
-							}
-						]
-						break;
-					case 2:
-						this.floorList = [
-							{
-								title: '2020款男鞋韩版潮鞋百搭...',
-								price: '558',
-								rebate: '5%',
-								type: '3'
-							},
-							{
-								title: '2020款男鞋韩版潮鞋百搭...',
-								price: '558',
-								rebate: '5%',
-								type: '3'
-							}
-						]
-						break;
-					case 3:
-						this.floorList = [
-							{
-								title: '2020款男鞋韩版潮鞋百搭...',
-								price: '658',
-								rebate: '25%',
-								type: '1'
-							}
-						]
-						break;
-					default: 
-					this.floorList = []
+			ptTypeHandle(type) {
+				console.log('点击的拼团类型', type)
+				// 发送请求获取相应的数据
+
+			},
+			// 获取左侧商品分类
+			getPtlxList() {
+				OrderAPI.getDic("spfl").then((res) => {
+					this.floorNav = res.data.obj.results
+					let obj = {
+						spfl:'',
+						spfl2:'全部'
+						
+					}
+					this.floorNav.unshift(obj)
+					console.log('this.floorNav', this.floorNav)
+				});
+			},
+			//  获取右边的列表数据
+			getPtspList() {
+				let o = {
+					spfl: this.ptspType
 				}
+				if(this.ptspType === '0'){
+					console.log(2222)
+				}
+				productAPI.productList(o).then(res => {
+					console.log('res拼团', res)
+					this.floorList = res.data.obj.results
+					console.log('resthis.floorList', this.floorList)
+				})
+
+			},
+			// 点击左侧的类型
+			setFloorNavMountClick(index,type) {
+				this.curIndex = index
+				// this.ptspType = type
+				this.$store.commit('ptspTypeUpdate'  , type)
+				 this.getPtspList()
+			
 			}
 		}
 	}
@@ -204,7 +165,7 @@
 <style lang="scss" scoped>
 	.group-type {
 		width: 100%;
-		height: 180rpx;
+		// height: 180rpx;
 		padding: 30rpx 20rpx;
 		display: flex;
 		justify-content: space-around;
@@ -217,6 +178,7 @@
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
+			font-size: $font-base;
 
 			.img {
 				width: 100rpx;
@@ -231,10 +193,13 @@
 		height: calc(100vh - 180rpx);
 		display: flex;
 		align-items: flex-start;
+		font-size: $font-base;
+
 		.floor-nav {
-			width: 200rpx;
+			// width: 200rpx;
 			height: 100%;
 			overflow: auto;
+
 			li {
 				margin: 20rpx auto;
 				padding: 10rpx;
@@ -242,21 +207,25 @@
 				box-sizing: border-box;
 			}
 		}
+
 		.floor-list {
 			flex: 1;
 			height: 100%;
 			overflow: auto;
+
 			li {
 				margin: 20rpx auto;
 				padding: 10rpx;
 				text-align: center;
 				box-sizing: border-box;
 				display: flex;
+
 				.good-img {
 					width: 180rpx;
 					height: 180rpx;
 					margin-right: 20rpx;
 				}
+
 				.good-info {
 					flex: 1;
 					height: 100%;
@@ -264,41 +233,50 @@
 					flex-direction: column;
 					justify-content: space-around;
 					align-items: flex-start;
+
 					.tit {
 						width: 100%;
 						height: 40rpx;
 						font-size: 32rpx;
 						overflow: hidden;
 					}
+
 					.price {
 						font-size: 28rpx;
 						color: #ff0000;
 					}
+
 					.rebate {
 						font-size: 28rpx;
 						color: #ff0000;
 					}
+
 					.cart {
-						width: 240rpx;
+						// width: 240rpx;
 						padding: 10rpx;
 						display: flex;
 						justify-content: space-around;
-						border: 1rpx solid #FF0000;
+						border: 1rpx solid $my-color;
 						border-radius: 6rpx;
+						font-size: $font-base;
+
 						.left {
 							display: flex;
 							align-items: center;
 							padding-left: 10rpx;
+
 							.p-icon {
 								width: 40rpx;
 								height: 40rpx;
 								margin-right: 10rpx;
 							}
 						}
+
 						.right {
 							display: flex;
 							justify-content: center;
 							align-items: center;
+
 							.c-icon {
 								width: 40rpx;
 								height: 40rpx;
@@ -309,6 +287,7 @@
 			}
 		}
 	}
+
 	.selected {
 		color: #007AFF;
 	}
