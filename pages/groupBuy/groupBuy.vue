@@ -240,9 +240,11 @@
 			height: 100%;
 			overflow: auto;
 			background-color: #fff;
+			padding-left: 20rpx;
+			font-size: $font-base;
 
 			li {
-				margin: 20rpx auto;
+				margin: 10rpx auto;
 				padding: 10rpx;
 				text-align: center;
 				box-sizing: border-box;
@@ -298,6 +300,10 @@
 							display: flex;
 							align-items: center;
 							padding-left: 10rpx;
+							img{
+								width: 30rpx;
+								height: 30rpx;
+							}
 
 							.p-icon {
 								width: 40rpx;
