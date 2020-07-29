@@ -105,18 +105,12 @@
 				let paramArr = ghbm.split(',')
 				let yqm = paramArr[0], yqrId = paramArr[1]
 				console.log(yqm, yqrId)
-				const appId = getApp().globalData.appId
-				const local = window.location.href
-				console.log(appId)
-				console.log(local)
-				console.log(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${encodeURIComponent(local)}&response_type=code&scope=snsapi_userinfo#wechat_redirect`)
-				// let code = null
-				// if (code === null || code === '') {
-				// 	window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${encodeURIComponent(local)}&response_type=code&scope=snsapi_userinfo`
-				// }
-
+				uni.redirectTo({
+					 url: `/pages/register/register?yqm=${yqm}&yqrid=${yqrId}`
+				});
+			} else {
+				this.getGoodList();
 			}
-			this.getGoodList();
 		},
 		onShow() {
 			this.getModules();

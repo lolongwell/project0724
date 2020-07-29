@@ -1,67 +1,51 @@
 <template>
   <view class="register">
     <text class="tip">*请使用该微信号绑定的手机号注册</text>
-    <icon-input
-      class="item"
-      iptType="number"
-      placeholderTxt="手机号"
-      @getValue="getValue('phone', $event)"
-    ></icon-input>
-    <view class="input-code">
-      <icon-input
-        class="item"
-        iptType="number"
-        placeholderTxt="验证码"
-        @getValue="getValue('veriCode', $event)"
-      ></icon-input>
-      <span v-if="!isSendCaptcha" class="code-text" @click="handleBtn"
-        >获取验证码</span
-      >
-      <span v-else class="code-text" @click="handleBtn"
-        >重新发送{{ timerNum }}</span
-      >
-    </view>
-    <icon-input
-      class="item"
-      placeholderTxt="邀请码"
-      @getValue="getValue('invitationCode', $event)"
-    ></icon-input>
-    <icon-input
-      class="item"
-      placeholderTxt="真实姓名"
-      @getValue="getValue('realName', $event)"
-    ></icon-input>
-    <icon-input
-      class="item"
-      iptType="password"
-      placeholderTxt="请设置密码"
-      @getValue="getValue('password1', $event)"
-    ></icon-input>
-    <icon-input
-      class="item"
-      iptType="password"
-      placeholderTxt="请确认密码"
-      @getValue="getValue('password2', $event)"
-    ></icon-input>
-    <button class="item btn" type="default" @click="sumbit">确认</button>
-    <!-- 	<view class="tip">
-			已有账号<text>登录</text>
-		</view> -->
+		<view class="icon-input">
+			<image class="img" src="../../static/images/default.png" mode=""></image>
+			<input class="ipt" type="number" maxlength="11" placeholder="手机号" placeholder-class="ipt-placeholder" v-model="phone"/>
+		</view>
+
+		<view class="icon-input">
+			<image class="img" src="../../static/images/default.png" mode=""></image>
+			<input class="ipt" type="number" maxlength="6" placeholder="验证码" placeholder-class="ipt-placeholder" v-model="veriCode"/>
+			<view class="ipt-btn" @click="handleBtn">
+				获取验证码
+			</view>
+		</view>
+
+		<view class="icon-input">
+			<image class="img" src="../../static/images/default.png" mode=""></image>
+			<input class="ipt"  placeholder="邀请码" placeholder-class="ipt-placeholder" v-model="yqm"/>
+		</view>
+
+		<view class="icon-input">
+			<image class="img" src="../../static/images/default.png" mode=""></image>
+			<input class="ipt" placeholder="姓名" placeholder-class="ipt-placeholder" v-model="realName"/>
+		</view>
+
+		<view class="icon-input">
+			<image class="img" src="../../static/images/default.png" mode=""></image>
+			<input class="ipt" type="password" placeholder="密码" placeholder-class="ipt-placeholder" v-model="password1"/>
+		</view>
+		<view class="icon-input">
+			<image class="img" src="../../static/images/default.png" mode=""></image>
+			<input class="ipt" type="password" placeholder="再次确认" placeholder-class="ipt-placeholder" v-model="password2"/>
+		</view>
+
+		<button class="item btn" type="default" @click="sumbit">确认</button>
   </view>
 </template>
 
 <script>
-import IconInput from "@/components/common/IconInput.vue";
 import RegisterAPI from "@/api/register/register";
 export default {
-  components: {
-    IconInput,
-  },
   data() {
     return {
       phone: "",
       veriCode: "",  		// 验证码
-      invitationCode: "",
+			yqm: "",			// 邀请码
+			yqrId: '',		// 邀请人id
       realName: "",
       password1: "",
       password2: "",
@@ -72,8 +56,34 @@ export default {
       isCode: false,
     };
   },
-  computed: {},
+	computed: {},
+	onLoad(option) {
+		this.yqm = option.yqm
+		this.yqrId = option.yqrid
+		// this.getWxCode()
+	},
   methods: {
+		getWxCode() {
+			const appId = getApp().globalData.appId
+			const local = window.location.href
+			let code = this.getUrlParam('code')
+			console.log('code', code)
+			if (code === null || code === '') {
+				window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${encodeURIComponent(local)}&response_type=code&scope=snsapi_userinfo#wechat_redirect`
+			} else {
+				console.log('code已存在',code)
+				this.getOpenid(code)
+			}
+		},
+		getOpenid(code) {
+			RegisterAPI.getOpenId(code).then(res => {
+				console.log('openid',res)
+				if (res.respCode == 0) {
+					uni.setStorageSync('openid', res.data.openid)
+					uni.setStorageSync('session_key', res.data.session_key)
+				}
+			})
+		},
     sumbit() {
       let {
         phone,
@@ -83,101 +93,65 @@ export default {
         password1,
         password2,
       } = this;
-      let reg = /^1[3456789]\d{9}$/;
-      // if (!phone) {
-      // 	uni.showToast({
-      // 		title: '请输入手机号码！',
-      // 		icon: 'none',
-      // 		duration: 2000
-      // 	});
-      // 	return
-      // }
-      // if (!reg.test(phone)) {
-      // 	uni.showToast({
-      // 		title: '手机号输入格式不对，请重新输入！',
-      // 		icon: 'none',
-      // 		duration: 2000
-      // 	});
-      // 	return
-      // }
-      // if (!realName) {
-      // 	uni.showToast({
-      // 		title: '请输入用户名！',
-      // 		icon: 'none',
-      // 		duration: 2000
-      // 	});
-      // 	return
-      // }
-      // if (!veriCode) {
-      // 	uni.showToast({
-      // 		title: '请输入验证码！',
-      // 		icon: 'none',
-      // 		duration: 2000
-      // 	});
-      // 	return
-      // }
-      // if (this.isCode) {
-      // 	uni.showToast({
-      // 		title: '请输入正确的验证码！',
-      // 		icon: 'none',
-      // 		duration: 2000
-      // 	});
-      // 	return
-      // }
-      // if (!password1) {
-      // 	uni.showToast({
-      // 		title: '请输入密码',
-      // 		icon: 'none',
-      // 		duration: 2000
-      // 	});
-      // 	return
-      // }
-      // if (password1 !== password2) {
-      // 	uni.showToast({
-      // 		title: '两次输入的密码不一致，请检查！',
-      // 		icon: 'none',
-      // 		duration: 2000
-      // 	});
-      // 	return
-      // }
+      if (!realName) {
+      	uni.showToast({
+      		title: '请输入用户名！',
+      		icon: 'none',
+      		duration: 2000
+      	});
+      	return
+      }
+      if (!veriCode) {
+      	uni.showToast({
+      		title: '请输入验证码！',
+      		icon: 'none',
+      		duration: 2000
+      	});
+      	return
+      }
+      if (this.isCode) {
+      	uni.showToast({
+      		title: '请输入正确的验证码！',
+      		icon: 'none',
+      		duration: 2000
+      	});
+      	return
+      }
+      if (!password1) {
+      	uni.showToast({
+      		title: '请输入密码',
+      		icon: 'none',
+      		duration: 2000
+      	});
+      	return
+      }
+      if (password1 !== password2) {
+      	uni.showToast({
+      		title: '两次输入的密码不一致，请检查！',
+      		icon: 'none',
+      		duration: 2000
+      	});
+      	return
+      }
 
       //提交注册
-		
-
-      // let data = {
-      //   mobilePhone: this.phone,
-      //   userName: this.realName,
-      //   password: this.password1,
-      //   ghbm: this.invitationCode,
-      // };
-      // RegisterAPI.submitRegister(data).then((res) => {
-      //   console.log("注册", res);
-      // });
+			let openId = uni.getStorageSync('openid')
+      let data = {
+        mobilePhone: this.phone,
+        userName: this.realName,
+        password: this.password1,
+				ghbm: this.invitationCode,
+				yqrId: this.yqrId,
+				openId
+      };
+      RegisterAPI.submitRegister(data).then((res) => {
+        console.log("注册", res);
+      });
     },
-    getValue(type, val) {
-      switch (type) {
-        case "phone":
-          this.phone = val;
-          break;
-        case "veriCode":
-          this.veriCode = val;
-          break;
-        case "invitationCode":
-          this.invitationCode = val;
-          break;
-        case "realName":
-          this.realName = val;
-          break;
-        case "password1":
-          this.password1 = val;
-          break;
-        case "password2":
-          this.password2 = val;
-          break;
-      }
-    },
-    handleBtn(val) {
-      let { phone } = this;
+    handleBtn() {
+			let { phone } = this;
+			console.log(phone)
+			let reg = /^1[3456789]\d{9}$/;
       if (!phone) {
         uni.showToast({
           title: "请输入手机号！",
@@ -185,10 +159,17 @@ export default {
           duration: 2000,
         });
         return;
+			}
+			if (!reg.test(phone)) {
+      	uni.showToast({
+      		title: '手机号输入格式不对，请重新输入！',
+      		icon: 'none',
+      		duration: 2000
+      	});
+      	return
       }
-      this.isSendCaptcha = true;
-      this.sendCodeTime();
-
+      // this.isSendCaptcha = true;
+      // this.sendCodeTime();
       if (phone) {
         RegisterAPI.getPhoneCode(phone).then((res) => {
           console.log("res", res);
@@ -217,10 +198,16 @@ export default {
       }
 		},
 		getUrlParam(name) {
-			let reg = new RegExp('(^|&' + name + '=([^&]*)(&|$)')
-			let r = window.location.search.substr(1).match(reg)
-			if (r != null) return unescape(r[2])
-			return null
+			var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
+			let url = window.location.href.split('#')[0]
+			let search = url.split('?')[1]
+			if (search) {
+				var r = search.substr(0).match(reg)
+				if (r !== null) return unescape(r[2])
+				return null
+			} else {
+				return null
+			}
 		}
   },
 };
@@ -267,4 +254,34 @@ export default {
     color: #ff0000;
   }
 }
+
+	.icon-input {
+		width: 80vw;
+		height: 80rpx;
+		padding: 10rpx 30rpx;
+		margin: 20rpx 0;
+		border-radius: 36rpx;
+		box-sizing: border-box;
+		background: #fff;
+		display: flex;
+		justify-content: start;
+		align-items: center;
+		.img {
+			width: 30rpx;
+			height: 30rpx;
+			margin-right: 30rpx;
+		}
+		.ipt {
+			flex: 1;
+			height: 100%;
+		}
+		.ipt-btn {
+			font-size: 24rpx;
+			color: #FF0000;
+			margin-left: 20rpx;
+		}
+	}
+	.ipt-placeholder {
+		color: #ccc;
+	}
 </style>
