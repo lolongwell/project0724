@@ -21,8 +21,8 @@
 		<!--  #endif -->
 		<image src="../../static/images/banner_1.png" mode="" @click="gotoIntegral" class="banner-img"></image>
 		<view class="banner-img banner-img2">
-			<image @click="goNewGoods" src="../../static/images/banner_2.png" mode="" class="img"></image>
-			<image src="../../static/images/banner_3.png" mode="" class="img"></image>
+			<image @click="goNewGoods" src="../../static/images/banner_2.png" mode=""  class="img"></image>
+			<image src="../../static/images/banner_3.png" mode="" class="img"  @click="gotoIntegral"></image>
 		</view>
 
 		<uni-tab :dataSource="tabList" @handle="switchTab"></uni-tab>
@@ -154,6 +154,7 @@
 				this.showTab = val.index;
 			},
 			gotoIntegral() {
+				console.log(33333)
 				uni.navigateTo({
 					url: '/pages/integral/exchange'
 				})

@@ -22,12 +22,16 @@
 						<text class="rebate">拼团即返{{item.flbfb}}%</text>
 						<view class="cart">
 							<view class="left">
-								<image class="p-icon" src="../../static/images/default.png" mode=""></image>
+								<img src="../../static/images/mp.png" alt="">
+								<!-- <image class="p-icon" src="../../static/images/default.png" mode=""></image> -->
 								<!-- <icon class="p-icon"   type="personal" size="26"/> -->
 								<text class="p-text">{{item.ptlx == '2' ? '2人团' : item.ptlx == '5' ? '5人团' : item.ptlx == '10' ? '10人团' : ''}}</text>
 							</view>
 							<view class="right">
-								<image class="c-icon" src="../../static/images/car.png" mode=""></image>
+								<!-- <image class="c-icon" src="../../static/images/car.png" mode=""></image> -->
+								<!-- <img src="../../static/images/wc.png" alt=""> -->
+								<img src="../../static/images/wc.png" alt="">
+								<text>去开团</text>
 							</view>
 						</view>
 					</view>
@@ -283,7 +287,7 @@
 
 					.cart {
 						// width: 240rpx;
-						padding: 10rpx;
+						// padding: 10rpx;
 						display: flex;
 						justify-content: space-around;
 						border: 1rpx solid $my-color;
@@ -306,14 +310,26 @@
 							}
 						}
 
+						// .right {
+						// 	display: flex;
+						// 	justify-content: center;
+						// 	align-items: center;
+
+						// 	.c-icon {
+						// 		width: 40rpx;
+						// 		height: 40rpx;
+						// 	}
+						// }
 						.right {
 							display: flex;
-							justify-content: center;
-							align-items: center;
+							background: #ec3b3b;
+							padding: 10rpx;
+							color: #ffffff;
 
-							.c-icon {
+							img {
 								width: 40rpx;
 								height: 40rpx;
+								margin-right: 10rpx;
 							}
 						}
 					}
