@@ -69,15 +69,15 @@
 		// 	};
 		// },
 		mounted() {
-<<<<<<< HEAD
+
 			console.log('isLogin', this.isLogin)
 			// this.getUM();
 			// let user = uni.getStorageSync('user');
-=======
+
 			this.getUM();
 			let user = uni.getStorageSync('user');
 			console.log('user3eww',user)
->>>>>>> bccd28651765f3543201dbe189d9c05968ea9e4c
+
 			// this.phone = user.mobilePhone;
 			// if (user.kid != null) {
 				// this.isEnterpriseUser = true;
