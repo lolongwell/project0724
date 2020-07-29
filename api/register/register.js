@@ -6,8 +6,10 @@ let RegisterAPI = {
 	},
 	submitRegister(d) {
 		d = JSON.stringify(d);
-		// return h.postJson(`rest/userAddressController`, d);
-		return h.post(`/rest/tokens/updateUserInfo`, d);
+		return h.post(`/rest/tokens/updateUserInfo`, d, false);
+	},
+	getOpenId(d) {
+		return h.post(`/rest/tokens/getOpenId?code=${d}`, d, false)
 	}
 }
 
