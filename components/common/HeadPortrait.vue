@@ -62,6 +62,7 @@
 		mounted() {
 			this.getUM();
 			let user = uni.getStorageSync('user');
+			console.log('user3eww',user)
 			// this.phone = user.mobilePhone;
 			if (user.kid != null) {
 				// this.isEnterpriseUser = true;
@@ -186,7 +187,7 @@
 			goLogin() {},
 			login(){
 				uni.navigateTo({
-					url: `/pages/register/register`
+					url: `/pages/login/login`
 				});
 			},
 			invite() {
