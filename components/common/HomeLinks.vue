@@ -69,8 +69,9 @@ export default {
     font-size: $font-sm;
 	background-color: #fff;
 	margin-bottom: 20rpx;
+	
     li{
-		flex: 1;
+		// flex: 1;
         width: calc(25% - 10rpx);
         box-sizing: border-box;
         text-align: right;
@@ -79,11 +80,12 @@ export default {
 		justify-content: center;
 		align-items: center;
 		margin: 30rpx 0;
+		width: 160rpx;
 		padding: 10rpx;
         .img {
-			width: 80rpx;
+			width: 100rpx;
 			// width: 100%;
-			height: 80rpx;
+			height: 100rpx;
 			border-radius: 10rpx;
 			// height: 100%;
 		}
