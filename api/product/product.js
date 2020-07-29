@@ -6,14 +6,13 @@ let productAPI = {
 		let o = {
 			ptsp: {
 				"spfl": d.spfl,
-				"sxj": '1' 
 			},
 			dataGrid: {
 				"field": "id,spfl,name",
 				"page": 1,
 				"rows": 1000,
 				"order": "desc",
-				"sort": "createDate"
+				"sort": d.name || ''
 			}
 		}
 		o = JSON.stringify(o);
