@@ -24,7 +24,7 @@
 			<span>{{integral}}</span>
 		</view>
 		<view class="turntable">
-			转盘
+			<turntable></turntable>
 		</view>
 		<view class="exchange-list-box">
 			<exchange-list :intergralList="intergralList"></exchange-list>
@@ -34,10 +34,12 @@
 
 <script>
 	import ExchangeList from '@/components/integral/exchange-list.vue'
+	import Turntable from '@/components/integral/turntable.vue'
 	import productAPI from "@/api/product/product.js";
 	export default {
 		components: {
-			ExchangeList
+			ExchangeList,
+			Turntable
 		},
 		data() {
 			return {

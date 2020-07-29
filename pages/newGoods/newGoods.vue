@@ -1,6 +1,6 @@
 <template>
   <view class="new-goods">
-    <img class="top-pic" src="../../static/banners/b1.jpg" alt="">
+    <img class="top-pic" src="../../static/images/banner_1.png" alt="">
     <view class="box">
       <ul>
         <li v-for="(item, index) in list" :key="index" @click="goDetail(item.id)">
