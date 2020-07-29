@@ -67,6 +67,8 @@ export default {
 	justify-content: center;
 	align-items: center;
     font-size: $font-sm;
+	background-color: #fff;
+	margin-bottom: 20rpx;
     li{
 		flex: 1;
         width: calc(25% - 10rpx);
