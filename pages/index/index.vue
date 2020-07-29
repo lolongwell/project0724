@@ -129,17 +129,29 @@
 		methods: {
 			getModules() {
 				OrderAPI.getDic("spfl").then((res) => {
-					this.modules = res.data.obj.results
+					let data = res.data.obj.results
+					data.forEach(v => {
+						v.pic = '/yplg/' + v.pic
+					})
+					this.modules = data
 					console.log('this.modules',this.modules)
 				});
 			},
 			getGoodList() {
 				productAPI.productList("spfl").then((res) => {
-					this.goodListData = res.data.obj.results
+					let data = res.data.obj.results
+					data.forEach(v => {
+						v.sppic = '/yplg/' + v.sppic
+					})
+					this.goodListData = data
 					console.log('this.goodListData', this.goodListData)
 				});
 				productAPI.integralList("jfspfl").then((res) => {
-					this.intergralList = res.data.obj.results
+					let data = res.data.obj.results
+					data.forEach(v => {
+						v.sppic = '/yplg/' + v.sppic
+					})
+					this.intergralList = data
 					console.log('this.intergralList', this.intergralList)
 				});
 			},

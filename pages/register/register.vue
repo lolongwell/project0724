@@ -38,6 +38,9 @@
 </template>
 
 <script>
+import {
+		mapState
+	} from 'vuex';
 import RegisterAPI from "@/api/register/register";
 export default {
   data() {
@@ -56,10 +59,12 @@ export default {
 			codeText: '获取验证码'
     };
   },
-	computed: {},
+	computed: {
+			...mapState(['hasLogin'])
+		},
 	onLoad(option) {
-		this.yqm = option.yqm
-		this.yqrId = option.yqrid
+		this.yqm = option.yqm || ''
+		this.yqrId = option.yqrid || ''
 		this.getWxCode()
 	},
   methods: {
@@ -156,6 +161,8 @@ export default {
 						title: '恭喜您，注册成功！',
 						duration: 1000
 					});
+					let token = res.data.data.token
+					this.$store.commit('login', token)
 					setTimeout(() => {
 						window.location.href = 'http://sjblake.cn/index.html'
 					}, 1500)

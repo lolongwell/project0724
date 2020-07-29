@@ -3,7 +3,7 @@
     <li v-for="(item, index) in goodListData" :key="index" @click="goGoodDetail(item.id)">
       <img class="pic" :src="item.sppic" alt="">
       <view class="detail">
-        <text class="tit">{{item.pymc}}</text>
+        <text class="tit">{{item.spmc}}</text>
         <view class="fl">
           <text>拼团即返 {{item.spfl}}%</text>
           <text>{{item.ptlx == 2 ? '二人团' : item.ptlx == 5 ? '五人团' : item.ptlx == 10 ? '十人团' : ''}}</text>
@@ -23,7 +23,6 @@ const {globalData} = getApp();
     name: 'goodList',
     props: ['goodListData'],
     computed: {
-		
       // newGoodListData() {
       //  let {goodListData} = this
       //  goodListData.forEach(v => {

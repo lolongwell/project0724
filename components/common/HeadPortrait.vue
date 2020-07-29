@@ -1,16 +1,16 @@
 <template>
 	<view class="_hd">
-		<button v-if="!hasLogin" open-type="getUserInfo" class="_p" lang="zh_CN" @getuserinfo="getUserInfo" @click="login">
+		<view v-if="!isLogin" class="_p" lang="zh_CN"  @click="goRegister">
 			<view class="image">
 				<image class="img" src="../../static/missing-face.png" mode=""></image>	
 			</view>
 			<p>点击登录</p>
 
-		</button>
+		</view>
 
-		<view v-if="hasLogin" class="_p _ent">
+		<view v-if="isLogin" class="_p _ent">
 			<view class="_i-en image">
-				<open-data class="_hd" type="userAvatarUrl"></open-data>
+				<image :src="avatar" mode="" class="avatar-img"/>
 			</view>
 			<view class="_r">
 				<p class="_e-nnn">
@@ -32,168 +32,177 @@
 		mapState
 	} from 'vuex';
 	import AuthAPI from '../../api/auth/auth';
+	import RegisterAPI from "@/api/register/register";
+
 	export default {
 		name: '',
 		props: {
 			kmc: {
 				type: String,
 				default: ''
+			},
+			isLogin: {
+				type: Boolean,
+				default() {
+					return false
+				}
 			}
 		},
 		data() {
 			return {
 				userMsg: {},
-				id: '',
+				id: uni.getStorageSync('nickName'),
 				balance: '',
-				balance: ''
+				balance: '',
+				avatar: uni.getStorageSync('avatarUrl')
 			};
 		},
-		onShareAppMessage(res) {
-			if (res.from === 'button') {
-				console.log(res.target);
-			}
-			let user = uni.getStorageSync('user');
-			console.log(user.kid);
-			return {
-				title: '果小地',
-				path: `/pages/userCenter/userCenter?kid=${user.kid}`
-			};
-		},
+		// onShareAppMessage(res) {
+		// 	if (res.from === 'button') {
+		// 		console.log(res.target);
+		// 	}
+		// 	let user = uni.getStorageSync('user');
+		// 	console.log(user.kid);
+		// 	return {
+		// 		title: '果小地',
+		// 		path: `/pages/userCenter/userCenter?kid=${user.kid}`
+		// 	};
+		// },
 		mounted() {
-			this.getUM();
-			let user = uni.getStorageSync('user');
+			console.log('isLogin', this.isLogin)
+			// this.getUM();
+			// let user = uni.getStorageSync('user');
 			// this.phone = user.mobilePhone;
-			if (user.kid != null) {
+			// if (user.kid != null) {
 				// this.isEnterpriseUser = true;
 				// this.$store.commit('updateIsEnterpriseUser', true);
 				// this.enterName = user.kmc;
 				// this.phone = user.mobilePhone;
-			}
-			if (user.kid != null && !!user.iskmain) {
+			// }
+			// if (user.kid != null && !!user.iskmain) {
 				// this.$store.commit('updateIsEnterpriseAdmin', true);
 				// this.isEnterpriseAdmin = true;
-			}
+			// }
 		},
 		computed: {
 			...mapState(['hasLogin', 'isEnterpriseUser', 'isEnterpriseAdmin'])
 		},
 		methods: {
-			getUserInfo(e) {
-				this.$_log('1.授权返回值: ', e);
-				if (this.hasLogin) return;
-				if (e.detail.userInfo) {
-					uni.showLoading({
-						title: '授权中...',
-						mask: true
-					});
-					uni.setStorageSync('userData', e.detail || null);
-					uni.login({
-						success: res => {
-							if (res.code) {
-								this.authCode = res.code;
-								uni.setStorageSync('auth-code', res.code);
-								this.$store.commit('statusChange', 'auth_code_state', true);
-								this.$_log('2.wx.login返回值: ', res.code);
-								uni.hideLoading();
-								this.getSessionKey();
-							} else {
-								console.log('登录失败！' + res.errMsg);
-							}
-						}
-					});
-				} else {
-					uni.showModal({
-						title: '警告',
-						content: '您点击了拒绝授权，将无法进入小程序，请授权之后再进入!!!',
-						showCancel: false,
-						confirmText: '返回授权',
-						success: res => {}
-					});
-				}
-			},
-			getSessionKey(data) {
-				AuthAPI.getOpenId({
-					code: this.authCode
-				}).then(res => {
-					console.info(res.data.data);
-					if (res.data.data.session_key) {
-						// if (false) {
-						this.$_log('3.session_key: ', res.data.data.session_key);
-						this.$_log('3.session_key-other: ', res.data.data);
-						let sessionKey = res.data.data.session_key;
-						let openid = res.data.data.openid;
-						let unionid = res.data.data.unionid;
-						uni.setStorageSync('session_key', sessionKey);
-						uni.setStorageSync('openid', openid);
-						uni.setStorageSync('unionid', unionid);
-						this.$store.commit('statusChange', 'session_key_state', true);
-					} else {
-						let openid = res.data.data.openid;
-						let unionid = res.data.data.unionid;
-						let token = res.data.data.token;
-						uni.setStorageSync('openid', openid);
-						uni.setStorageSync('unionid', unionid);
-						uni.setStorageSync('TOKEN', token);
-						uni.setStorageSync('user', res.data.data);
-						let share_kid = uni.getStorageSync('share-kid');
-						if (share_kid) {
-							this.$store.commit('updateKid', share_kid);
-						}
+			// getUserInfo(e) {
+			// 	this.$_log('1.授权返回值: ', e);
+			// 	if (this.hasLogin) return;
+			// 	if (e.detail.userInfo) {
+			// 		uni.showLoading({
+			// 			title: '授权中...',
+			// 			mask: true
+			// 		});
+			// 		uni.setStorageSync('userData', e.detail || null);
+			// 		uni.login({
+			// 			success: res => {
+			// 				if (res.code) {
+			// 					this.authCode = res.code;
+			// 					uni.setStorageSync('auth-code', res.code);
+			// 					this.$store.commit('statusChange', 'auth_code_state', true);
+			// 					this.$_log('2.wx.login返回值: ', res.code);
+			// 					uni.hideLoading();
+			// 					this.getSessionKey();
+			// 				} else {
+			// 					console.log('登录失败！' + res.errMsg);
+			// 				}
+			// 			}
+			// 		});
+			// 	} else {
+			// 		uni.showModal({
+			// 			title: '警告',
+			// 			content: '您点击了拒绝授权，将无法进入小程序，请授权之后再进入!!!',
+			// 			showCancel: false,
+			// 			confirmText: '返回授权',
+			// 			success: res => {}
+			// 		});
+			// 	}
+			// },
+			// getSessionKey(data) {
+			// 	AuthAPI.getOpenId({
+			// 		code: this.authCode
+			// 	}).then(res => {
+			// 		console.info(res.data.data);
+			// 		if (res.data.data.session_key) {
+			// 			// if (false) {
+			// 			this.$_log('3.session_key: ', res.data.data.session_key);
+			// 			this.$_log('3.session_key-other: ', res.data.data);
+			// 			let sessionKey = res.data.data.session_key;
+			// 			let openid = res.data.data.openid;
+			// 			let unionid = res.data.data.unionid;
+			// 			uni.setStorageSync('session_key', sessionKey);
+			// 			uni.setStorageSync('openid', openid);
+			// 			uni.setStorageSync('unionid', unionid);
+			// 			this.$store.commit('statusChange', 'session_key_state', true);
+			// 		} else {
+			// 			let openid = res.data.data.openid;
+			// 			let unionid = res.data.data.unionid;
+			// 			let token = res.data.data.token;
+			// 			uni.setStorageSync('openid', openid);
+			// 			uni.setStorageSync('unionid', unionid);
+			// 			uni.setStorageSync('TOKEN', token);
+			// 			uni.setStorageSync('user', res.data.data);
+			// 			let share_kid = uni.getStorageSync('share-kid');
+			// 			if (share_kid) {
+			// 				this.$store.commit('updateKid', share_kid);
+			// 			}
 
-						if (res.data.data.kid != null) {
-							// this.isEnterpriseUser = true;
-							this.$store.commit('updateIsEnterpriseUser', true);
-							this.enterName = res.data.data.kmc;
-							this.phone = res.data.data.mobilePhone;
-						}
-						if (res.data.data.kid != null && !!res.data.data.iskmain) {
-							this.$store.commit('updateIsEnterpriseAdmin', true);
-						}
+			// 			if (res.data.data.kid != null) {
+			// 				// this.isEnterpriseUser = true;
+			// 				this.$store.commit('updateIsEnterpriseUser', true);
+			// 				this.enterName = res.data.data.kmc;
+			// 				this.phone = res.data.data.mobilePhone;
+			// 			}
+			// 			if (res.data.data.kid != null && !!res.data.data.iskmain) {
+			// 				this.$store.commit('updateIsEnterpriseAdmin', true);
+			// 			}
 
-						uni.showToast({
-							title: '登录成功！',
-							icon: 'none'
-						});
-						this.$store.commit('login', token);
-						this.$store.commit('statusChange', 'token_state', true);
-						let redirect = uni.getStorageSync('redirect');
-						if (redirect) {
-							uni.navigateTo({
-								url: redirect
-							});
-							uni.switchTab({
-								url: redirect
-							})
-						}
-						uni.removeStorage({
-							key: 'redirect'
-						});
-						return;
-					}
+			// 			uni.showToast({
+			// 				title: '登录成功！',
+			// 				icon: 'none'
+			// 			});
+			// 			this.$store.commit('login', token);
+			// 			this.$store.commit('statusChange', 'token_state', true);
+			// 			let redirect = uni.getStorageSync('redirect');
+			// 			if (redirect) {
+			// 				uni.navigateTo({
+			// 					url: redirect
+			// 				});
+			// 				uni.switchTab({
+			// 					url: redirect
+			// 				})
+			// 			}
+			// 			uni.removeStorage({
+			// 				key: 'redirect'
+			// 			});
+			// 			return;
+			// 		}
 
-					uni.navigateTo({
-						url: '/pages/loginWX/loginWX'
-					});
-				});
-			},
-			getUM() {
-				let n = uni.getStorageSync('userName');
-				this.userMsg = {
-					imgUrl: '/static/temp/goods/goods-1.jpg',
-					name: n
-				};
-			},
-			goLogin() {},
-			login(){
-				uni.navigateTo({
-					url: `/pages/register/register`
-				});
-			},
-			invite() {
-				AuthAPI.getAccessToken().then(res => {
-					uni.navigateTo({
-						url: `/pages/shareQR/shareQR?token=${res.data.data.access_token}`
-					});
+			// 		uni.navigateTo({
+			// 			url: '/pages/loginWX/loginWX'
+			// 		});
+			// 	});
+			// },
+			// getUM() {
+			// 	let n = uni.getStorageSync('userName');
+			// 	this.userMsg = {
+			// 		imgUrl: '/static/temp/goods/goods-1.jpg',
+			// 		name: n
+			// 	};
+			// },
+			// invite() {
+			// 	AuthAPI.getAccessToken().then(res => {
+			// 		uni.navigateTo({
+			// 			url: `/pages/shareQR/shareQR?token=${res.data.data.access_token}`
+			// 		});
+			// 	});
+			// }
+			goRegister() {
+				uni.redirectTo({
+					 url: `/pages/register/register`
 				});
 			}
 		}
@@ -292,7 +301,10 @@
 			overflow: hidden;
 			border: 1px solid $base-green;
 			border-radius: 50%;
-
+			.avatar-img {
+				width: 155rpx;
+				height: 155rpx;
+			}
 			._hd {
 				border-radius: 50%;
 			}
