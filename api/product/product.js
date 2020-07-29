@@ -3,9 +3,11 @@ let h = require("../request").default;
 let productAPI = {
 	// 拼团商品-列表
 	productList(d) {
+		console.log('d',d)
 		let o = {
 			ptsp: {
 				"spfl": d.spfl,
+				"ptlx":d.ptlx
 			},
 			dataGrid: {
 				"field": "id,spfl,name",
@@ -15,6 +17,7 @@ let productAPI = {
 				"sort": d.name || ''
 			}
 		}
+		console.log('o ',o )
 		o = JSON.stringify(o);
 		return h.postJson(`/rest/yplgdata/ptsp_datagrid`, o, false);
 	},

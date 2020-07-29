@@ -128,7 +128,13 @@
 		methods: {
 			getModules() {
 				OrderAPI.getDic("spfl").then((res) => {
+					// let obj = {
+					// 	spfl:"0",
+					// 	pic:"upload/files/20200729184302waf84BGO.png",
+					// 	spfl2:'全部'
+					// }
 					this.modules = res.data.obj.results
+					// this.modules.unshift(obj)
 					console.log('this.modules',this.modules)
 				});
 			},

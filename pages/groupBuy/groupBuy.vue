@@ -1,20 +1,20 @@
 <template>
 	<view>
 		<ul class="group-type">
-			<li class="item" v-for="item in groupType" :key="item.text" @click="ptTypeHandle(item.pt_value)">
+			<li class="item" v-for="(item,index) in groupType" :key="item.text" @click="ptTypeHandle(item.pt_value,index)">
 				<img class="img" :src="item.pt_url"></img>
-				<text>{{item.pt_name}}</text>
+				<text :class="{'ptlx-btn':index === ptlxIndex}">{{item.pt_name}}</text>
 			</li>
 		</ul>
 		<view class="goods-floor">
 			<!-- 左侧楼层 -->
 			<ul class="floor-nav">
 				<!-- <li :class="curIndex === -1"  @click="setFloorNavMountClick(-1)"> 全部</li> -->
-				<li v-for="(item, index) in floorNav" :key="item.id" :class="ptspType == item.spfl ? 'selected' : ''" @click="setFloorNavMountClick(index,item.spfl)">{{ item.spfl2 }}</li>
+				<li v-for="(item, index) in floorNav" :key="item.id" :class="ptspType == item.spfl  ? 'selected' : ''" @click="setFloorNavMountClick(index,item.spfl)">{{ item.spfl2 }}</li>
 			</ul>
 			<!-- 右侧的内容区域 -->
 			<ul class="floor-list">
-				<li v-for="item in floorList" :key="item.id">
+				<li v-for="item in floorList" :key="item.id" @click="goGoodDetail(item.id)">
 					<img class="good-img" :src="item.sppic"></img>
 					<view class="good-info">
 						<text class="tit">{{item.spmc}}</text>
@@ -23,10 +23,11 @@
 						<view class="cart">
 							<view class="left">
 								<image class="p-icon" src="../../static/images/default.png" mode=""></image>
-								<text>{{item.ptlx == '2' ? '2人团' : item.type == '5' ? '5人团' : item.type == '10' ? '10人团' : ''}}</text>
+								<!-- <icon class="p-icon"   type="personal" size="26"/> -->
+								<text class="p-text">{{item.ptlx == '2' ? '2人团' : item.ptlx == '5' ? '5人团' : item.ptlx == '10' ? '10人团' : ''}}</text>
 							</view>
 							<view class="right">
-								<image class="c-icon" src="../../static/images/default.png" mode=""></image>
+								<image class="c-icon" src="../../static/images/car.png" mode=""></image>
 							</view>
 						</view>
 					</view>
@@ -97,7 +98,9 @@
 				],
 				// 右侧商品列表数据
 				floorList: [],
-				curIndex: ''
+				curIndex: '', //左侧导航索引
+				ptlx: '', // 拼团类型
+				ptlxIndex: '' // 拼团类型索引
 			};
 		},
 		computed: {
@@ -110,39 +113,48 @@
 			this.getPtspList()
 			this.getPtlxList()
 		},
-		watch:{
-			ptspType(val){
-				console.log('val',val)
-				this.curIndex = val			
+		watch: {
+			ptspType(val) {
+				console.log('val', val)
+				this.curIndex = val
 			}
 		},
 		methods: {
-			ptTypeHandle(type) {
+			// 拼团类型 10 5 2 
+			ptTypeHandle(type, i) {
 				console.log('点击的拼团类型', type)
+				console.log('点击的拼团类型', i)
 				// 发送请求获取相应的数据
+				this.ptlx = type
+				this.ptlxIndex = i
+				// this.$store.commit('ptspTypeUpdate', '0')
+				this.getPtspList()
 
 			},
 			// 获取左侧商品分类
 			getPtlxList() {
 				OrderAPI.getDic("spfl").then((res) => {
 					this.floorNav = res.data.obj.results
-					let obj = {
-						spfl:'',
-						spfl2:'全部'
-						
-					}
-					this.floorNav.unshift(obj)
+					// let obj = {
+					// 	spfl: '0',
+					// 	spfl2: '全部'
+
+					// }
+					// this.floorNav.unshift(obj)
 					console.log('this.floorNav', this.floorNav)
 				});
 			},
 			//  获取右边的列表数据
 			getPtspList() {
+				// if (this.ptspType === '0') {
+				// 	this.$store.commit('ptspTypeUpdate', '')
+
+				// }
 				let o = {
-					spfl: this.ptspType
+					spfl: this.ptspType,
+					ptlx: this.ptlx
 				}
-				if(this.ptspType === '0'){
-					console.log(2222)
-				}
+
 				productAPI.productList(o).then(res => {
 					console.log('res拼团', res)
 					this.floorList = res.data.obj.results
@@ -151,12 +163,18 @@
 
 			},
 			// 点击左侧的类型
-			setFloorNavMountClick(index,type) {
+			setFloorNavMountClick(index, type) {
 				this.curIndex = index
 				// this.ptspType = type
-				this.$store.commit('ptspTypeUpdate'  , type)
-				 this.getPtspList()
-			
+				this.$store.commit('ptspTypeUpdate', type)
+				this.getPtspList()
+
+			},
+			// 进入拼团商品详情
+			goGoodDetail(id) {
+				uni.navigateTo({
+					url: '/pages/detail/detail?id=' + id
+				});
 			}
 		}
 	}
@@ -185,6 +203,10 @@
 				height: 100rpx;
 				margin-bottom: 20rpx;
 			}
+
+			.ptlx-btn {
+				color: $my-color;
+			}
 		}
 	}
 
@@ -199,7 +221,7 @@
 			// width: 200rpx;
 			height: 100%;
 			overflow: auto;
-			padding-left:0 ;
+			padding-left: 0;
 
 			li {
 				margin: 20rpx auto;
@@ -221,7 +243,8 @@
 				text-align: center;
 				box-sizing: border-box;
 				display: flex;
-				&:nth-of-type(1){
+
+				&:nth-of-type(1) {
 					margin-top: 0;
 					padding-top: 0;
 				}
@@ -276,6 +299,10 @@
 								width: 40rpx;
 								height: 40rpx;
 								margin-right: 10rpx;
+							}
+
+							.p-text {
+								margin: 0 20rpx;
 							}
 						}
 

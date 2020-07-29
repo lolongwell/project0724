@@ -45,6 +45,7 @@ export default {
 	},
 	onShow() {
 		let user = uni.getStorageSync('user');
+		console.log('user',user)
 		if(user) {
 			this.kmc = user.kmc || '';
 		}
