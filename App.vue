@@ -1,4 +1,5 @@
 <script>
+import VConsole from './vconsole.min.js'
 	export default {
 		// 全局变量
 		globalData: {
@@ -8,6 +9,7 @@
 		},
 		onLaunch: function() {
 			console.log('App Launch')
+			let vConsole = new VConsole()
 		},
 		onShow: function() {
 			console.log('App Show')

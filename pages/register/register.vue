@@ -60,7 +60,7 @@ export default {
 	onLoad(option) {
 		this.yqm = option.yqm
 		this.yqrId = option.yqrid
-		// this.getWxCode()
+		this.getWxCode()
 	},
   methods: {
 		getWxCode() {
@@ -134,7 +134,8 @@ export default {
       //提交注册
       let data = {
         mobilePhone: this.phone,
-        userName: this.realName,
+        userName: this.phone,
+        realName: this.realName,
         password: this.password1,
 				ghbm: this.veriCode,
 				yqrId: this.yqrId,
@@ -153,13 +154,11 @@ export default {
 				if (res.statusCode == 200) {
 					uni.showToast({
 						title: '恭喜您，注册成功！',
-						duration: 2000,
-						success() {
-							uni.switchTab({
-								 url: '/pages/index/index'
-							})
-						}
+						duration: 1000
 					});
+					setTimeout(() => {
+						window.location.href = 'http://sjblake.cn/index.html'
+					}, 1500)
 				}
       });
     },
