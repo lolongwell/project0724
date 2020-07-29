@@ -9,7 +9,7 @@ import VConsole from './vconsole.min.js'
 		},
 		onLaunch: function() {
 			console.log('App Launch')
-			// let vConsole = new VConsole()
+			let vConsole = new VConsole()
 		},
 		onShow: function() {
 			console.log('App Show')
