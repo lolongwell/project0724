@@ -10,7 +10,7 @@
 			<image class="img" src="../../static/images/default.png" mode=""></image>
 			<input class="ipt" type="number" maxlength="6" placeholder="验证码" placeholder-class="ipt-placeholder" v-model="veriCode"/>
 			<view class="ipt-btn" @click="handleBtn">
-				获取验证码
+				{{codeText}}
 			</view>
 		</view>
 
@@ -53,7 +53,7 @@ export default {
       isSendCaptcha: false,
       timerNum: 60,
       timeClock: null,
-      isCode: false,
+			codeText: '获取验证码'
     };
   },
 	computed: {},
@@ -78,9 +78,15 @@ export default {
 		getOpenid(code) {
 			RegisterAPI.getOpenId(code).then(res => {
 				console.log('openid',res)
-				if (res.respCode == 0) {
-					uni.setStorageSync('openid', res.data.openid)
-					uni.setStorageSync('session_key', res.data.session_key)
+				if (res.data.respCode == 0) {
+					uni.setStorageSync('openid', res.data.data.openid)
+					uni.setStorageSync('avatarUrl', res.data.data.avatarUrl)
+					uni.setStorageSync('city', res.data.data.citizenNo)
+					uni.setStorageSync('province', res.data.data.province)
+					uni.setStorageSync('country', res.data.data.country)
+					uni.setStorageSync('nickName', res.data.data.nickName)
+					uni.setStorageSync('sex', res.data.data.sex)
+					uni.setStorageSync('unionid', res.data.data.unionid)
 				}
 			})
 		},
@@ -88,7 +94,6 @@ export default {
       let {
         phone,
         veriCode,
-        invitationCode,
         realName,
         password1,
         password2,
@@ -104,14 +109,6 @@ export default {
       if (!veriCode) {
       	uni.showToast({
       		title: '请输入验证码！',
-      		icon: 'none',
-      		duration: 2000
-      	});
-      	return
-      }
-      if (this.isCode) {
-      	uni.showToast({
-      		title: '请输入正确的验证码！',
       		icon: 'none',
       		duration: 2000
       	});
@@ -135,20 +132,39 @@ export default {
       }
 
       //提交注册
-			let openId = uni.getStorageSync('openid')
       let data = {
         mobilePhone: this.phone,
         userName: this.realName,
         password: this.password1,
-				ghbm: this.invitationCode,
+				ghbm: this.veriCode,
 				yqrId: this.yqrId,
-				openId
-      };
+				openid: uni.getStorageSync('openid'),
+				session_key: uni.getStorageSync('session_key'),
+				nickName: uni.getStorageSync('nickName'),
+				sex: uni.getStorageSync('sex'),
+				province: uni.getStorageSync('province'),
+				country: uni.getStorageSync('country'),
+				avatarUrl: uni.getStorageSync('avatarUrl'),
+				unionid: uni.getStorageSync('unionid')
+			};
+			console.log('data',data)
       RegisterAPI.submitRegister(data).then((res) => {
-        console.log("注册", res);
+				console.log("注册", res);
+				if (res.statusCode == 200) {
+					uni.showToast({
+						title: '恭喜您，注册成功！',
+						duration: 2000,
+						success() {
+							uni.switchTab({
+								 url: '/pages/index/index'
+							})
+						}
+					});
+				}
       });
     },
     handleBtn() {
+			if (this.isSendCaptcha) return
 			let { phone } = this;
 			console.log(phone)
 			let reg = /^1[3456789]\d{9}$/;
@@ -172,11 +188,10 @@ export default {
       // this.sendCodeTime();
       if (phone) {
         RegisterAPI.getPhoneCode(phone).then((res) => {
-          console.log("res", res);
-          if (res.respCode === "0") {
-            this.isCode = true;
-          } else {
-            this.isCode = false;
+					console.log("res", res);
+          if (res.statusCode == 200) {
+						this.isSendCaptcha = true
+						this.sendCodeTime()
           }
         });
       }
@@ -185,14 +200,16 @@ export default {
       console.log("zoule");
       this.timerNum = 60;
       this.isSendCaptcha = true;
-      clearInterval(this.timeClock);
+      this.timeClock && clearInterval(this.timeClock);
       if (this.isSendCaptcha) {
         this.timerNum = 60;
         this.timeClock = setInterval(() => {
-          this.timerNum--;
+					this.timerNum--;
+					this.codeText = `重新发送${this.timerNum}`
           if (this.timerNum === 0) {
             clearInterval(this.timeClock);
-            this.isSendCaptcha = false;
+						this.isSendCaptcha = false;
+						this.codeText = '获取验证码'
           }
         }, 1000);
       }
