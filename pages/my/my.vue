@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<head-portrait :kmc="kmc"></head-portrait>
+		<head-portrait :kmc="kmc" :isLogin='isLogin' @changIsLogin="changIsLogin"></head-portrait>
 		<view class="order-section">
 			<view class="order-item" @click="goLink('/pages/myMoney/inMoney')" hover-class="common-hover" :hover-stay-time="50">
 				<text class="yticon icon-daifukuan"></text>
@@ -42,19 +42,30 @@ export default {
 		};
 	},
 	computed: {
+		...mapState(['hasLogin'])
 	},
 	onShow() {
-		let user = uni.getStorageSync('user');
-		console.log('user',user)
-		if(user) {
-			this.kmc = user.kmc || '';
+		console.log('个人中心', this.hasLogin)
+		const openid = uni.getStorageSync('openid')
+		if (openid) {
+			this.isLogin = true
+		} else {
+			this.isLogin = false
 		}
+		// let user = uni.getStorageSync('user');
+		// if(user) {
+		// 	this.kmc = user.kmc || '';
+		// }
 	},
 	methods: {
 		goLink(url) {
 			uni.navigateTo({
 				url: url
 			});
+		},
+		changIsLogin(val) {
+			console.log('传参', val)
+			this.isLogin = val
 		}
 	}
 };
