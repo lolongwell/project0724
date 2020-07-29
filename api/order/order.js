@@ -2,6 +2,23 @@ let h = require("../request").default;
 
 let orderAPI = {
 	// 拼团信息-列表
+	test() {
+		// let o = {
+		// 	dd: d,
+		// 	dataGrid: {
+		// 		// "field": "id,spfl,name",
+		// 		"page": 1,
+		// 		"rows": 1000,
+		// 		"order": "desc",
+		// 		"sort": "createDate"
+		// 	}
+		// }
+		// o = JSON.stringify(o);
+		return h.postJson(`rest/yyjfPayController/wxczFunction?userId="8a8ab0b246dc81120146dc8181950052"&&czje=0.01 `, {});
+		
+		// return h.get(`/rest/tbDdController/${id}`)   //rest/tbDdController/dd_datagrid
+	},
+	// 拼团信息-列表
 	orderList(d) {
 		let o = {
 			dd: d,
@@ -123,7 +140,7 @@ let orderAPI = {
 					"page": 1,
 					"rows": 8,
 					"order": "asc",
-					"sort": "id"
+					"sort": "xh"
 			}
 		}
 		o = JSON.stringify(o);

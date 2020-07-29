@@ -38,6 +38,8 @@
 				</li>
 			</ul>
 		</view>
+	    
+		 <button type="default" @click="test()">测试</button>
 	</view>
 </template>
 
@@ -124,6 +126,11 @@
 			}
 		},
 		methods: {
+			test(){
+				OrderAPI.test().then(res=>{
+					console.log('res',res)
+				})
+			},
 			// 拼团类型 10 5 2 
 			ptTypeHandle(type, i) {
 				console.log('点击的拼团类型', type)
