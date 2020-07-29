@@ -128,7 +128,7 @@
 		methods: {
 			test(){
 				OrderAPI.test().then(res=>{
-					console.log('res',res)
+					console.log('res121212121212',res.data.data.msg)
 				})
 			},
 			// 拼团类型 10 5 2 

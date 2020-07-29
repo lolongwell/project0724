@@ -56,7 +56,7 @@ function rb(url, d, mt, h = {}, TK = true, jp = true) {
 	if (TK) {
         let token = uni.getStorageSync('TOKEN'); 
 		if (!token) m();
-		h['X-AUTH-TOKEN'] = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhZG1pbiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNTk2MDM0MjU5fQ.3yv4BuBU7P-W5748L7vrYsVouOIrwYeQkIjwI-mVrLM'; 
+		h['X-AUTH-TOKEN'] = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhZG1pbiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNTk2MDM5MzQyfQ.GXjeb_29M_NMo3FzTRd31bqhmnY1ysp_J4jd_RjERpc'; 
 	}
 	return new Promise(function(resolve, reject) {
 		let option = {
