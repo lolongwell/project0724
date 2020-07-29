@@ -99,8 +99,8 @@
 			},
 		},
 		onLoad(option) {
-			// let ghbm = option.ghbm
-			let ghbm = '00010, 456454546, "曾小贤"'
+			let ghbm = option.ghbm
+			// let ghbm = '123456, 2c90d7e5738ac23a01738aedad8f000a, "曾小闲"'
 			if (ghbm) {
 				let paramArr = ghbm.split(',')
 				let yqm = paramArr[0], yqrId = paramArr[1]
