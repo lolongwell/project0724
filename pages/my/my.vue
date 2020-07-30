@@ -19,9 +19,9 @@
 			<list-cell icon="icon-tuandui" iconColor="#aa883b" title="修改密码" @eventClick="goLink('/pages/login/resetPassword')"></list-cell>
 		</view>
 
-		<view class="">
+		<!-- <view class="">
 			<button type="default" @click="test">测试</button>
-		</view>
+		</view> -->
 		<!-- <recommend-fruit class="recommend __space"></recommend-fruit> -->
 		<!--  #ifdef MP-WEIXIN -->
 		<view class="__space"></view>
@@ -54,13 +54,25 @@
 		computed: {
 			...mapState(['hasLogin'])
 		},
+		onLoad() {
+			console.log('个人中心load')
+				// let local = window.location.href
+				// let openid = this.getUrlParam('openid')
+				// if (openid === null || openid === '') {
+				// 	window.location.href = `https://api.yiyunjf.cn/v1/wechat/auth?app_id=pya7LZA0fnMupQH5Yp4C9wZtMDAwV1RP&sub_mch_id=1601407358&snsapi_userinfo=true&callback=${encodeURIComponent(local)}`
+				// } else {
+				// 	console.log('openid已存在', openid)
+				// }
+				
+		},
 		onShow() {
 			console.log(4444444)
 			console.log('个人中心', this.hasLogin)
 			console.log('2222222222',encodeURIComponent('http://sjblake.cn/yplg'))
 			let token = uni.getStorageSync('TOKEN');
-			console.log('测试token',tokens)
+			console.log('测试token',token)
 			const openid = uni.getStorageSync('openid')
+			console.log('缓存opendi', openid)
 			if (openid) {
 				this.isLogin = true
 			} else {
@@ -87,24 +99,36 @@
 			},
 
 			test() {
+				// let local = window.location.href
+				// let url = `https://api.yiyunjf.cn/v1/wechat/auth?app_id=pya7LZA0fnMupQH5Yp4C9wZtMDAwV1RP&sub_mch_id=1601407358&snsapi_userinfo=true&callback=${encodeURIComponent(local)}`
 				
-			let url = 'https://api.yiyunjf.cn/v1/wechat/auth?app_id=pya7LZA0fnMupQH5Yp4C9wZtMDAwV1RP&sub_mch_id=1601407358&snsapi_userinfo=true&callback=http%3A%2F%2Fsjblake.cn%2Fyplg'
-				// uni.navigateTo({
-				//    url: url
-				// });
-				
-				let o = {
-					userid: uni.getStorageSync('userid'),
-					openid: uni.getStorageSync('openid'),
-					czje: '0.01'
+				// let openid = this.getUrlParam('openid')
+				// console.log('openid', openid)
+					
+					let o = {
+						userid: uni.getStorageSync('userid'),
+						openid: openid,
+						czje: '0.01'
+					}
+					payApi.payOrder(o).then(res=>{
+
+						uni.showToast({
+							title: res,
+							duration: 3000
+						});
+					})
+			},
+			getUrlParam(name) {
+				var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
+				let url = window.location.href.split('#')[0]
+				let search = url.split('?')[1]
+				if (search) {
+					var r = search.substr(0).match(reg)
+					if (r !== null) return unescape(r[2])
+					return null
+				} else {
+					return null
 				}
-				payApi.payOrder(o).then(res=>{
-					alert(res)
-					uni.showToast({
-						title: res,
-						duration: 3000
-					});
-				})
 			}
 		}
 	};

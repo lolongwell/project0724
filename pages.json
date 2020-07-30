@@ -2,7 +2,7 @@
 	"pages": [{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "首页-悠品易购乐购",
+				"navigationBarTitleText": "首页-悠品乐购",
 				"app-plus": {
 					//#ifdef H5
 					"titleNView": false
@@ -229,7 +229,7 @@
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "悠品易购",
+		"navigationBarTitleText": "悠品乐购",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},

@@ -48,6 +48,7 @@
 	import productAPI from "@/api/product/product.js";
 	import integralAPI from "@/api/integral/integral.js";
 	import ExchangeList from '@/components/integral/exchange-list.vue'
+	import {getUrlParam} from '../../util.js'
 	
 	export default {
 		name: "home",
@@ -99,12 +100,8 @@
 			},
 		},
 		onLoad() {
-			//测试token
-			uni.setStorageSync('token','eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJ6ZW5nbHUiLCJzdWIiOiJ6ZW5nbHUiLCJpYXQiOjE1OTYwNzgzMDR9.-JKfx9ieaChL1X_x7TFu1qLo4SBN-6fcbq4K5y6F-5Q')
-			uni.setStorageSync('userId','2c90d7e5738ac23a01738aedad8f000a')
-			let ghbm = this.getUrlParam('ghbm')
-			console.log('ghbm', ghbm)
-			// let ghbm = '123456, 2c90d7e5738ac23a01738aedad8f000a, "曾小闲"'
+			let ghbm = getUrlParam('ghbm')
+			console.log('扫码信息', ghbm)
 			if (ghbm) {
 				let paramArr = ghbm.split(',')
 				let yqm = paramArr[0], yqrId = paramArr[1]
@@ -172,18 +169,6 @@
 				uni.navigateTo({
 					url: '/pages/newGoods/newGoods'
 				})
-			},
-			getUrlParam(name) {
-				var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
-				let url = window.location.href.split('#')[0]
-				let search = url.split('?')[1]
-				if (search) {
-					var r = search.substr(0).match(reg)
-					if (r !== null) return unescape(r[2])
-					return null
-				} else {
-					return null
-				}
 			}
 		},
 	};
