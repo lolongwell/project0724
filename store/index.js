@@ -98,6 +98,9 @@ function updateUserKid(kid, cb) {
 		console.info('更新kid', res.data);
 		uni.removeStorageSync('user');
 		uni.setStorageSync('user', res.data.data);
+		uni.setStorageSync('TOKEN', res.data.data.token);
+		uni.setStorageSync('openid', res.data.data.openid)
+		uni.setStorageSync('userid', res.data.data.id)
 		uni.removeStorage({
 			key: 'share-kid'
 		});
@@ -108,6 +111,7 @@ function updateUserKid(kid, cb) {
 const mutations = {
 	login(state, token) {
 		state.hasLogin = true;
+		console.log()
 		uni.setStorage({
 			key: 'TOKEN',
 			data: token
