@@ -56,6 +56,7 @@
 		},
 		onShow() {
 			console.log('个人中心', this.hasLogin)
+			encodeURIComponent
 			let token = uni.getStorageSync('TOKEN');
 			console.log('测试token',tokens)
 			const openid = uni.getStorageSync('openid')
