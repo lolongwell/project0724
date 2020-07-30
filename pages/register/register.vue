@@ -94,7 +94,7 @@ export default {
 					uni.setStorageSync('sex', res.data.data.sex)
 					uni.setStorageSync('unionid', res.data.data.unionid)
 					uni.setStorageSync('userid', res.data.data.id)
-					uni.setStorageSync('token', res.data.data.token)
+					uni.setStorageSync('TOKEN', res.data.data.token)
 				}
 			})
 		},

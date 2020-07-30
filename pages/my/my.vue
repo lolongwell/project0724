@@ -56,6 +56,8 @@
 		},
 		onShow() {
 			console.log('个人中心', this.hasLogin)
+			let token = uni.getStorageSync('TOKEN');
+			console.log('测试token',tokens)
 			const openid = uni.getStorageSync('openid')
 			if (openid) {
 				this.isLogin = true

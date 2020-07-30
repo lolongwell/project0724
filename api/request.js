@@ -55,12 +55,12 @@ function del(url, d, TK = true, jp = true) {
 function rb(url, d, mt, h = {}, TK = true, jp = true) {
 	if (TK) {
 
-		// let token = uni.getStorageSync('TOKEN');
 		let token = uni.getStorageSync('TOKEN');
-		console.log('token啊啊啊',token)
+		// let token = uni.getStorageSync('TOKEN');
+		console.log('储存得token',token)
 		if (!token) m();
-		h['X-AUTH-TOKEN'] =
-			'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJ6ZW5nbHUiLCJzdWIiOiJ6ZW5nbHUiLCJpYXQiOjE1OTYwODczNDh9.ClSmubttrX84YDYsIZ0jmlCKtPdv58GdteJJ-UqHA5E';
+		// h['X-AUTH-TOKEN'] =
+		// 	'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJ6ZW5nbHUiLCJzdWIiOiJ6ZW5nbHUiLCJpYXQiOjE1OTYwODczNDh9.ClSmubttrX84YDYsIZ0jmlCKtPdv58GdteJJ-UqHA5E';
 		h['X-AUTH-TOKEN'] = token
 	}
 	return new Promise(function(resolve, reject) {

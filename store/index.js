@@ -130,7 +130,7 @@ const mutations = {
 		});
 		// token
 		uni.removeStorage({
-			key: 'TOKEN'
+			key: 'toekn'
 		});
 		uni.removeStorage({
 			key: 'auth-code'
@@ -151,7 +151,7 @@ const mutations = {
 	},
 
 	getToken(state) {
-		return uni.getStorageSync("TOKEN");
+		return uni.getStorageSync("token");
 	},
 
 	getCart(state, cb) {
