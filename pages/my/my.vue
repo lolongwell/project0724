@@ -55,8 +55,9 @@
 			...mapState(['hasLogin'])
 		},
 		onShow() {
+			console.log(4444444)
 			console.log('个人中心', this.hasLogin)
-			encodeURIComponent
+			console.log('2222222222',encodeURIComponent('http://sjblake.cn/yplg'))
 			let token = uni.getStorageSync('TOKEN');
 			console.log('测试token',tokens)
 			const openid = uni.getStorageSync('openid')
@@ -70,6 +71,10 @@
 			// 	this.kmc = user.kmc || '';
 			// }
 		},
+		mounted() {
+			// console.log(00000000000000000)
+			// console.log('2222222222',encodeURIComponent('http://sjblake.cn/yplg'))
+		},
 		methods: {
 			goLink(url) {
 				uni.navigateTo({
@@ -82,6 +87,12 @@
 			},
 
 			test() {
+				
+			let url = 'https://api.yiyunjf.cn/v1/wechat/auth?app_id=pya7LZA0fnMupQH5Yp4C9wZtMDAwV1RP&sub_mch_id=1601407358&snsapi_userinfo=true&callback=http%3A%2F%2Fsjblake.cn%2Fyplg'
+				// uni.navigateTo({
+				//    url: url
+				// });
+				
 				let o = {
 					userid: uni.getStorageSync('userid'),
 					openid: uni.getStorageSync('openid'),
