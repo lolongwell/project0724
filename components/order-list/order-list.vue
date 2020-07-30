@@ -99,7 +99,7 @@
 		},
 		mounted() {
 
-			// 获取地点数据-提货方式
+			// 获取地点数据-提货方式 
 			this.getDicData('thfs').then(res => {
 				this.thfsList = res.data.data.map(item => {
 					return {
@@ -162,7 +162,6 @@
 			},
 			getList() {
 				// 1.判断是否登录，没有登录就跳进登录页面
-				console.log(1111)
 				// 2.获取当前需要的订单入参
 				let id = uni.getStorageSync('user').userId // 拿到用户信息，从里面拿用户id
 				let orderData = {

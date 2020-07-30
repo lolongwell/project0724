@@ -85,6 +85,7 @@
 					czje: '0.01'
 				}
 				payApi.payOrder(o).then(res=>{
+					alert(res)
 					uni.showToast({
 						title: res,
 						duration: 3000
