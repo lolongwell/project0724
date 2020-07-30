@@ -33,7 +33,7 @@
 		<view class="images" :class="{ 'pd-content': !hasImg }">
 			<rich-text :nodes="article">{{product.spjs}}</rich-text>
 		</view>
-		
+
 
 		<view class="purchase">
 			<view class="left">账户余额：0.00</view>
@@ -51,7 +51,7 @@
 					<view class="right">
 						<view class="r-name item">
 							{{product.spmc}}
-							
+
 						</view>
 						<view class="r-price item">
 							￥{{product.ptjg}}
@@ -70,7 +70,8 @@
 							</view>
 						</view>
 						<view class="right ">
-							<span class="select-btn" :class="{'type-active':i === typeIndex}" v-for="(item,i) in product.spJgList" :key="i" @click="typeChange(item.spgg,item.id,item.jg,i)">{{item.spgg}}</span>
+							<span class="select-btn" :class="{'type-active':i === typeIndex}" v-for="(item,i) in product.spJgList" :key="i"
+							 @click="typeChange(item.spgg,item.id,item.jg,i)">{{item.spgg}}</span>
 						</view>
 					</view>
 
@@ -107,8 +108,8 @@
 								<view class="uni-list-cell">
 
 									<view class="uni-list-cell-db">
-										<picker @change="addressChange" :value="index" :range="paydetail.address">
-											<view class="uni-input">{{paydetail.address[index]}}</view>
+										<picker @change="addressChange" :value="index" :range="address">
+											<view class="uni-input">{{address[index]}}</view>
 										</picker>
 									</view>
 								</view>
@@ -130,6 +131,8 @@
 
 <script>
 	import ProductAPI from '../../api/product/product';
+	import payAPI from '../../api/pay/pay';
+	import orderAPI from '../../api/order/order';
 	import CartAPI from '../../api/cart/cart';
 	import uniNumberBox from '@/components/uni-number-box.vue';
 	import {
@@ -179,44 +182,47 @@
 							name: '喜字',
 							id: 3
 						}
-					],
-					zhifu: [{
-							name: 'weixin',
-							id: 1
-						},
-						{
-							name: 'zhifubao',
-							id: 2
-						}
-					],
-					address: [
-						'中国1', '中国1',
-						'中国1', '中国1'
 					]
 				},
+				address: [
+
+				],
 				// 支付方式
-				method:[
-					{
-						name:'微信',
-						id:'wxzf'
+				method: [{
+						name: '微信',
+						id: 'wxzf'
 					},
 					{
-						name:'余额支付',
-						id:'yezf'
+						name: '余额支付',
+						id: 'yezf'
 					}
 				],
 				index: 0,
 				typeIndex: -1, // 规格初始索引
 				methodIndex: -1, // 支付方式初始索引
 				// 提交给后台的支付入参
-				form:{
-					spmc:'',
-					spgg:'',
-					ptjg:'',
-					ptjg:'',
-					number:1,
-					zffs:''
-				}
+				form: {
+					// spmc: '',
+					// spgg: '',
+					// ptjg: '',
+					// ptjg: '',
+					// number: 1,
+					// zffs: '',
+					// addressId: '',
+
+					addressId: "2c90d7e5738b1fc801738b3399a7000d", // 地址
+					ddje: 11, // 订单金额
+					realname: "曾小闲", //用户名
+					spId: "2c90d7e57385e9860173866196b00026", //商品id
+					spdj: 11,  // 单价                                 
+					spgg: "11", // 规格
+					spmc: "黑茶", // 名称
+					spsl: 5,  // 数量
+					userId: "2c90d7e5738ac23a01738aedad8f000a", //用户id
+					zffs: "yezf",  // 支付方式
+					zjzt: "0"  // 
+				},
+				addressList: []
 			};
 		},
 		components: {
@@ -225,11 +231,12 @@
 		onLoad(option) {
 			this.goodID = option.id;
 			if (option.source) this.hideSource = true;
-			
+
 		},
 		onShow(option) {
 			this.loadData(this.goodID);
 			this.specSelected = null;
+			this.getAdress()
 		},
 		computed: {
 			...mapState(['status', 'hasLogin', 'cartData']),
@@ -273,6 +280,21 @@
 			}
 		},
 		methods: {
+			// 获取地址
+			getAdress() {
+				let id = '2c90d7e5738ac23a01738aedad8f000a'
+				let o = {
+					userId: id
+				}
+				orderAPI.getAddressList(o).then(res => {
+					this.addressList = res.data.obj.results
+					this.addressList.forEach(item => {
+						this.address.push(item.address)
+					})
+					this.form.addressId = this.addressList[0].id
+					console.log('res.obj.results', res.data.obj.results)
+				})
+			},
 			loadData(id) {
 				// 获得商品详情
 				const app = getApp()
@@ -283,18 +305,18 @@
 					console.log(this.img)
 					this.article = this.product.spjs
 				});
-				
+
 				// 获取支付方式字典数据
-				this.getDicData('zffs').then(res=>{
-					console.log('res支付方hi',res)
-					this.method =  res.data.data.map(item=>{
+				this.getDicData('zffs').then(res => {
+					console.log('res支付方hi', res)
+					this.method = res.data.data.map(item => {
 						return {
-							name:item.typename,
-							value:item.typecode
+							name: item.typename,
+							value: item.typecode
 						}
 					})
 				})
-				
+
 			},
 
 
@@ -311,31 +333,46 @@
 			},
 			//立即支付
 			payHandle() {
+				
 				// 验证表单
-				console.log('this.form',this.form)
-				if(!this.form.spgg){
-					uni.showToast({
-						title: '请选择商品规格!',
-						icon: 'none'
-					});	
-				}
-				if(!this.form.zffs){
-					uni.showToast({
-						title: '请选择支付方式!',
-						icon: 'none'
-					});	
-				}
-				
+				console.log('uni.setStorageSync', uni.getStorageSync('token'))
+				console.log('uni.setStorageSync', uni.getStorageSync('userId'))
+				console.log('this.form', this.form)
+				// if (!this.form.spgg) {
+				// 	uni.showToast({
+				// 		title: '请选择商品规格!',
+				// 		icon: 'none'
+				// 	});
+				// }
+				// if (!this.form.zffs) {
+				// 	uni.showToast({
+				// 		title: '请选择支付方式!',
+				// 		icon: 'none'
+				// 	});
+				// }
+
 				// 获得入参
+                
+				payAPI.createOrder(this.form).then(res=>{
+					if(res.data.respCode === '0'){
+							console.log('支付创建订单',res)
+							this.$store.commit('orderDetailsUpdate',res.data.data)
+							// 进入创建订单页面
+							uni.navigateTo({
+								url:'../order/detail'
+							})
+					}
 				
+				})
+
 				// 请求前查看余额是否充足
-				
+
 				// 发送请求
 				//
-                 
+
 			},
 			// 选择商品规格
-			typeChange(val, id, jg,index) {
+			typeChange(val, id, jg, index) {
 				this.typeIndex = index
 				this.product.ptjg = jg
 				this.form.spgg = val
@@ -356,8 +393,8 @@
 			},
 			// 选择地址
 			addressChange(e) {
-				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index = e.target.value
+				this.form.addressId = this.addressList[this.index].id
 			},
 			changeGMFS() {
 				if (this.specSelected) this.product.price = this.specSelected.jg;
@@ -920,9 +957,9 @@
 						margin: 5rpx;
 
 						&:nth-of-type(1) {
-							white-space:nowrap;
-							overflow:hidden;
-							text-overflow:ellipsis;
+							white-space: nowrap;
+							overflow: hidden;
+							text-overflow: ellipsis;
 						}
 
 						&:nth-of-type(2) {
@@ -971,7 +1008,7 @@
 						.select-btn {
 							border: 1px solid #333;
 							display: inline-block;
-							padding: 5rpx  20rpx;
+							padding: 5rpx 20rpx;
 							margin: 5rpx;
 						}
 

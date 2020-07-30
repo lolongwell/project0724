@@ -3,30 +3,30 @@
 		<ul>
 			<li>
 				<span>商品名称</span>
-				<span>{{name}}</span>
+				<span>{{detailList.spmc}}</span>
 			</li>
 			<li>
 				<span>订单编号</span>
-				<span>{{name}}</span>
+				<span>{{detailList.ddh}}</span>
 			</li>
 			<li>
 				<span>商家名称</span>
-				<span>{{name}}</span>
+				<span>悠品乐购</span>
 			</li>
 			<li>
 				<span>商品价格</span>
-				<span>{{name}}</span>
+				<span>{{detailList.ddje}}</span>
 			</li>
 			<li>
 				<span>还需支付</span>
-				<span>{{name}}</span>
+				<span>￥{{detailList.ddje}}.00</span>
 			</li>
 		</ul>
 		<view class="pay-method">
 			<p>选择支付方式</p>
 			<view class="pay-wechar" @click="payHandle">
 				<view class="left">
-
+                  <img src=""></img>
 				</view>
 				<view class="center">
 					<p>微信支付1</p>
@@ -46,15 +46,33 @@
 		data() {
 			return {
 				name: '333333eeeeeeeeeeeeee33',
+				detailList:{},
 				form:{
 					name:'33333333'
 				}
 			};
 		},
+		computed:{
+			orderDetails(){
+				return this.$store.state.orderDetails
+			}
+		},
+		onShow() {
+			this.detailList = this.orderDetails
+			console.log('aaa',this.detailList)
+		},
 		methods: {
 			payHandle() {
-            console.log('调用微信接口')
-			 let data = JSON.parse(JSON.stringify(this.form));
+          
+			 // let data = JSON.parse(JSON.stringify(this.form));
+			 // let o = {
+				//  userid:uni.getStorageSync('userid').,
+				//  openid:uni.getStorageSync('openid'),
+				//  zfje:'0.01'
+			 // }
+			 
+			 
+			 
 			 // 提现-提交
 			 // moneyAPI.inMoney(data).then(res => {
 			 // 	// this.$_log('提现：', res.data);
@@ -90,20 +108,22 @@
 			li {
 				font-size: 30rpx;
 				display: flex;
-				justify-content: space-around;
+				// justify-content: space-around;
 				border-top: 1px solid #ddd;
 				padding: $page-row-spacing 0;
+				justify-content: space-between;
+				padding: 20rpx;
 
 				span {
-					justify-content: space-around;
-
+					
+                    // flex: 1;
 					&:nth-of-type(1) {
-						text-align: left;
+						flex: 1;
 					}
 
-					// &:nth-of-type(1){
-					// 	flex: 1;
-					// }
+					&:nth-of-type(2){
+						flex: 3;
+					}
 				}
 			}
 		}
@@ -122,6 +142,7 @@
 
 				.left {
 					flex: 1;
+					
 				}
 
 				.center {

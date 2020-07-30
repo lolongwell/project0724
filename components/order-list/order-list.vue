@@ -3,7 +3,7 @@
 		<view class="order-list" v-for="(item, index) in goodsList">
 			<view class="order-info">
 				<view class="left">
-					<image src="../../static/images/default.png" mode=""></image>
+					<img :src="item.pic"></img>
 				</view>
 				<view class="right">
 					<view class="top">
@@ -12,10 +12,10 @@
 					<view class="middle">
 						<view class="price">
 							¥ {{item.spdj}}
-							<span v-show="item.count">x {{item.count}}</span>
+							<span v-show="item.spsl">x {{item.spsl}}</span>
 						</view>
 						<!-- todo：这里只有拼团信息状态才有 -->
-						<view class="tip" v-show="item.wczt === 0">
+						<view class="tip" v-show="item.wczt === '0'">
 							拼团中
 						</view>
 					</view>
@@ -23,16 +23,14 @@
 						<!-- todo:这里要区分：拼团信息卡片不能点击；待收货写死点击；已完成也是卡片不能点击 -->
 						<!-- <button class="status" v-for="(val,i) in item.status">{{val}}</button> -->
 						<!-- 拼团信息：卡片 -->
-						<button v-if="item.wczt === 0" class="status ptz-card">未拼中返：2000</button>
-
-
+						<button v-if="item.wczt === '0'" class="status ptz-card">未拼中返：2000</button>
 
 						<!-- 待收货 -->
-						<view class="dsh-btn-box" v-else-if="item.wczt === 2">
-							<button class="status " v-for="(item,index) in thfsList" @click="thHandle(item.value)">{{item.name}}</button>
+						<view class="dsh-btn-box" v-else-if="item.wczt === '2'">
+							<button class="status " v-for="(items,index) in thfsList" @click="thHandle(items.value,item.id)">{{items.name}}</button>
 						</view>
 						<!-- 已完成 -->
-						<view class="ywc-card-box" v-else-if="item.wczt === 3">
+						<view class="ywc-card-box" v-else-if="item.wczt === '3'">
 							<!-- 拼团成功 -->
 
 							<view class="">
@@ -45,9 +43,6 @@
 								<!--拼团不成功返利 -->
 								<button v-show="item.flmx !== ''" class=" status fl-card">已购物返利￥{{item.flmx}}</button>
 							</view>
-
-
-
 						</view>
 						<!-- <button v-else-if="item.wczt === 3" class="status ywc-card">已购物返利：￥{{item.flmx}}</button> -->
 
@@ -80,9 +75,15 @@
 		},
 		data() {
 			return {
-				thfsList: []  // 提货方式字典数据
+				thfsList: [] // 提货方式字典数据
 			}
 
+		},
+
+		watch: {
+			goodsList() {
+				console.log('改变了1111111111111111111')
+			}
 		},
 
 		computed: {
@@ -92,41 +93,93 @@
 			orderStatus() {
 				return this.$store.state.orderStatus
 			},
+			// goodsList(){
+			// 	return this.$store.state.goodsList
+			// }
 		},
 		mounted() {
-			console.log('this.orderList', this.orderList)
-			console.log('this.orderStatus', this.orderStatus)
-       
-            // 获取地点数据-提货方式
+
+			// 获取地点数据-提货方式
 			this.getDicData('thfs').then(res => {
-			this.thfsList =	res.data.data.map(item=>{
+				this.thfsList = res.data.data.map(item => {
 					return {
-						name:item.typename,
-						value:item.typecode
+						name: item.typename,
+						value: item.typecode
 					}
 				})
 			})
-			
+
 			// console.log('this.thfsList',this.thfsList)
 		},
 		methods: {
 			//点击提货方式：发送请求刷新列表
-			thHandle(val) {
-				// 1.获取入参
-				let th = {
-					userId: uni.getStorageSync('user').userId,
-					thfs: val,
-					wczt: 2
+			thHandle(val, id) {
+				uni.showModal({
+					title: '提示',
+					content: val === '1' ? '是否提货？' : '是否兑换积分',
+					success: (res) => {
+						if (res.confirm) {
+							// 1.获取入参
+							let th = {
+								thfs: val,
+								id: id
+							}
+							// 2.发送请求，刷新列表
+							orderAPI.updateOrder(th).then(res => {
+								console.log('es', res)
+								if (res.data.respCode === '0') {
+									uni.showToast({
+										title: '操作成功！',
+										duration: 3000
+									});
+									this.$store.commit('orderStatusUpdate', '2')
+									this.getList()
+
+								} else {
+									uni.showToast({
+										title: '操作成功！',
+										duration: 3000
+									});
+								}
+								// 3.todo:存入数据更新到全局
+								// this.$store.state.commit('orderListUpdate',res.data.obj.results)
+							})
+
+
+
+
+						} else if (res.cancel) {
+							return;
+						}
+					}
+				});
+
+
+
+
+
+
+			},
+			getList() {
+				// 1.判断是否登录，没有登录就跳进登录页面
+				console.log(1111)
+				// 2.获取当前需要的订单入参
+				let id = uni.getStorageSync('user').userId // 拿到用户信息，从里面拿用户id
+				let orderData = {
+					userId: '2c90d7e5738ac23a01738aedad8f000a', //用户id
+					wczt: '2' // 点击的是哪一种状态
 				}
-				// 2.发送请求，刷新列表
-				orderAPI.orderList(th).then(res => {
-					// console.log('res', res)
-					// this.goodsList = this.goodsList2
+				//3.发送请求
+				orderAPI.orderList(orderData).then(res => {
+					if (res.data.respCode === '0') {
+						this.goodsList = res.data.obj.results
+						//4.更新全局orderList
+						this.$store.commit('orderListUpdate', this.goodsList)
+					}
 
-					// 3.todo:存入数据更新到全局
-					// this.$store.state.commit('orderListUpdate',this.goodsList)
 				})
-
+				console.log('测试数据', this.goodsList)
+				// this.$store.commit('orderListUpdate', this.goodsList)
 			}
 
 		}
@@ -153,7 +206,7 @@
 					flex: 2;
 					margin-right: $page-row-spacing;
 
-					image {
+					img {
 						height: 100%;
 						width: 100%;
 					}

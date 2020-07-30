@@ -2,7 +2,7 @@
 	"pages": [{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "首页-优品乐购",
+				"navigationBarTitleText": "首页-悠品易购乐购",
 				"app-plus": {
 					//#ifdef H5
 					"titleNView": false
@@ -14,6 +14,24 @@
 			"path": "pages/groupBuy/groupBuy",
 			"style": {
 				"navigationBarTitleText": "拼团专区",
+				"app-plus": {
+					//#ifdef H5
+					"titleNView": false
+					//#endif
+				}
+			}
+		},
+		{
+			"path": "pages/test/test",
+			"style": {
+				"navigationBarTitleText": "测试"
+
+			}
+		},
+		{
+			"path": "pages/order/createOrder",
+			"style": {
+				"navigationBarTitleText": "创建订单",
 				"app-plus": {
 					//#ifdef H5
 					"titleNView": false
@@ -211,7 +229,7 @@
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "优品易购",
+		"navigationBarTitleText": "悠品易购",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},

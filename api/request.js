@@ -20,7 +20,7 @@ const getURL = function(url) {
 
 function post(url, d = {}, TK = true, jp = true) {
 	let h = {
-		'content-type': 'application/x-www-form-urlencoded', 
+		'content-type': 'application/x-www-form-urlencoded',
 		'X-Requested-With': 'XMLHttpRequest'
 	};
 	return rb(url, d, 'POST', h, TK, jp);
@@ -54,9 +54,13 @@ function del(url, d, TK = true, jp = true) {
 
 function rb(url, d, mt, h = {}, TK = true, jp = true) {
 	if (TK) {
-        let token = uni.getStorageSync('TOKEN'); 
+
+		// let token = uni.getStorageSync('TOKEN');
+		let token = uni.getStorageSync('token');
 		if (!token) m();
-		h['X-AUTH-TOKEN'] = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhZG1pbiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNTk2MDM5MzQyfQ.GXjeb_29M_NMo3FzTRd31bqhmnY1ysp_J4jd_RjERpc'; 
+		h['X-AUTH-TOKEN'] =
+			'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJ6ZW5nbHUiLCJzdWIiOiJ6ZW5nbHUiLCJpYXQiOjE1OTYwODczNDh9.ClSmubttrX84YDYsIZ0jmlCKtPdv58GdteJJ-UqHA5E';
+		h['X-AUTH-TOKEN'] = token
 	}
 	return new Promise(function(resolve, reject) {
 		let option = {

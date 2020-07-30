@@ -99,6 +99,9 @@
 			},
 		},
 		onLoad() {
+			//测试token
+			uni.setStorageSync('token','eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJ6ZW5nbHUiLCJzdWIiOiJ6ZW5nbHUiLCJpYXQiOjE1OTYwNzgzMDR9.-JKfx9ieaChL1X_x7TFu1qLo4SBN-6fcbq4K5y6F-5Q')
+			uni.setStorageSync('userId','2c90d7e5738ac23a01738aedad8f000a')
 			let ghbm = this.getUrlParam('ghbm')
 			console.log('ghbm', ghbm)
 			// let ghbm = '123456, 2c90d7e5738ac23a01738aedad8f000a, "曾小闲"'

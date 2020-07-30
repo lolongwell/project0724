@@ -1,6 +1,6 @@
 <template>
 	<view class="detail-box">
-		<view class="item" v-for="(item,index) in detailList">
+		<view class="item" v-for="(item,index) in addressList">
 			<view class="top">
 				<view class="left">
 					{{item.realname}}
@@ -26,57 +26,7 @@
 	export default {
 		data() {
 			return {
-				detailList: [{
-						realname: '我是',
-						phone: '10393838444',
-						detail: '我是详细地址1111'
-					},
-					{
-						realname: '我是',
-						phone: '10393838444',
-						detail: '我是地址1111'
-					},
-					{
-						realname: '我是',
-						phone: '10393838444',
-						detail: '我是地址1111'
-					},
-					{
-						realname: '我是',
-						phone: '10393838444',
-						detail: '我是地址1111'
-					},
-					{
-						realname: '我是',
-						phone: '10393838444',
-						detail: '我是地址1111'
-					},
-					{
-						realname: '我是',
-						phone: '10393838444',
-						detail: '我是地址1111'
-					},
-					{
-						realname: '我是',
-						phone: '10393838444',
-						detail: '我是地址1111'
-					},
-					{
-						realname: '我是',
-						phone: '10393838444',
-						detail: '我是地址1111'
-					},
-					{
-						realname: '我是',
-						phone: '10393838444',
-						detail: '我是地址1111'
-					},
-					{
-						realname: '我是',
-						phone: '10393838444',
-						detail: '我是地址1111'
-					}
-				]
+				addressList: []
 			};
 		},
 		computed: {
@@ -88,12 +38,14 @@
 		methods: {
 			
 			getList(){
-				console.log(333)
-				let u = uni.getStorageSync('user').id;
-				orderAPI.getAddressList({userId: u}).then(res=>{
-					console.log(11111)
+				let o = {
+					id:'2c90d7e5738ac23a01738aedad8f000a'
+				}
+				orderAPI.getAddressList(o).then(res=>{
+					console.log('3333',res.data.obj.results)
 					// this.$_log('地址列表：', res.data);
 					this.addressList = res.data.obj.results;
+					console.log('this.addressList',this.addressList)
 				})
 			},
 			add() {
@@ -122,6 +74,7 @@
 		width: 100%;
 		display: flex;
 		flex-direction: column;
+		font-size: $font-base;
 
 		padding: 0 $page-row-spacing;
 		padding-bottom: 120rpx;

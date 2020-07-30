@@ -181,18 +181,19 @@
 				// 2.获取当前需要的订单入参
 				let id = uni.getStorageSync('user').userId // 拿到用户信息，从里面拿用户id
 				let orderData = {
-					userId: '8a8ab0b246dc81120146dc8181950052', //用户id
-					wczt: this.cureentStatus // 点击的是哪一种状态
+					userId: '2c90d7e5738ac23a01738aedad8f000a', //用户id
+					wczt: this.orderStatus // 点击的是哪一种状态
 				}
 				//3.发送请求
 				orderAPI.orderList(orderData).then(res => {
-					console.log('res44444',res)
-					// this.goodsList = res.list
-					//4.更新全局orderList
-					this.$store.commit('orderListUpdate', this.goodsList)
+					if (res.statusCode === 200) {
+						console.log('res44444', res)
+						this.goodsList = res.data.obj.results
+						//4.更新全局orderList
+						this.$store.commit('orderListUpdate', this.goodsList)
+					}
+
 				})
-				console.log('测试数据', this.goodsList)
-				this.$store.commit('orderListUpdate', this.goodsList)
 			}
 		}
 	}

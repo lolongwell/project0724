@@ -104,7 +104,7 @@
 				],
 				// 右侧商品列表数据
 				floorList: [],
-				curIndex: '', //左侧导航索引
+				curIndex: '0', //左侧导航索引
 				ptlx: '', // 拼团类型
 				ptlxIndex: '' // 拼团类型索引
 			};

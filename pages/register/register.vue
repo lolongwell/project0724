@@ -84,6 +84,7 @@ export default {
 			RegisterAPI.getOpenId(code).then(res => {
 				console.log('openid',res)
 				if (res.data.respCode == 0) {
+					console.log('res.data.data',res.data.data)
 					uni.setStorageSync('openid', res.data.data.openid)
 					uni.setStorageSync('avatarUrl', res.data.data.avatarUrl)
 					uni.setStorageSync('city', res.data.data.citizenNo)
@@ -92,6 +93,8 @@ export default {
 					uni.setStorageSync('nickName', res.data.data.nickName)
 					uni.setStorageSync('sex', res.data.data.sex)
 					uni.setStorageSync('unionid', res.data.data.unionid)
+					uni.setStorageSync('userid', res.data.data.id)
+					uni.setStorageSync('token', res.data.data.token)
 				}
 			})
 		},
@@ -163,6 +166,7 @@ export default {
 					});
 					let token = res.data.data.token
 					this.$store.commit('login', token)
+					uni.getStorageSync('sex'),
 					setTimeout(() => {
 						window.location.href = 'http://sjblake.cn/index.html'
 					}, 1500)

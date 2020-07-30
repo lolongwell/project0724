@@ -25,6 +25,7 @@ const state = {
 	balance: '0.00', // 余额
 	integral: 0, //, 积分
 	orderList: [], //订单信息
+	orderDetails: [], //订单详情
 	orderStatus: 0, //订单状态
 	ptspType:'' // 拼团类型
 	
@@ -36,7 +37,8 @@ const getters = {
 	cartData: state => state.cartData,
 	orderList: state => state.orderList,
 	orderStatus: state => state.orderStatus,
-	ptspType: state => state.ptspType
+	ptspType: state => state.ptspType,
+	orderDetails: state => state.orderDetails
 };
 
 function addCart(good, cb) {
@@ -238,6 +240,9 @@ const mutations = {
 	},
 	orderListUpdate(state, orderList) {
 		state.orderList = orderList;
+	},
+	orderDetailsUpdate(state, orderDetails) {
+		state.orderDetails = orderDetails;
 	},
 	ptspTypeUpdate(state, ptspType) {
 		state.ptspType = ptspType;

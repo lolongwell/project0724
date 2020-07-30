@@ -25,7 +25,7 @@ let orderAPI = {
 			dataGrid: {
 				// "field": "id,spfl,name",
 				"page": 1,
-				"rows": 1000,
+				"rows": 10,
 				"order": "desc",
 				"sort": "createDate"
 			}
@@ -35,6 +35,18 @@ let orderAPI = {
 		
 		// return h.get(`/rest/tbDdController/${id}`)   //rest/tbDdController/dd_datagrid
 	},
+	
+	// 支付-创建订单
+	createOrder(d) {
+		d = JSON.stringify(d);
+		return h.postJson(`rest/tbDdController`, d);
+	},
+	// 支付-更新订单
+	updateOrder(d) {
+		d = JSON.stringify(d);
+		return h.postJson(`rest/tbDdController/updateDdThfs`, d);
+	},
+	
 	orderList1(d) {
 		let o = {
 			dd: d,
@@ -76,7 +88,7 @@ let orderAPI = {
 			dataGrid: {
 				// "field": "id,spfl,name",
 				"page": 1,
-				"rows": 1000,
+				"rows": 10,
 				"order": "desc",
 				"sort": "createDate"
 			}
