@@ -1,4 +1,12 @@
 <template>
+</template>
+
+<script>
+</script>
+
+<style>
+</style>
+<template>
 	<view class="order-detail-box">
 		<ul>
 			<li>
@@ -66,7 +74,7 @@ export default {
 	},
   onShow() {
     this.detailList = this.orderDetails;
-    console.log("aaa", this.detailList);
+    console.log("aaa超人", this.detailList);
   },
   methods: {
     payHandle() {

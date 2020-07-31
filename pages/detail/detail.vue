@@ -104,7 +104,7 @@
 							</view>
 						</view>
 						<view class="right">
-							<view class="uni-list">
+							<view  v-if="isAddress" class="uni-list">
 								<view class="uni-list-cell">
 
 									<view class="uni-list-cell-db">
@@ -114,7 +114,11 @@
 									</view>
 								</view>
 							</view>
+							<view  else  class="address-input">
+								<input type="text" :value="addressValue"  v-model="addressValue"    />
+							</view>
 						</view>
+						
 					</view>
 
 					<button @click="payHandle" class="pay-money">立即支付</button>
@@ -202,27 +206,22 @@
 				methodIndex: -1, // 支付方式初始索引
 				// 提交给后台的支付入参
 				form: {
-					// spmc: '',
-					// spgg: '',
-					// ptjg: '',
-					// ptjg: '',
-					// number: 1,
-					// zffs: '',
-					// addressId: '',
-
-					addressId: "2c90d7e5738b1fc801738b3399a7000d", // 地址
-					ddje: 11, // 订单金额
-					realname: "曾小闲", //用户名
-					spId: "2c90d7e57385e9860173866196b00026", //商品id
-					spdj: 11,  // 单价                                 
-					spgg: "11", // 规格
-					spmc: "黑茶", // 名称
-					spsl: 5,  // 数量
-					userId: "2c90d7e5738ac23a01738aedad8f000a", //用户id
-					zffs: "yezf",  // 支付方式
-					zjzt: "0"  // 
+					addressId: "", // 地址
+					address:'',
+					ddje: '', // 订单金额
+					realname: "", //用户名
+					spId: "", //商品id
+					spdj: '',  // 单价                                 
+					spgg: "", // 规格
+					spmc: "", // 名称
+					spsl: '1',  // 数量
+					userId: "", //用户id
+					zffs: "",  // 支付方式
+					zjzt: ""  // 
 				},
-				addressList: []
+				addressList: [],
+				isAddress:true,
+				addressValue:''
 			};
 		},
 		components: {
@@ -255,25 +254,6 @@
 					return '*******' + _4num;
 				}
 			},
-			gmfsFilter() {
-				return function(type, attr) {
-					if (!type) return '';
-					switch (type[attr]) {
-						case '1':
-							return '单次购买';
-						case '2':
-							return '购买三天';
-						case '3':
-							return '购买一周';
-						case '4':
-							return '购买两周';
-					}
-				};
-			},
-			indicatorDots() {
-				if (this.picList.length > 1) return true;
-				else return false;
-			},
 			hasImg() {
 				if (this.article.indexOf('img') > -1) return true;
 				else return false;
@@ -282,17 +262,28 @@
 		methods: {
 			// 获取地址
 			getAdress() {
-				let id = '2c90d7e5738ac23a01738aedad8f000a'
+				let id = uni.getStorageSync('userid')
+				console.log('id111111',id)
 				let o = {
 					userId: id
 				}
 				orderAPI.getAddressList(o).then(res => {
-					this.addressList = res.data.obj.results
-					this.addressList.forEach(item => {
-						this.address.push(item.address)
-					})
-					this.form.addressId = this.addressList[0].id
-					console.log('res.obj.results', res.data.obj.results)
+						this.addressList = res.data.obj.results
+						this.addressList.forEach(item => {
+							this.address.push(item.address)
+						})
+						
+						if(this.addressList.length > 0){
+							this.isAddress = true
+							this.form.addressId = this.addressList[0].id
+						}else{
+							this.isAddress = false
+							this.form.address = this.addressValue
+						}
+						
+						console.log('res.obj.results', res.data.obj.results)
+					
+					
 				})
 			},
 			loadData(id) {
@@ -301,6 +292,10 @@
 				ProductAPI.goodsDetail(id).then(res => {
 					this.$_log('商品详www情：', res.data.obj);
 					this.product = res.data.obj;
+					this.form.spId = this.product.id
+					this.form.spmc = this.product.spmc
+					// this.form.spdj = this.product.spdj
+				    this.form.userId = uni.getStorageSync('userId')
 					this.img = this.product.sppic
 					console.log(this.img)
 					this.article = this.product.spjs
@@ -334,26 +329,23 @@
 			//立即支付
 			payHandle() {
 				
-				// 验证表单
-				console.log('uni.setStorageSync', uni.getStorageSync('token'))
-				console.log('uni.setStorageSync', uni.getStorageSync('userId'))
-				console.log('this.form', this.form)
-				// if (!this.form.spgg) {
-				// 	uni.showToast({
-				// 		title: '请选择商品规格!',
-				// 		icon: 'none'
-				// 	});
-				// }
-				// if (!this.form.zffs) {
-				// 	uni.showToast({
-				// 		title: '请选择支付方式!',
-				// 		icon: 'none'
-				// 	});
-				// }
+				if (!this.form.spgg) {
+					uni.showToast({
+						title: '请选择商品规格!',
+						icon: 'none'
+					});
+				}
+				if (!this.form.zffs) {
+					uni.showToast({
+						title: '请选择支付方式!',
+						icon: 'none'
+					});
+				}
 
 				// 获得入参
+				console.log('this.form', this.form)
                 
-				payAPI.createOrder(this.form).then(res=>{
+				orderAPI.createOrder(this.form).then(res=>{
 					if(res.data.respCode === '0'){
 							console.log('支付创建订单',res)
 							this.$store.commit('orderDetailsUpdate',res.data.data)
@@ -376,6 +368,8 @@
 				this.typeIndex = index
 				this.product.ptjg = jg
 				this.form.spgg = val
+				console.log('jg,jg',jg)
+				this.form.spdj = jg
 				console.log('this.typeIndex', this.typeIndex)
 				console.log('规格', val)
 				console.log('规格id', id)
@@ -389,7 +383,7 @@
 			},
 			//选择数量
 			numberChange(e) {
-				this.form.number = e.number;
+				this.form.spsl = e.number;
 			},
 			// 选择地址
 			addressChange(e) {
@@ -1004,6 +998,10 @@
 						flex: 8;
 						text-align: right;
 						position: relative;
+						.address-input{
+							border:  1px solid #333;
+							width: 100%;
+						}
 
 						.select-btn {
 							border: 1px solid #333;

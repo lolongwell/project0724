@@ -4,6 +4,9 @@ let payAPI = {
 	getPayInfo(d) {
 		return h.postJson(`rest/wxPayController/wxPayFunction?openid=${d.openid}`, d, false);
 	},
+	test1(){
+		
+	},
     // 支付
 	payOrder(d) {
 		return h.postJson(`/rest/yyjfPayController/wxczFunction?userId=${d.userid}&openid=${d.openid}&czje=${d.czje}`,{});
