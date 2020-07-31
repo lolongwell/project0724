@@ -1,10 +1,10 @@
 <template>
-	<view class="wrapper">
-		<view class="box-lottery">
-			<view ref="boxLottery" class="box" :style="{'transform' : rollging ? 'rotate('+ rotateAngle +'deg)' : 'rotate('+ randomAngle +'deg)', 'transition' : rollging ? 'all 5s' : 'none'}">
-				<view v-for="(item, index) in list" :key="index" :style="{'transform' : 'rotate('+ ((360 / list.length * index) + (360 / list.length / 2)) + 'deg)'}">
-					<span>{{ item.title }}</span>
-				</view>
+	<div class="wrapper">
+		<div class="box-lottery">
+			<div ref="boxLottery" class="box" :style="{'transform' : rollging ? 'rotate('+ rotateAngle +'deg)' : 'rotate('+ randomAngle +'deg)', 'transition' : rollging ? 'all 5s' : 'none'}">
+				<div v-for="(item, index) in list" :key="index" :style="{'transform' : 'rotate('+ ((360 / list.length * index) + (360 / list.length / 2)) + 'deg)'}">
+					<span>{{ item.name }}</span>
+				</div>
 				<!-- <div></div>
 	        <div style="transform:rotate(45deg)"></div>
 	        <div style="transform:rotate(90deg)"></div>
@@ -13,12 +13,12 @@
 	        <div style="transform:rotate(225deg)"></div>
 	        <div style="transform:rotate(270deg)"></div>
 	        <div style="transform:rotate(315deg)"></div> -->
-			</view>
-			<view class="lottery-btn" @click="rotate">
+			</div>
+			<div class="lottery-btn" @click="rotate">
 				<i></i>
-			</view>
-		</view>
-	</view>
+			</div>
+		</div>
+	</div>
 </template>
 <script>
 	export default {
@@ -31,28 +31,37 @@
 				randomAngle: 0, // 随机产生一个角度
 				rollging: false,
 				list: [{
-						title: '111'
+						name: 'iphone',
+						id:1
+						
 					},
 					{
-						title: '222'
+						name: 'ipad',
+						id:2
 					},
 					{
-						title: '333'
+						name: '很遗憾，未中奖',
+						id:3
 					},
 					{
-						title: '444'
+						name: '华为',
+						id:4
 					},
 					{
-						title: '555'
+						name: '很遗憾，未中奖',
+						id:5
 					},
 					{
-						title: '666'
+						name: '积分100',
+						id:6
 					},
 					{
-						title: '777'
+						name: '再来一次',
+						id:7
 					},
 					{
-						title: '888'
+						name: '积分10000',
+						id:8
 					}
 				]
 			}
@@ -84,21 +93,21 @@
 			},
 			lotteryEnd(angle) {
 				if (angle > 0 && angle < 45) {
-					console.log('888')
+					console.log(this.list[7])
 				} else if (angle > 45 && angle <= 90) {
-					console.log('777')
+					console.log(this.list[6])
 				} else if (angle > 90 && angle <= 135) {
-					console.log('666')
+					console.log(this.list[5])
 				} else if (angle > 135 && angle <= 180) {
-					console.log('555')
+					console.log(this.list[4])
 				} else if (angle > 180 && angle <= 225) {
-					console.log('444')
+					console.log(this.list[3])
 				} else if (angle > 225 && angle <= 270) {
-					console.log('333')
+					console.log(this.list[2])
 				} else if (angle > 270 && angle <= 315) {
-					console.log('222')
+					console.log(this.list[1])
 				} else if (angle > 315 && angle <= 360) {
-					console.log('111')
+					console.log(this.list[0])
 				}
 			}
 		},
