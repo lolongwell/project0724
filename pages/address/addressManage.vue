@@ -37,6 +37,7 @@
 </template>
 
 <script>
+	import orderAPI from '@/api/order/order.js'
 	export default {
 		data() {
 			return {
@@ -44,7 +45,8 @@
 					phone: '',
 					realname: '',
 					address:'',
-					detail: ''
+					detail: '',
+					userid:'8a8ab0b246dc81120146dc8181950052'
 				},
 				isPhone: false,
 				errorPhone: false,
@@ -82,8 +84,12 @@
 				}
                 let data = JSON.parse(JSON.stringify(this.form));
 				// 新增地址-提交
+				console.log('data',data)
 				orderAPI.addAddress(data).then(res => {
 					this.$_log('添加地址：', res.data);
+					// if(res.data.data.re)
+						
+					// }
 					uni.showToast({
 						title: '添加成功!',
 						icon: 'none'
