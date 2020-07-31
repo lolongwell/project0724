@@ -91,6 +91,11 @@
             "mode" : "hash"
         },
         "title" : "悠品乐购",
-        "domain" : "http://sjblake.cn"
+        "domain" : "http://sjblake.cn",
+        "optimization" : {
+            "treeShaking" : {
+                "enable" : false
+            }
+        }
     }
 }
