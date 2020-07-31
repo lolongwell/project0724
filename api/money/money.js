@@ -12,7 +12,7 @@ let moneyAPI = {
 	// 提现
 	outMoney(d){
 		d = JSON.stringify(d);
-		return h.postJson(`rest/userAddressController`, d);
+		return h.postJson(`rest/tbTxglController`, d);
 	},
 	
 	// 资金记录

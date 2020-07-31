@@ -74,6 +74,22 @@
 			payApi.payOrder(o).then(res => {
 				console.log('支付返回的结果', res.data)
 				console.log('支付返回的结果', res.data.data.code)
+				let obj = {
+					"appId": "wx05de43db35c9393b", //公众号名称，由商户传入
+					"timeStamp": res.data.data.data.jsapi_timeStamp, //时间戳，自1970年以来的秒数
+					"nonceStr": res.data.data.data.jsapi_nonceStr, //随机串
+					"package": 'prepay_id=' + res.data.data.data.prepay_id,
+					"signType": "MD5",
+					"openid": this.newOpenId,
+					"paySign": res.data.data.data.jsapi_paySign //微信签名
+					// "totalFee": 1,
+					// "outTradeNo": '2hggjgjg8888',
+					// "subMchId": '1601407358',
+					// "body": '衣服',
+					// "notifyUrl": window.location.href,
+					// "sign": res.data.data.data.sign
+				}
+				console.log('参数',obj)
 				// 发送请求
 				WeixinJSBridge.invoke(
 					'getBrandWCPayRequest', {
