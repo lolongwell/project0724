@@ -11,7 +11,7 @@
 			<view class="uni-list input-item" >
 				<view class="uni-list-cell" >
 					<view class="uni-list-cell-db" placeholder="请选择银行">
-						<picker @change="bindPickerChange" :value="index" placeholder="请选择银行" :range="array">
+						<picker mode="selector" @change="bindPickerChange" :value="index" placeholder="请选择银行" :range="array">
 							<view class="uni-input">{{array[index]}}</view>
 						</picker>
 					</view>
@@ -49,12 +49,13 @@ import informationAPI from '@/api/infomation/infomation.js'
 					yhkh: '',
 					khhmc: ''
 				},
-				array: [ "请选择银行", "中国建设银行","中国工商银行","中国农业银行"],
+				array: ['请选择银行'],
+				selectList: [],
 				index: 0,
 			};
 		},
 		onLoad() {
-			// this.getBankdata()
+			this.getBankdata()
 		},
 		onShow() {
 			
@@ -62,7 +63,10 @@ import informationAPI from '@/api/infomation/infomation.js'
 		methods: {
 			getBankdata() {
 				informationAPI.getBankList('yhfl').then(res => {
-					this.array = res.data.data
+					this.selectList = res.data.data
+					res.data.data.forEach(v => {
+						this.array.push(v.typename)
+					})
 					console.log(this.array)
 				})
 			},
@@ -93,18 +97,22 @@ import informationAPI from '@/api/infomation/infomation.js'
 					return;
 				}
 				let data = JSON.parse(JSON.stringify(this.form));
+				console.log('提现', data)
 				// 提现-提交
 				moneyAPI.outMoney(data).then(res => {
 					uni.showToast({
-						title: '提现成功!'
+						title: '提现已申请!'
 					});
-					// uni.navigateBack();
+					setTimeout(() => {
+						uni.navigateBack();
+					}, 1500)
 				});
 			},
 			bindPickerChange: function(e) {
 				this.index = e.target.value
-				this.form.yhfl = e.target.value
-				// this.form.yhfl = this.array[this.index]
+				// this.form.yhfl = e.target.value
+				console.log(this.selectList)
+				this.form.yhfl = this.selectList[this.index - 1]['typecode']
 			},
 
 		}

@@ -104,11 +104,10 @@
 							</view>
 						</view>
 						<view class="right">
-							<view  v-if="isAddress" class="uni-list">
+							<view class="uni-list">
 								<view class="uni-list-cell">
-
 									<view class="uni-list-cell-db">
-										<picker @change="addressChange" :value="index" :range="address">
+										<picker mode="selector" @change="addressChange" :value="index" :range="address" placeholder="请选择收货地址">
 											<view class="uni-input">{{address[index]}}</view>
 										</picker>
 									</view>
@@ -191,7 +190,7 @@ export default {
           },
         ],
       },
-      address: [],
+      address: ['请选择收货地址'],
       // 支付方式
       method: [
         {
@@ -298,17 +297,17 @@ export default {
 			},
     // 获取地址
     getAdress() {
-      let id = "2c90d7e5738ac23a01738aedad8f000a";
+      let id = uni.getStorageSync('userid');
       let o = {
-        userId: id,
+        userId: id
       };
       orderAPI.getAddressList(o).then((res) => {
         this.addressList = res.data.obj.results;
         this.addressList.forEach((item) => {
-          this.address.push(item.address);
+          this.address.push(item.address + item.detail);
         });
-        this.form.addressId = this.addressList[0].id;
-        console.log("res.obj.results", res.data.obj.results);
+        // this.form.addressId = this.addressList[0].id;
+        console.log("收货地址", res.data.obj.results);
       });
     },
     loadData(id) {
@@ -381,8 +380,11 @@ export default {
             if (res.data.data.wczt == 0) {
               uni.showToast({
                 title: '拼团成功！',
-                duration: 2000
+                duration: 1500
               });
+              setTimeout(() => {
+                uni.navigateBack();
+              }, 1500)
             }
           }
         }
@@ -416,7 +418,7 @@ export default {
     // 选择地址
     addressChange(e) {
       this.index = e.target.value;
-      this.form.addressId = this.addressList[this.index].id;
+      this.form.addressId = this.addressList[this.index - 1].id;
     },
     changeGMFS() {
       if (this.specSelected) this.product.price = this.specSelected.jg;
@@ -1074,6 +1076,7 @@ export default {
       font-size: $font-base;
       margin-right: 20rpx;
       margin-top: 20rpx;
+      margin-bottom: 20rpx;
       background: $my-color;
       color: #fff;
     }

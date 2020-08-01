@@ -83,7 +83,8 @@ export default {
       // 新增地址-提交
       console.log("data", data);
       orderAPI.addAddress(data).then((res) => {
-				if (res.respCode == 0) {
+        console.log('添加地址', res)
+				if (res.data.respCode == 0) {
 					uni.showToast({
 						title: '添加成功',
 						duration: 1500
