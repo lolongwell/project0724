@@ -32,103 +32,108 @@
 						text: '已完成'
 					}
 				],
-				goodsList: [{
-						url: '../../static/images/default.png',
-						spmc: '商品名1商品名1商品名1商品名1商品名1商品名1商品名1商品名1',
-						spdj: '8000.00',
-						ddh: '00001',
-						fktime: '2020-2-2 10:30:30',
-						spsl: 1,
-						wczt: 0
+				goodsList: [
+					// {
+					// 	url: '../../static/images/default.png',
+					// 	spmc: '商品名1商品名1商品名1商品名1商品名1商品名1商品名1商品名1',
+					// 	spdj: '8000.00',
+					// 	ddh: '00001',
+					// 	fktime: '2020-2-2 10:30:30',
+					// 	spsl: 1,
+					// 	wczt: 0
 
-					},
-					{
-						url: '../../static/images/default.png',
-						spmc: '商品名1',
-						spdj: '8000.00',
-						ddh: '00001',
-						fktime: '2020-2-2 10:30:30',
-						wczt: 0
-					},
-					{
-						url: '../../static/images/default.png',
-						spmc: '商品名1',
-						spdj: '8000.00',
-						ddh: '00001',
-						fktime: '2020-2-2 10:30:30',
-						wczt: 0
-					}
+					// },
+					// {
+					// 	url: '../../static/images/default.png',
+					// 	spmc: '商品名1',
+					// 	spdj: '8000.00',
+					// 	ddh: '00001',
+					// 	fktime: '2020-2-2 10:30:30',
+					// 	wczt: 0
+					// },
+					// {
+					// 	url: '../../static/images/default.png',
+					// 	spmc: '商品名1',
+					// 	spdj: '8000.00',
+					// 	ddh: '00001',
+					// 	fktime: '2020-2-2 10:30:30',
+					// 	wczt: 0
+					// }
 				],
-				goodsList1: [{
-						url: '../../static/images/default.png',
-						spmc: '商品名1商品名1商品名1商品名1商品名1商品名1商品名1商品名1',
-						spdj: '8000.00',
-						ddh: '00001',
-						fktime: '2020-2-2 10:30:30',
-						spsl: 1,
-						wczt: 0
+				goodsList1: [
+					// {
+					// 	url: '../../static/images/default.png',
+					// 	spmc: '商品名1商品名1商品名1商品名1商品名1商品名1商品名1商品名1',
+					// 	spdj: '8000.00',
+					// 	ddh: '00001',
+					// 	fktime: '2020-2-2 10:30:30',
+					// 	spsl: 1,
+					// 	wczt: 0
 
-					},
-					{
-						url: '../../static/images/default.png',
-						spmc: '商品名1',
-						spdj: '8000.00',
-						ddh: '00001',
-						fktime: '2020-2-2 10:30:30',
-						wczt: 0
-					},
-					{
-						url: '../../static/images/default.png',
-						spmc: '商品名1',
-						spdj: '8000.00',
-						ddh: '00001',
-						fktime: '2020-2-2 10:30:30',
-						wczt: 0
-					}
+					// },
+					// {
+					// 	url: '../../static/images/default.png',
+					// 	spmc: '商品名1',
+					// 	spdj: '8000.00',
+					// 	ddh: '00001',
+					// 	fktime: '2020-2-2 10:30:30',
+					// 	wczt: 0
+					// },
+					// {
+					// 	url: '../../static/images/default.png',
+					// 	spmc: '商品名1',
+					// 	spdj: '8000.00',
+					// 	ddh: '00001',
+					// 	fktime: '2020-2-2 10:30:30',
+					// 	wczt: 0
+					// }
 				],
 				goodsList2: [],
-				goodsList3: [{
-					url: '../../static/images/default.png',
-					spmc: '商品名1',
-					spdj: '8000.00',
-					ddh: '00001',
-					fktime: '2020-2-2 10:30:30',
-					wczt: 2,
+				goodsList3: [
+				// 	{
+				// 	url: '../../static/images/default.png',
+				// 	spmc: '商品名1',
+				// 	spdj: '8000.00',
+				// 	ddh: '00001',
+				// 	fktime: '2020-2-2 10:30:30',
+				// 	wczt: 2,
 
-					// zjzt: 1 // 1提货 2兑换积分
-				}],
-				goodsList4: [{
-						url: '../../static/images/default.png',
-						spmc: '商品名1商品名1商品名1商品名1商品名1商品名1商品名1商品名1',
-						spdj: '8000.00',
-						ddh: '00001',
-						fktime: '2020-2-2 10:30:30',
-						spsl: 1,
-						wczt: 3,
-						flmx: '',
-						thfs: 1,
-						zjzt: 1 // 1提货 2兑换积分
+				// 	// zjzt: 1 // 1提货 2兑换积分
+				// },
+				],
+				goodsList4: [
+					// {
+					// 	url: '../../static/images/default.png',
+					// 	spmc: '商品名1商品名1商品名1商品名1商品名1商品名1商品名1商品名1',
+					// 	spdj: '8000.00',
+					// 	ddh: '00001',
+					// 	fktime: '2020-2-2 10:30:30',
+					// 	spsl: 1,
+					// 	wczt: 3,
+					// 	flmx: '',
+					// 	thfs: 1,
+					// 	zjzt: 1 // 1提货 2兑换积分
 
-					},
-					{
-						url: '../../static/images/default.png',
-						spmc: '商品名1',
-						spdj: '8000.00',
-						ddh: '00001',
-						fktime: '2020-2-2 10:30:30',
-						wczt: 3,
-						thfs: 2,
-						flmx: ''
-					},
-					{
-						url: '../../static/images/default.png',
-						spmc: '商品名1',
-						spdj: '8000.00',
-						ddh: '00001',
-						fktime: '2020-2-2 10:30:30',
-						wczt: 3,
-						flmx: '194 + 95.00'
-					}
+					// },
+					// {
+					// 	url: '../../static/images/default.png',
+					// 	spmc: '商品名1',
+					// 	spdj: '8000.00',
+					// 	ddh: '00001',
+					// 	fktime: '2020-2-2 10:30:30',
+					// 	wczt: 3,
+					// 	thfs: 2,
+					// 	flmx: ''
+					// },
+					// {
+					// 	url: '../../static/images/default.png',
+					// 	spmc: '商品名1',
+					// 	spdj: '8000.00',
+					// 	ddh: '00001',
+					// 	fktime: '2020-2-2 10:30:30',
+					// 	wczt: 3,
+					// 	flmx: '194 + 95.00'
+					// }
 				],
 				cureentStatus: 0 // 默认订单状态为拼团信息
 			}
@@ -179,15 +184,14 @@
 				// 1.判断是否登录，没有登录就跳进登录页面
 
 				// 2.获取当前需要的订单入参
-				let id = uni.getStorageSync('user').userId // 拿到用户信息，从里面拿用户id
+				let id = uni.getStorageSync('userId') // 拿到用户信息，从里面拿用户id
 				let orderData = {
-					userId: '2c90d7e5738ac23a01738aedad8f000a', //用户id
+					userId: id, //用户id
 					wczt: this.orderStatus // 点击的是哪一种状态
 				}
 				//3.发送请求
 				orderAPI.orderList(orderData).then(res => {
 					if (res.statusCode === 200) {
-						console.log('res44444', res)
 						this.goodsList = res.data.obj.results
 						//4.更新全局orderList
 						this.$store.commit('orderListUpdate', this.goodsList)
