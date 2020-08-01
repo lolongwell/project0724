@@ -122,7 +122,8 @@ export default {
 		}
 		payAPI.payOrderByZFB(o).then(res=>{
 			if(res.data.data.code === 1000){
-				window.location.href = res.data.data.data.qr_code
+				window.location.href = res.data.data.dsata.qr_code
+				
 			}
 			
 		})

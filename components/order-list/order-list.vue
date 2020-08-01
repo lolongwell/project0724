@@ -35,16 +35,17 @@
 
 							<view class="">
 								<!-- 已兑换积分 -->
-								<button v-show="item.thfs === 2 && item.flmx === '' " class="status ydh-card">已兑换积分：50</button>
+								<button v-if="item.thfs === '2'" class="status ydh-card">已兑换积分：50</button>
 								<!-- 已提货 -->
-								<button v-show="item.thfs === 1 && item.flmx === '' " class="status yth-card">已提货</button>
+								<button v-else="item.thfs === '1'" class="status yth-card">已提货</button>
+								<!--拼团不成功返利 -->
+								<!-- <button v-show="item.flmx !== null" class=" status fl-card">已购物返利￥{{item.flmx}}{{item.thfs}}</button> -->
 							</view>
 							<view class="">
-								<!--拼团不成功返利 -->
-								<button v-show="item.flmx !== ''" class=" status fl-card">已购物返利￥{{item.flmx}}</button>
+								
 							</view>
 						</view>
-						<!-- <button v-else-if="item.wczt === 3" class="status ywc-card">已购物返利：￥{{item.flmx}}</button> -->
+						<!-- <button v-else-if="item.wczt === 3" class="status ywc-card">已购物返利33333：￥{{item.flmx}}</button> -->
 
 					</view>
 				</view>
@@ -82,7 +83,8 @@
 
 		watch: {
 			goodsList() {
-				console.log('改变了1111111111111111111')
+				console.log(333333)
+				console.log('改变了1111111111111111111',this.goodsList)
 			}
 		},
 
@@ -98,6 +100,7 @@
 			// }
 		},
 		mounted() {
+			console.log('goodsList',this.goodsList)
 
 			// 获取地点数据-提货方式 
 			this.getDicData('thfs').then(res => {
@@ -109,7 +112,7 @@
 				})
 			})
 
-			// console.log('this.thfsList',this.thfsList)
+			console.log('this.thfsList',this.thfsList)
 		},
 		methods: {
 			//点击提货方式：发送请求刷新列表
@@ -142,7 +145,7 @@
 									});
 								}
 								// 3.todo:存入数据更新到全局
-								// this.$store.state.commit('orderListUpdate',res.data.obj.results)
+								this.$store.state.commit('orderListUpdate',res.data.obj.results)
 							})
 
 						} else if (res.cancel) {
