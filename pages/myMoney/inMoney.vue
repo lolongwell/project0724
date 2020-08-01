@@ -114,8 +114,17 @@ export default {
         // uni.navigateTo({
         //   url: `/pages/order/detail`,
         // });
+		let o = {
+			userId:uni.getStorageSync('userid'),
+			openid:uni.getStorageSync('openid'),
+			czje:sum,
+			spmc:'支付宝充值'
+		}
 		payAPI.payOrderByZFB(o).then(res=>{
-			console.log('zhifubaozhifu',res)
+			if(res.data.data.code === 1000){
+				window.location.href = res.data.data.data.qr_code
+			}
+			
 		})
       }
     },
