@@ -26,7 +26,7 @@
 			<p>选择支付方式</p>
 			<view class="pay-wechar" @click="payHandle">
 				<view class="left">
-                  <img src=""></img>
+          <img src="../../static/images/wx.png"></img>
 				</view>
 				<view class="center">
 					<p>微信支付1</p>
@@ -124,6 +124,10 @@ export default {
 
       .left {
         flex: 1;
+        img {
+          widows: 60rpx;
+          height: 60rpx;
+        }
       }
 
       .center {

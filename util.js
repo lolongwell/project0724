@@ -82,7 +82,8 @@ export function getWxInfo(code) {
 
 // 获取支付openid
 export function requestPayOpenid() {
-  let local = window.location.href
+  // let local = window.location.href
+  let local = 'http://sjblake.cn/#/pages/order/detail'  // 订单详情
   window.location.href = `https://api.yiyunjf.cn/v1/wechat/auth?app_id=pya7LZA0fnMupQH5Yp4C9wZtMDAwV1RP&sub_mch_id=1601407358&snsapi_userinfo=true&callback=${encodeURIComponent(
     local
   )}`
@@ -136,6 +137,9 @@ export function onBridgeReady(data, orderInfo) {
           }
           orderAPI.payAndUpdateOrder(o).then(res => {
             console.log('成功支付后的回调1', res)
+            uni.switchTab({
+               url: '/pages/order/order'
+            });
           })
         } else if (orderSource == 2) {
           let o = {
@@ -148,6 +152,9 @@ export function onBridgeReady(data, orderInfo) {
           }
           payAPI.paySuccess(JSON.stringify(o)).then(res => {
             console.log('成功支付后的回调2', res)
+            uni.switchTab({
+               url: '/pages/my/my'
+            });
           })
         }
       }

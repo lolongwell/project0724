@@ -133,14 +133,14 @@ export default {
   flex-direction: column;
   margin-top: 10%;
   margin-left: 50%;
-  width: 70%;
+  width: 90%;
   transform: translate(-50%, -10%);
 
   ul {
     padding-left: 0;
 
     .input-item {
-      height: 60rpx;
+      height: 70rpx;
       width: 100%;
       // margin-top: 20rpx;
       position: relative;
@@ -151,7 +151,7 @@ export default {
         left: 0;
         top: 0;
         padding-left: 20rpx;
-        font-size: 20rpx;
+        font-size: 30rpx;
       }
 
       .icon-item {
@@ -166,7 +166,7 @@ export default {
         right: 10rpx;
         top: 50%;
         transform: translateY(-50%);
-        font-size: 10rpx;
+        font-size: 30rpx;
         color: $my-color;
       }
 
@@ -174,7 +174,7 @@ export default {
         position: absolute;
         bottom: -30rpx;
         color: red;
-        font-size: 20rpx;
+        font-size: 30rpx;
       }
     }
 
@@ -184,7 +184,7 @@ export default {
     }
 
     .region {
-      font-size: 15rpx;
+      font-size: 30rpx;
       color: #333;
       display: inline-block;
       margin-top: 50rpx;
@@ -197,7 +197,7 @@ export default {
       // color: #999;
     }
     .a-text {
-      font-size: 15rpx;
+      font-size: 30rpx;
     }
 
     .sumit {
@@ -216,6 +216,6 @@ export default {
 
 .uni-input {
   height: 60rpx;
-  font-size: 10rpx;
+  font-size: 30rpx;
 }
 </style>

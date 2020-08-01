@@ -90,7 +90,7 @@ export default {
   ._e-nnn,
   ._u-ppp {
     padding-left: 35rpx;
-    font-size: $font-sm;
+    font-size: $font-base;
     margin-top: 10rpx;
   }
 

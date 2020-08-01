@@ -47,7 +47,8 @@ import informationAPI from '@/api/infomation/infomation.js'
 					realname: '',
 					yhfl: '',
 					yhkh: '',
-					khhmc: ''
+					khhmc: '',
+					userId: uni.getStorageSync('userid')
 				},
 				array: ['请选择银行'],
 				selectList: [],

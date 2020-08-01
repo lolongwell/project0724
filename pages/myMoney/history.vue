@@ -3,14 +3,14 @@
     <view class="item" v-for="(item, index) in historyList" :key="index">
       <view class="left">
         <view class="title">
-          {{ item.title }}
+          {{ item.remark }}
         </view>
         <view class="timer">
-          {{ item.timer }}
+          {{ item.clsj }}
         </view>
       </view>
       <view class="right" :class="{ isMoreMoney: item.ismore }">
-        {{ item.money }}
+        {{ item.clje }}
       </view>
     </view>
   </view>
@@ -31,9 +31,10 @@ export default {
     getList() {
 			let userId = uni.getStorageSync('userid')
       userAPI.getMoneyList(userId).then((res) => {
-				if (res.success) {
-					if (res.obj) {
-						this.historyList = res.obj
+        console.log('资金记录', res)
+				if (res.data.success) {
+					if (res.data.obj) {
+						this.historyList = res.data.obj.results
 					}
 				}
 			});
