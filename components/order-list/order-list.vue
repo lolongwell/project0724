@@ -35,7 +35,7 @@
 
 							<view class="">
 								<!-- 已兑换积分 -->
-								<button v-show="item.thfs === '2' && item.flmx === null " class="status ydh-card">已兑换积分：50</button>
+								<button v-show="item.thfs === '2' && item.flmx === null " class="status ydh-card">已兑换积分：{{item.dhjf}}</button>
 								<!-- 已提货 -->
 								<button v-show="item.thfs === '1' && item.flmx === null" class="status yth-card">已提货</button>
 								<!--拼团不成功返利 -->
