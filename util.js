@@ -129,8 +129,9 @@ export function onBridgeReady(data, orderInfo) {
       console.log('支付成功了', res)
       if (res.err_msg == 'get_brand_wcpay_request:ok') {
         let orderSource = uni.getStorageSync('orderSource')
+        console.log('111111111',orderSource)
+        let orderDetail = JSON.parse(uni.getStorageSync('orderDetail'))
         if (orderSource == 1) {
-          let orderDetail = JSON.parse(uni.getStorageSync('orderDetail'))
           let o = {
             id: orderDetail.id,
             payid: orderDetail.payid
