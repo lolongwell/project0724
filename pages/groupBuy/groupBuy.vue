@@ -39,7 +39,7 @@
 			</ul>
 		</view>
 	    
-		 <button type="default" @click="test()">测试</button>
+		 <!-- <button type="default" @click="test()">测试</button> -->
 	</view>
 </template>
 
@@ -64,7 +64,7 @@
 					},
 					{
 						pt_name: '二人拼团',
-						pt_value: 5,
+						pt_value: 2,
 						pt_url: '../../static/images/pt_2.png'
 					}
 				],
@@ -168,7 +168,11 @@
 
 				productAPI.productList(o).then(res => {
 					console.log('res拼团', res)
-					this.floorList = res.data.obj.results
+					let data = res.data.obj.results
+					data.forEach(v => {
+						v.sppic = '/yplg/' + v.sppic
+					})
+					this.floorList = data
 					console.log('resthis.floorList', this.floorList)
 				})
 

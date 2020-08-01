@@ -2,7 +2,7 @@
 	<view class="wallet-box">
 		<ul>
 			<li>余额</li>
-			<li>{{balance}}.00</li>
+			<li>{{balance}}</li>
 		</ul>
 	</view>
 </template>

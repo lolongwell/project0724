@@ -5,7 +5,7 @@
       <view class="detail">
         <text class="tit">{{item.spmc}}</text>
         <view class="fl">
-          <text>拼团即返 {{item.spfl}}%</text>
+          <text>拼团即返 {{item.flbfb}}%</text>
           <text>{{item.ptlx == 2 ? '二人团' : item.ptlx == 5 ? '五人团' : item.ptlx == 10 ? '十人团' : ''}}</text>
         </view>
         <view class="price">

@@ -317,7 +317,7 @@ export default {
       ProductAPI.goodsDetail(id).then((res) => {
         this.$_log("商品详www情：", res.data.obj);
         this.product = res.data.obj;
-        this.img = this.product.sppic;
+        this.img = '/yplg/' + this.product.sppic;
         console.log(this.img);
 				this.article = this.product.spjs;
 				this.form.spdj = res.data.obj.ptjg

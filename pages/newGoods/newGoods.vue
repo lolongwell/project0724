@@ -37,7 +37,11 @@
     },
     onShow() {
       productAPI.productList("spfl").then((res) => {
-        this.list = res.data.obj.results
+        let data = res.data.obj.results
+        data.forEach(v => {
+          v.sppic = '/yplg/' + v.sppic
+        })
+        this.list = data
       });
     },
     methods: {
