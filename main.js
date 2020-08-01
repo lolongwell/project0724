@@ -104,7 +104,7 @@ Vue.prototype.showTokenInvalidMsg = function() {
 
 // 通过字典类型获取字典数据
 Vue.prototype.getDicData = function(type) {
-	return h.postJson(`/rest/yplgdata/getTypeNameListByLxcode?typeLxCode=${type}`, {});
+	return h.postJson(`/rest/yplgdata/getTypeNameListByLxcode?typeLxCode=${type}`, {}, false);
 }
 // 根据
 // Vue.prototype.getDicData = function(type) {

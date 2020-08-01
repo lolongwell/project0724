@@ -2,7 +2,7 @@
 	"pages": [{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "首页-悠品乐购",
+				"navigationBarTitleText": "悠品乐购",
 				"app-plus": {
 					//#ifdef H5
 					"titleNView": false

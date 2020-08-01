@@ -6,7 +6,7 @@ let payAPI = {
 	},
     // 支付
 	payOrder(d) {
-		return h.postJson(`/rest/yyjfPayController/wxczFunction?userId=${d.userid}&openid=${d.openid}&czje=${d.czje}`,{});
+		return h.postJson(`/rest/yyjfPayController/wxczFunction?userId=${d.userid}&openid=${d.openid}&czje=${d.czje}&spmc=${d.spmc}`,{}, true);
 	},
 	// payOrder(d) {
 	// 	return h.postJson(`rest/wxPayController/wxPayByDdAndOpenid?ddId=${d.ddId}&openid=${d.openid}&ip=${d.ip}`);
@@ -17,6 +17,10 @@ let payAPI = {
 	
 	confirmReceived(id) {
 		return h.postJson(`rest/scDdController/updateScDdsp`,{id:id});
+	},
+
+	paySuccess(d) {
+		return h.postJson(`rest/yyjfPayController/updateZfcg`, d, true);
 	}
 }
 

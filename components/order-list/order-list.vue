@@ -221,6 +221,7 @@
 					.middle,
 					.bottom {
 						flex: 1;
+						font-size: 14px;
 					}
 
 					.middle {

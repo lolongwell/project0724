@@ -2,23 +2,6 @@ let h = require("../request").default;
 
 let orderAPI = {
 	// 拼团信息-列表
-	test() {
-		// let o = {
-		// 	dd: d,
-		// 	dataGrid: {
-		// 		// "field": "id,spfl,name",
-		// 		"page": 1,
-		// 		"rows": 1000,
-		// 		"order": "desc",
-		// 		"sort": "createDate"
-		// 	}
-		// }
-		// o = JSON.stringify(o);
-		return h.postJson(`rest/yyjfPayController/wxczFunction?userId="8a8ab0b246dc81120146dc8181950052"&&czje=0.01 `, {});
-		
-		// return h.get(`/rest/tbDdController/${id}`)   //rest/tbDdController/dd_datagrid
-	},
-	// 拼团信息-列表
 	orderList(d) {
 		let o = {
 			dd: d,
@@ -32,8 +15,6 @@ let orderAPI = {
 		}
 		o = JSON.stringify(o);
 		return h.postJson(`rest/tbDdController/dd_datagrid`, o);
-		
-		// return h.get(`/rest/tbDdController/${id}`)   //rest/tbDdController/dd_datagrid
 	},
 	
 	// 支付-创建订单
@@ -75,10 +56,10 @@ let orderAPI = {
 		o = JSON.stringify(o);
 		return h.postJson(`rest/scDdController/ddsp_datagrid`, o);
 	},
-	createOrder(d) {
-		d = JSON.stringify(d);
-		return h.postJson(`rest/scDdController`, d);
-	},
+	// createOrder(d) {
+	// 	d = JSON.stringify(d);
+	// 	return h.postJson(`rest/scDdController`, d);
+	// },
 	
 	getAddressList(d){
 		let o = {
@@ -157,7 +138,11 @@ let orderAPI = {
 		}
 		o = JSON.stringify(o);
 		return h.postJson(`/rest/yplgdata/spflsz_datagrid`, o, false);
-	}
+	},
+
+	payAndUpdateOrder(d) {
+		return h.postJson(`rest/tbDdController/updateDdSuccess?id=${d.id}&payid=${d.payid}`, {});
+	},
 }
 
 export default orderAPI;

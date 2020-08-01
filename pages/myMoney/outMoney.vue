@@ -6,19 +6,19 @@
 		</balance>
 		<!-- 提现信息 -->
 		<view class="uni-form-item uni-column out-money-info">
-			<input class="uni-input input-item iconfont search" v-model="form.money" type="digit" placeholder="请输入提现金额" />
-			<input class="uni-input input-item" v-model="form.name" placeholder="请输入持卡人姓名" />
+			<input class="uni-input input-item iconfont search" v-model="form.txje" type="digit" placeholder="请输入提现金额" />
+			<input class="uni-input input-item" v-model="form.realname" placeholder="请输入持卡人姓名" />
 			<view class="uni-list input-item" >
 				<view class="uni-list-cell" >
 					<view class="uni-list-cell-db" placeholder="请选择银行">
-						<picker @change="bindPickerChange" :value="index" v-model="form.bank"  placeholder="请选择银行" :range="array">
+						<picker @change="bindPickerChange" :value="index" placeholder="请选择银行" :range="array">
 							<view class="uni-input">{{array[index]}}</view>
 						</picker>
 					</view>
 				</view>
 			</view>
-			<input class="uni-input input-item" v-model="form.card" type="digit" placeholder="请输入卡号" />
-			<input class="uni-input input-item" v-model="form.openBank" placeholder="请输入开户行" />
+			<input class="uni-input input-item" v-model="form.yhkh" type="digit" placeholder="请输入卡号" />
+			<input class="uni-input input-item" v-model="form.khhmc" placeholder="请输入开户行" />
 		</view>
 		<view class="text-info">
 			<p>*满200元即可提现，仅限工作日可提现，三个工作日左右到账，提现扣除手续费1%.</p>
@@ -34,6 +34,9 @@
 <script>
 	import moneyAPI from '@/api/money/money.js';
 	import Balance from '@/components/common/balance'
+import userAPI from '@/api/user/user.js'
+import informationAPI from '@/api/infomation/infomation.js'
+
 	export default {
 		components: {
 			Balance
@@ -41,60 +44,78 @@
 		data() {
 			return {
 				form: {
-					money: '',
-					name: '',
-					bank: '',
-					card: '',
-					openBank: ''
+					txje: '',
+					realname: '',
+					yhfl: '',
+					yhkh: '',
+					khhmc: ''
 				},
-				array: ['请选择银行','中国', '美国', '巴西', '日本'],
+				array: [ "请选择银行", "中国建设银行","中国工商银行","中国农业银行"],
 				index: 0,
 			};
 		},
+		onLoad() {
+			// this.getBankdata()
+		},
+		onShow() {
+			this.getUserInfo()
+		},
 		methods: {
+			getUserInfo() {
+				let userid = uni.getStorageSync('userid')
+				userAPI.getUserInfo(userid).then(res => {
+					this.$store.commit('balanceUpdate', res.data.yue?res.data.yue:0)
+					uni.setStorageSync('yue', res.data.yue?res.data.yue:0)
+					uni.setStorageSync('czje', res.data.czje?res.data.czje:0)
+					uni.setStorageSync('hyjf', res.data.hyjf?res.data.hyjf:0)
+					uni.setStorageSync('hyxfe', res.data.hyxfe?res.data.hyxfe:0)
+				})
+			},
+			getBankdata() {
+				informationAPI.getBankList('yhfl').then(res => {
+					this.array = res.data.data
+					console.log(this.array)
+				})
+			},
 			submitMoney() {
-				if (!this.form.money) {
+				if (!this.form.txje) {
 					this.$api.msg('请输入提现金额');
 					return;
 				}
-				if (!this.form.name) {
+				if (!this.form.realname) {
 					this.$api.msg('请输入持卡人姓名');
 					return;
 				}
-				if (this.form.bank ==='请选择银行' ) {
+				if (this.form.yhfl ==='请选择银行' ) {
 					this.$api.msg('请选择银行');
 					return;
 				}
-				if (!this.form.card) {
-					this.$api.msg('请输入银行卡号');
-					return;
-				}
-				if (!/^([1-9]{1})(\d{14}|\d{18})$/.test(this.form.openBank)) {
-					this.$api.msg('请输入正确的银行卡号');
-					return;
-				}
+				// if (!this.form.yhkh) {
+				// 	this.$api.msg('请输入银行卡号');
+				// 	return;
+				// }
+				// if (!/^([1-9]{1})(\d{14}|\d{18})$/.test(this.form.yhkh)) {
+				// 	this.$api.msg('请输入正确的银行卡号');
+				// 	return;
+				// }
 				
-				if (!this.form.openBank) {
+				if (!this.form.khhmc) {
 					this.$api.msg('请输入开户行');
 					return;
 				}
 				let data = JSON.parse(JSON.stringify(this.form));
 				// 提现-提交
 				moneyAPI.outMoney(data).then(res => {
-					// this.$_log('提现：', res.data);
 					uni.showToast({
-						title: '提现成功!',
-						icon: 'none'
+						title: '提现成功!'
 					});
-					uni.navigateBack();
+					// uni.navigateBack();
 				});
-				console.log(this.form)
 			},
 			bindPickerChange: function(e) {
 				this.index = e.target.value
-				
-				this.form.bank = this.array[this.index]
-				console.log(this.form.bank)
+				this.form.yhfl = e.target.value
+				// this.form.yhfl = this.array[this.index]
 			},
 
 		}

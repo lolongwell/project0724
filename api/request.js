@@ -95,7 +95,7 @@ function m() {
 			if (res.confirm) {
 				uni.setStorageSync('redirect', '/' + p.route);
 				uni.switchTab({
-					url: '/pages/userCenter/userCenter'
+					url: '/pages/my/my'
 				});
 			} else if (res.cancel) {
 				return;

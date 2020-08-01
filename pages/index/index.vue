@@ -161,9 +161,12 @@
 			},
 			gotoIntegral() {
 				console.log(33333)
-				uni.navigateTo({
-					url: '/pages/integral/exchange'
-				})
+				// uni.navigateTo({
+				// 	url: '/pages/integral/exchange'
+				// })
+				uni.switchTab({
+					 url: '/pages/groupBuy/groupBuy'
+				});
 			},
 			goNewGoods() {
 				uni.navigateTo({

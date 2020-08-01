@@ -1,5 +1,6 @@
 import RegisterAPI from '@/api/register/register'
-import payApi from '@/api/pay/pay.js'
+import payAPI from '@/api/pay/pay.js'
+import orderAPI from '@/api/order/order.js'
 
 export function getUrlParam(name) {
   var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
@@ -53,6 +54,8 @@ export function getWxInfo(code) {
           console.log('要登录')
           uni.setStorageSync('TOKEN', res.data.data.token)
           uni.setStorageSync('userid', res.data.data.id)
+          uni.setStorageSync('yue', res.data.data.yue)
+          uni.setStorageSync('hyjf', res.data.data.hyjf)
           resolve()
         }
       }
@@ -68,31 +71,32 @@ export function requestPayOpenid() {
   )}`
 }
 
-export function payment(openid) {
+export function payment(openid, orderInfo) {
   let o = {
     userid: uni.getStorageSync('userid'),
     openid,
-    czje: '0.01',
+    czje: orderInfo.money,
+    spmc: orderInfo.spmc
   }
-  payApi.payOrder(o).then((res) => {
+  payAPI.payOrder(o).then((res) => {
     console.log('支付返回信息', res)
     if (res.data.data.code == 1000) {
       let data = res.data.data.data
       if (typeof WeixinJSBridge == 'undefined') {
         if (document.addEventListener) {
-          document.addEventListener('WeixinJSBridgeReady', onBridgeReady.bind(null,data), false)
+          document.addEventListener('WeixinJSBridgeReady', onBridgeReady.bind(null,data,orderInfo), false)
         } else if (document.attachEvent) {
-          document.attachEvent('WeixinJSBridgeReady', onBridgeReady.bind(null,data))
-          document.attachEvent('onWeixinJSBridgeReady', onBridgeReady.bind(null,data))
+          document.attachEvent('WeixinJSBridgeReady', onBridgeReady.bind(null,data,orderInfo))
+          document.attachEvent('onWeixinJSBridgeReady', onBridgeReady.bind(null,data,orderInfo))
         }
       } else {
-        onBridgeReady(data)
+        onBridgeReady(data, orderInfo)
       }
     }
   })
 }
 
-export function onBridgeReady(data) {
+export function onBridgeReady(data, orderInfo) {
   WeixinJSBridge.invoke(
     'getBrandWCPayRequest',
     {
@@ -104,8 +108,31 @@ export function onBridgeReady(data) {
       paySign: data.jsapi_paySign, //微信签名
     },
     function (res) {
+      console.log('支付成功了', res)
       if (res.err_msg == 'get_brand_wcpay_request:ok') {
-        alert('支付成功')
+        let orderSource = uni.getStorageSync('orderSource')
+        if (orderSource == 1) {
+          let orderDetail = JSON.parse(uni.getStorageSync('orderDetail'))
+          let o = {
+            id: orderDetail.id,
+            payid: orderDetail.payid
+          }
+          orderAPI.payAndUpdateOrder(o).then(res => {
+            console.log('成功支付后的回调1', res)
+          })
+        } else if (orderSource == 2) {
+          let o = {
+            // "bank_type": "string",
+            "totalFee": orderInfo.money,   // 金额
+            "transactionId": orderDetail.payid,
+            "userId": uni.getStorageSync('userid'),
+            "zfly": orderInfo.method,   // 支付来源 wx、zfb
+            "zfzl": "1"    // 支付种类
+          }
+          payAPI.paySuccess(JSON.stringify(o)).then(res => {
+            console.log('成功支付后的回调2', res)
+          })
+        }
       }
     }
   )

@@ -32,8 +32,8 @@ export default {
   data() {
     return {
       id: '',
-			balance: "",
-			integral: '',
+			balance: 0,
+			integral: 0,
 			avatar: '',
 			isLogin: false
     };
@@ -44,7 +44,9 @@ export default {
 			getWxInfo(code).then(() => {
 				this.isLogin = true
 				this.id = uni.getStorageSync("nickName")
-				this.avatar = uni.getStorageSync("avatarUrl")
+        this.avatar = uni.getStorageSync("avatarUrl")
+        this.balance = uni.getStorageSync('yue') ? uni.getStorageSync('yue') : 0
+        this.integral = uni.getStorageSync('hyjf') ? uni.getStorageSync('hyjf') : 0
 			}).catch(() => {
 				console.log('去注册')
 				uni.redirectTo({

@@ -36,6 +36,8 @@
 	import ExchangeList from '@/components/integral/exchange-list.vue'
 	import Turntable from '@/components/integral/turntable.vue'
 	import productAPI from "@/api/product/product.js";
+	import userAPI from '@/api/user/user.js'
+
 	export default {
 		components: {
 			ExchangeList,
@@ -43,16 +45,13 @@
 		},
 		data() {
 			return {
-				intergralList: []
+				intergralList: [],
+				integral: 0
 			};
-		},
-		computed: {
-			integral() {
-				return this.$store.state.integral
-			}
 		},
 		onLoad() {
 			this.getGoodList();
+			this.getUserInfo()
 		},
 		methods: {
 			getGoodList() {
@@ -61,7 +60,16 @@
 					console.log('this.intergralList', this.intergralList)
 				});
 			},
-
+			getUserInfo() {
+				let userid = uni.getStorageSync('userid')
+				userAPI.getUserInfo(userid).then(res => {
+					this.integral = res.data.hyjf ? res.data.hyjf : 0
+					uni.setStorageSync('yue', res.data.yue?res.data.yue:0)
+					uni.setStorageSync('czje', res.data.czje?res.data.czje:0)
+					uni.setStorageSync('hyjf', res.data.hyjf?res.data.hyjf:0)
+					uni.setStorageSync('hyxfe', res.data.hyxfe?res.data.hyxfe:0)
+				})
+			}
 		}
 	};
 </script>

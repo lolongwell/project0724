@@ -19,7 +19,7 @@
 			</li>
 			<li>
 				<span>还需支付</span>
-				<span>￥{{detailList.ddje}}.00</span>
+				<span>￥{{detailList.ddje}}</span>
 			</li>
 		</ul>
 		<view class="pay-method">
@@ -46,8 +46,7 @@ import {requestPayOpenid, getUrlParam, payment} from '../../util'
 export default {
   data() {
     return {
-      name: "333333eeeeeeeeeeeeee33",
-			detailList: {},
+      detailList: {}
     };
   },
   computed: {
@@ -56,45 +55,26 @@ export default {
     },
 	},
 	onLoad() {
+    let orderDetail = JSON.parse(uni.getStorageSync('orderDetail'))
+    let orderInfo = {
+      money: orderDetail.ddje,
+      method: orderDetail.method,
+      spmc: orderDetail.spmc
+    }
 		let local = window.location.href
-		console.log('订单详情', local)
 		let pay_openid = getUrlParam('openid')
 		if (pay_openid) {
-			console.log('pay_openid', pay_openid)
-			payment(pay_openid)
+			console.log('pay_openid', local)
+			payment(pay_openid, orderInfo)
 		}
 	},
   onShow() {
-    this.detailList = this.orderDetails;
-    console.log("aaa", this.detailList);
+    this.detailList = JSON.parse(uni.getStorageSync('orderDetail'))
+    console.log("aaa", uni.getStorageSync('orderDetail'));
   },
   methods: {
     payHandle() {
 			requestPayOpenid()
-
-
-
-      // let data = JSON.parse(JSON.stringify(this.form));
-      // let o = {
-      //  userid:uni.getStorageSync('userid').,
-      //  openid:uni.getStorageSync('openid'),
-      //  zfje:'0.01'
-      // }
-
-      // 提现-提交
-      // moneyAPI.inMoney(data).then(res => {
-      // 	// this.$_log('提现：', res.data);
-      // 	uni.showToast({
-      // 		title: '提现成功!',
-      // 		icon: 'none'
-      // 	});
-      // 	uni.navigateBack();
-      // });
-      // 支付成功
-      // console.log(this.form);
-      // uni.navigateTo({
-      //   url: `/pages/myMoney/paySuccess`,
-      // });
     },
   },
 };
