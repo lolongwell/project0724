@@ -145,27 +145,18 @@
 								// this.$store.state.commit('orderListUpdate',res.data.obj.results)
 							})
 
-
-
-
 						} else if (res.cancel) {
 							return;
 						}
 					}
 				});
-
-
-
-
-
-
 			},
 			getList() {
 				// 1.判断是否登录，没有登录就跳进登录页面
 				// 2.获取当前需要的订单入参
-				let id = uni.getStorageSync('user').userId // 拿到用户信息，从里面拿用户id
+				let id = uni.getStorageSync('userId') // 拿到用户信息，从里面拿用户id
 				let orderData = {
-					userId: '2c90d7e5738ac23a01738aedad8f000a', //用户id
+					userId: id, //用户id
 					wczt: '2' // 点击的是哪一种状态
 				}
 				//3.发送请求
@@ -177,8 +168,6 @@
 					}
 
 				})
-				console.log('测试数据', this.goodsList)
-				// this.$store.commit('orderListUpdate', this.goodsList)
 			}
 
 		}
