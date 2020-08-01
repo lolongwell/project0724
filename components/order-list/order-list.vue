@@ -35,11 +35,11 @@
 
 							<view class="">
 								<!-- 已兑换积分 -->
-								<button v-if="item.thfs === '2'" class="status ydh-card">已兑换积分：50</button>
+								<button v-show="item.thfs === '2' && item.flmx === null " class="status ydh-card">已兑换积分：50</button>
 								<!-- 已提货 -->
-								<button v-else="item.thfs === '1'" class="status yth-card">已提货</button>
+								<button v-show="item.thfs === '1' && item.flmx === null" class="status yth-card">已提货</button>
 								<!--拼团不成功返利 -->
-								<!-- <button v-show="item.flmx !== null" class=" status fl-card">已购物返利￥{{item.flmx}}{{item.thfs}}</button> -->
+								<button v-show="item.flmx !== null" class=" status fl-card">已购物返利￥{{item.flmx}}</button>
 							</view>
 							<view class="">
 								
