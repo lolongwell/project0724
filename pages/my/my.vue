@@ -12,7 +12,7 @@
 			</view>
 		</view>
 		<view class="history-section icon">
-			<list-cell icon="icon-dizhi" iconColor="#5fcda2" title="我的收货管理" @eventClick="goLink('/pages/address/address')"></list-cell>
+			<list-cell icon="icon-dizhi" iconColor="#5fcda2" title="我的收货地址" @eventClick="goLink('/pages/address/address')"></list-cell>
 			<list-cell icon="icon-shezhi1" iconColor="#9789f7" title="我的钱包" @eventClick="goLink('/pages/myMoney/wallet')"></list-cell>
 			<list-cell icon="icon-shezhi1" iconColor="#ee883b" title="积分兑换" @eventClick="goLink('/pages/integral/exchange')"></list-cell>
 			<list-cell iconFamily="wkicon" icon="icon-kefu" iconColor="#aa553b" title="资金记录" @eventClick="goLink('/pages/myMoney/history')"></list-cell>
@@ -52,7 +52,6 @@
 		
 		},
 		onShow() {
-			let token = uni.getStorageSync('TOKEN');
 			const openid = uni.getStorageSync('openid')
 			if (openid) {
 				this.isLogin = true

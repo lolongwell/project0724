@@ -115,16 +115,16 @@
 		},
 		onShow() {
 			this.getModules();
-			if (this.cartData.length) {
-				uni.setTabBarBadge({
-					index: 2,
-					text: this.cartData.length.toString(),
-				});
-			} else {
-				uni.removeTabBarBadge({
-					index: 2,
-				});
-			}
+			// if (this.cartData.length) {
+			// 	uni.setTabBarBadge({
+			// 		index: 2,
+			// 		text: this.cartData.length.toString(),
+			// 	});
+			// } else {
+			// 	uni.removeTabBarBadge({
+			// 		index: 2,
+			// 	});
+			// }
 		},
 		methods: {
 			getModules() {
