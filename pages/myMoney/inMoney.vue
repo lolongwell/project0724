@@ -45,6 +45,7 @@
 </template>
 
 <script>
+	import payAPI from '@/api/pay/pay.js'
 export default {
   data() {
     return {
@@ -113,6 +114,9 @@ export default {
         // uni.navigateTo({
         //   url: `/pages/order/detail`,
         // });
+		payAPI.payOrderByZFB(o).then(res=>{
+			console.log('zhifubaozhifu',res)
+		})
       }
     },
   },
