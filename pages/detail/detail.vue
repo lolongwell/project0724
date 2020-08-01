@@ -104,7 +104,7 @@
 							</view>
 						</view>
 						<view class="right">
-							<view class="uni-list">
+							<view  v-if="isAddress" class="uni-list">
 								<view class="uni-list-cell">
 
 									<view class="uni-list-cell-db">
@@ -114,7 +114,11 @@
 									</view>
 								</view>
 							</view>
+							<view  else  class="address-input">
+								<input type="text" :value="addressValue"  v-model="addressValue"    />
+							</view>
 						</view>
+						
 					</view>
 
 					<button @click="payHandle" class="pay-money">立即支付</button>
