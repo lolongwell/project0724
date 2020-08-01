@@ -1,9 +1,9 @@
 <template>
 	<view class="order-list-box">
-		<view class="order-list" v-for="(item, index) in goodsList">
+		<view class="order-list" v-for="(item, index) in goodsList" :key="index">
 			<view class="order-info">
 				<view class="left">
-					<img :src="item.pic"></img>
+					<img :src="'/yplg/' + item.pic"></img>
 				</view>
 				<view class="right">
 					<view class="top">

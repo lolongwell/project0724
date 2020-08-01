@@ -108,7 +108,7 @@ export default {
         //   spmc: '支付宝充值',
         //   ddh: '',
         //   ddje: sum,
-        //   method: 'wx'
+        //   method: 'zfb'
         // }))
         // uni.navigateTo({
         //   url: `/pages/order/detail`,

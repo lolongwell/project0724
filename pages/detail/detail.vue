@@ -298,7 +298,7 @@ export default {
 			},
     // 获取地址
     getAdress() {
-      let id = "2c90d7e5738ac23a01738aedad8f000a";
+      let id = uni.getStorageSync('userid');
       let o = {
         userId: id,
       };
@@ -381,8 +381,11 @@ export default {
             if (res.data.data.wczt == 0) {
               uni.showToast({
                 title: '拼团成功！',
-                duration: 2000
+                duration: 1500
               });
+              setTimeout(() => {
+                uni.navigateBack();
+              }, 1500)
             }
           }
         }

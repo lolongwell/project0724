@@ -12,7 +12,7 @@
 				<view class="uni-list-cell" >
 					<view class="uni-list-cell-db" placeholder="请选择银行">
 						<picker @change="bindPickerChange" :value="index" placeholder="请选择银行" :range="array">
-							<view class="uni-input">{{array[index]}}</view>
+							<view class="uni-input">{{array[index]['typename']}}</view>
 						</picker>
 					</view>
 				</view>
@@ -49,7 +49,10 @@ import informationAPI from '@/api/infomation/infomation.js'
 					yhkh: '',
 					khhmc: ''
 				},
-				array: [ "请选择银行", "中国建设银行","中国工商银行","中国农业银行"],
+				array: [{
+					typename: '请选择银行',
+					typecode: -1
+				}],
 				index: 0,
 			};
 		},
@@ -98,13 +101,15 @@ import informationAPI from '@/api/infomation/infomation.js'
 					uni.showToast({
 						title: '提现成功!'
 					});
-					// uni.navigateBack();
+					setTimeout(() => {
+						uni.navigateBack();
+					}, 1500)
 				});
 			},
 			bindPickerChange: function(e) {
 				this.index = e.target.value
-				this.form.yhfl = e.target.value
-				// this.form.yhfl = this.array[this.index]
+				// this.form.yhfl = e.target.value
+				this.form.yhfl = this.array[this.index]['typename']
 			},
 
 		}

@@ -43,7 +43,8 @@ import userAPI from '@/api/user/user.js'
 		},
 		data() {
 			return {
-				
+				balance: 0,
+				integral: 0
 			};
 		},
 		computed: {
