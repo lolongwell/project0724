@@ -34,7 +34,6 @@
 <script>
 	import moneyAPI from '@/api/money/money.js';
 	import Balance from '@/components/common/balance'
-import userAPI from '@/api/user/user.js'
 import informationAPI from '@/api/infomation/infomation.js'
 
 	export default {
@@ -58,19 +57,9 @@ import informationAPI from '@/api/infomation/infomation.js'
 			// this.getBankdata()
 		},
 		onShow() {
-			this.getUserInfo()
+			
 		},
 		methods: {
-			getUserInfo() {
-				let userid = uni.getStorageSync('userid')
-				userAPI.getUserInfo(userid).then(res => {
-					this.$store.commit('balanceUpdate', res.data.yue?res.data.yue:0)
-					uni.setStorageSync('yue', res.data.yue?res.data.yue:0)
-					uni.setStorageSync('czje', res.data.czje?res.data.czje:0)
-					uni.setStorageSync('hyjf', res.data.hyjf?res.data.hyjf:0)
-					uni.setStorageSync('hyxfe', res.data.hyxfe?res.data.hyxfe:0)
-				})
-			},
 			getBankdata() {
 				informationAPI.getBankList('yhfl').then(res => {
 					this.array = res.data.data

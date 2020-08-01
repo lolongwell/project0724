@@ -48,7 +48,8 @@
 	import productAPI from "@/api/product/product.js";
 	import integralAPI from "@/api/integral/integral.js";
 	import ExchangeList from '@/components/integral/exchange-list.vue'
-	import {getUrlParam} from '../../util.js'
+import { checkLogin, getUrlParam, getWxInfo } from "../../util.js";
+
 	
 	export default {
 		name: "home",
@@ -100,31 +101,11 @@
 			},
 		},
 		onLoad() {
-			let ghbm = getUrlParam('ghbm')
-			console.log('扫码信息', ghbm)
-			if (ghbm) {
-				let paramArr = ghbm.split(',')
-				let yqm = paramArr[0], yqrId = paramArr[1]
-				console.log(yqm, yqrId)
-				uni.redirectTo({
-					 url: `/pages/register/register?yqm=${yqm}&yqrid=${yqrId}`
-				});
-			} else {
-				this.getGoodList();
-			}
+			checkLogin()
 		},
 		onShow() {
 			this.getModules();
-			// if (this.cartData.length) {
-			// 	uni.setTabBarBadge({
-			// 		index: 2,
-			// 		text: this.cartData.length.toString(),
-			// 	});
-			// } else {
-			// 	uni.removeTabBarBadge({
-			// 		index: 2,
-			// 	});
-			// }
+			this.getGoodList();
 		},
 		methods: {
 			getModules() {

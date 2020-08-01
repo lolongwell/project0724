@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<head-portrait :isLogin='isLogin' @changIsLogin="changIsLogin"></head-portrait>
+		<head-portrait :isLogin='isLogin'  :balance="balance" :integral="integral"></head-portrait>
 		<view class="order-section">
 			<view class="order-item" @click="goLink('/pages/myMoney/inMoney')" hover-class="common-hover" :hover-stay-time="50">
 				<text class="yticon icon-daifukuan"></text>
@@ -33,6 +33,7 @@
 	import HeadPortrait from '@/components/common/HeadPortrait.vue'
 	import listCell from '@/components/mix-list-cell';
 	import payApi from '@/api/pay/pay.js';
+import userAPI from '@/api/user/user.js'
 
 	export default {
 		name: 'my',
@@ -53,15 +54,18 @@
 		},
 		onShow() {
 			const openid = uni.getStorageSync('openid')
+			let userid = uni.getStorageSync('userid')
 			if (openid) {
 				this.isLogin = true
 			} else {
 				this.isLogin = false
 			}
-		
+			if (userid) {
+				this.getUserInfo()
+			}
 		},
 		mounted() {
-		
+			
 		},
 		methods: {
 			goLink(url) {
@@ -78,10 +82,18 @@
 					url: url
 				});
 			},
-			changIsLogin(val) {
-				console.log('传参', val)
-				this.isLogin = val
-			},
+			getUserInfo() {
+				let userid = uni.getStorageSync('userid')
+				userAPI.getUserInfo(userid).then(res => {
+					console.log('获取用户最新信息', res)
+					this.balance = res.data.yue ? res.data.yue : 0
+					this.integral = res.data.hyjf ? res.data.hyjf : 0
+					uni.setStorageSync('yue', res.data.yue?res.data.yue:0)
+					uni.setStorageSync('czje', res.data.czje?res.data.czje:0)
+					uni.setStorageSync('hyjf', res.data.hyjf?res.data.hyjf:0)
+					uni.setStorageSync('hyxfe', res.data.hyxfe?res.data.hyxfe:0)
+				})
+			}
 		}
 	};
 </script>

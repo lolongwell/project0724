@@ -13,7 +13,7 @@
 		},
 		computed:{	
 			balance(){
-				return this.$store.state.balance
+				return uni.getStorageSync('yue')
 			}
 		},
 		data() {

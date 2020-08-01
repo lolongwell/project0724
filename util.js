@@ -20,6 +20,7 @@ export function checkLogin() {
   const appId = getApp().globalData.appId
   const local = window.location.href
   let code = getUrlParam('code')
+  let ghbm = getUrlParam('ghbm')  // 扫码进入
   console.log('code', code)
   if (code === null || code === '') {
     window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${encodeURIComponent(
@@ -27,7 +28,23 @@ export function checkLogin() {
     )}&response_type=code&scope=snsapi_userinfo#wechat_redirect`
   } else {
     console.log('code已存在', code)
-    getWxInfo(code)
+    getWxInfo(code).then(() => {
+      // 已登录
+    }).catch(() => {
+      // 去注册
+      if (ghbm) {
+				let paramArr = ghbm.split(',')
+				let yqm = paramArr[0], yqrId = paramArr[1]
+				console.log(yqm, yqrId)
+				uni.redirectTo({
+					 url: `/pages/register/register?yqm=${yqm}&yqrid=${yqrId}`
+				});
+			} else {
+        uni.redirectTo({
+					url: `/pages/register/register`
+				});
+      }
+    })
   }
 }
 
