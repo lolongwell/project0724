@@ -8,28 +8,18 @@
 </template>
 
 <script>
-import userAPI from '@/api/user/user.js'
 	export default {
 		name: '',
 		data() {
 			return {
-				balance: 0 //余额
+				balance: uni.getStorageSync('yue') //余额
 			};
 		},
 		onShow() {
-			this.getUserInfo()
+			
 		},
 		methods: {
-			getUserInfo() {
-				let userid = uni.getStorageSync('userid')
-				userAPI.getUserInfo(userid).then(res => {
-					this.balance = res.data.yue ? res.data.yue : 0
-					uni.setStorageSync('yue', res.data.yue?res.data.yue:0)
-					uni.setStorageSync('czje', res.data.czje?res.data.czje:0)
-					uni.setStorageSync('hyjf', res.data.hyjf?res.data.hyjf:0)
-					uni.setStorageSync('hyxfe', res.data.hyxfe?res.data.hyxfe:0)
-				})
-			}
+
 		}
 	};
 </script>

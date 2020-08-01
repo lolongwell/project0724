@@ -29,42 +29,17 @@ import { checkLogin, getUrlParam, getWxInfo } from "../../util.js";
 
 export default {
   name: "",
+  props: ['isLogin', 'balance', 'integral'],
   data() {
     return {
-      id: '',
-			balance: 0,
-			integral: 0,
-			avatar: '',
-			isLogin: false
+      id: uni.getStorageSync("nickName"),
+			avatar: uni.getStorageSync("avatarUrl"),
     };
 	},
   created() {
-		let code = getUrlParam('code')
-		if (code) {
-			getWxInfo(code).then(() => {
-				this.isLogin = true
-				this.id = uni.getStorageSync("nickName")
-        this.avatar = uni.getStorageSync("avatarUrl")
-        this.balance = uni.getStorageSync('yue') ? uni.getStorageSync('yue') : 0
-        this.integral = uni.getStorageSync('hyjf') ? uni.getStorageSync('hyjf') : 0
-			}).catch(() => {
-				console.log('去注册')
-				uni.redirectTo({
-					url: `/pages/register/register`
-				});
-			})
-		} else {
-			let openid = uni.getStorageSync('openid')
-			let token = uni.getStorageSync('TOKEN')
-			if (openid && token) {
-				this.isLogin = true
-				this.id = uni.getStorageSync("nickName")
-				this.avatar = uni.getStorageSync("avatarUrl")
-			}
-		}
   },
   computed: {
-    ...mapState(["hasLogin", "isEnterpriseUser", "isEnterpriseAdmin"]),
+    ...mapState(["hasLogin", "isEnterpriseUser", "isEnterpriseAdmin"])
   },
   methods: {
     handleLogin() {
