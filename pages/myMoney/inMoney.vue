@@ -109,13 +109,13 @@ export default {
         //   spmc: '支付宝充值',
         //   ddh: '',
         //   ddje: sum,
-        //   method: 'zfb'
+        //   method: 'wx'
         // }))
         // uni.navigateTo({
         //   url: `/pages/order/detail`,
         // });
 		let o = {
-			userId:uni.getStorageSync('userid'),
+			userid:uni.getStorageSync('userid'),
 			openid:uni.getStorageSync('openid'),
 			czje:sum,
 			spmc:'支付宝充值'
