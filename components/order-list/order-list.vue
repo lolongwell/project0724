@@ -154,7 +154,7 @@
 			getList() {
 				// 1.判断是否登录，没有登录就跳进登录页面
 				// 2.获取当前需要的订单入参
-				let id = uni.getStorageSync('userId') // 拿到用户信息，从里面拿用户id
+				let id = uni.getStorageSync('userid') // 拿到用户信息，从里面拿用户id
 				let orderData = {
 					userId: id, //用户id
 					wczt: '2' // 点击的是哪一种状态
