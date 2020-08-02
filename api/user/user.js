@@ -23,6 +23,10 @@ let userAPI = {
 	}
 	o = JSON.stringify(o);
 		return h.postJson(`rest/tbHyzjjlController/hyzjjl_datagrid`, o);
-	}
+	},
+	updateJfByUser(d) {
+		return h.put(`rest/tbJfddController/updateJfByUser`, d);
+	},
 }
+
 export default userAPI;

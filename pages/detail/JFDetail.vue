@@ -115,6 +115,8 @@ import ProductAPI from "../../api/product/product";
 import CartAPI from "../../api/cart/cart";
 import uniNumberBox from "@/components/uni-number-box.vue";
 import orderAPI from "../../api/order/order";
+import userAPI from "../../api/user/user";
+
 import { mapState } from "vuex";
 export default {
   data() {
@@ -308,19 +310,38 @@ export default {
 			// 验证积分是否够、表单验证
 			orderAPI.createJfOrder(this.form).then((res) => {
 				console.log('积分兑换', res)
-				if (res.data.data.wczt == 0) {
-					// 更新积分
-
+				if (res.data.respCode != 0) {
 					uni.showToast({
-						title: '拼团成功！',
+						title: res.data.message,
 						duration: 1500
 					});
-					setTimeout(() => {
-						uni.navigateBack();
-					}, 1500)
+				}
+				if (res.data.data.wczt == 3) {
+					// 更新积分
+					userAPI.updateJfByUser(this.form).then((res) => {
+						console.log('更新个人积分', res)
+						this.getUserInfo()
+						uni.showToast({
+							title: '拼团成功！',
+							duration: 1500
+						});
+						setTimeout(() => {
+							uni.navigateBack();
+						}, 1500)
+					})
 				}
 			})
-    },
+		},
+		getUserInfo() {
+			let userid = uni.getStorageSync('userid')
+			userAPI.getUserInfo(userid).then(res => {
+				console.log('获取用户最新信息', res)
+				uni.setStorageSync('yue', res.data.yue?res.data.yue:0)
+				uni.setStorageSync('czje', res.data.czje?res.data.czje:0)
+				uni.setStorageSync('hyjf', res.data.hyjf?res.data.hyjf:0)
+				uni.setStorageSync('hyxfe', res.data.hyxfe?res.data.hyxfe:0)
+			})
+		},
     // 选择商品规格
     typeChange(val, id, index) {
 			this.typeIndex = index;
