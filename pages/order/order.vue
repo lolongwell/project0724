@@ -200,7 +200,7 @@
 					if (this.orderStatus == 3) {
 						let o = {
 							userId: id,
-							zffs: 'jfdh',
+							// zffs: 'jfdh',
 							wczt: '3'
 						}
 						orderAPI.jfspOrderList(o).then(res => {

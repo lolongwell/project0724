@@ -322,18 +322,26 @@ export default {
 					});
 				}
 				if (res.data.data.wczt == 3) {
-					// 更新积分
-					userAPI.updateJfByUser(this.form).then((res) => {
-						console.log('更新个人积分', res)
-						this.getUserInfo()
-						uni.showToast({
-							title: '兑换成功！',
-							duration: 1500
-						});
-						setTimeout(() => {
-							uni.navigateBack();
-						}, 1500)
-					})
+          // 更新积分
+          this.getUserInfo()
+          uni.showToast({
+            title: '兑换成功！',
+            duration: 1500
+          });
+          setTimeout(() => {
+            uni.navigateBack();
+          }, 1500)
+					// userAPI.updateJfByUser(this.form).then((res) => {
+					// 	console.log('更新个人积分', res)
+					// 	this.getUserInfo()
+					// 	uni.showToast({
+					// 		title: '兑换成功！',
+					// 		duration: 1500
+					// 	});
+					// 	setTimeout(() => {
+					// 		uni.navigateBack();
+					// 	}, 1500)
+					// })
 				}
 			})
 		},
