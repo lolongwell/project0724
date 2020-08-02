@@ -349,18 +349,27 @@ export default {
     //立即支付
     payHandle() {
       // 验证表单
-      // if (!this.form.spgg) {
-      // 	uni.showToast({
-      // 		title: '请选择商品规格!',
-      // 		icon: 'none'
-      // 	});
-      // }
-      // if (!this.form.zffs) {
-      // 	uni.showToast({
-      // 		title: '请选择支付方式!',
-      // 		icon: 'none'
-      // 	});
-      // }
+      if (!this.form.spgg) {
+      	uni.showToast({
+      		title: '请选择商品规格!',
+      		icon: 'none'
+        });
+        return
+      }
+      if (!this.form.zffs) {
+      	uni.showToast({
+      		title: '请选择支付方式!',
+      		icon: 'none'
+        });
+        return
+      }
+      if (!this.form.addressId) {
+      	uni.showToast({
+      		title: '请到<我的-我的收货地址>中新增地址!',
+      		icon: 'none'
+        });
+        return
+      }
 
       // 获得入参
 			console.log(this.form)

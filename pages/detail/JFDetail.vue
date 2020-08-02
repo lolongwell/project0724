@@ -305,6 +305,13 @@ export default {
     },
     //立即兑换
     payHandle() {
+      if (!this.form.addressId) {
+      	uni.showToast({
+      		title: '请到<我的-我的收货地址>中新增地址!',
+      		icon: 'none'
+        });
+        return
+      }
 			// 验证积分是否够、表单验证
 			orderAPI.createJfOrder(this.form).then((res) => {
 				console.log('积分兑换', res)

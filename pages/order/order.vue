@@ -196,7 +196,16 @@
 						//4.更新全局orderList
 						this.$store.commit('orderListUpdate', this.goodsList)
 					}
-
+					// 积分订单
+					if (this.orderStatus == 3) {
+						let o = {
+							userId: id,
+							zffs: 'jfdh'
+						}
+						orderAPI.jfspOrderList(o).then(res => {
+							console.log('积分商品兑换列表', res)
+						})
+					}
 				})
 			}
 		}
