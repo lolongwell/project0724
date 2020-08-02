@@ -24,7 +24,9 @@
 						<!-- <button class="status" v-for="(val,i) in item.status">{{val}}</button> -->
 						<!-- 拼团信息：卡片 -->
 						<button v-if="item.wczt === '0'" class="status ptz-card">未拼中返：￥{{item.flmx}}</button>
-
+						<!-- 待付款 -->
+						<button v-if="item.wczt === '1'" class="status ptz-card" @click="goPay(item.spId)">待付款</button>
+                          
 						<!-- 待收货 -->
 						<view class="dsh-btn-box" v-else-if="item.wczt === '2'">
 							<button class="status " v-for="(items,index) in thfsList" @click="thHandle(items.value,item.id)">{{items.name}}</button>
@@ -152,6 +154,13 @@
 							return;
 						}
 					}
+				});
+			},
+			// 待付款
+			goPay(id){
+				alert(id)
+				uni.navigateTo({
+				   url: '/pages/detail/detail?id=' + id
 				});
 			},
 			getList() {
