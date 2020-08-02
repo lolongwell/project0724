@@ -34,6 +34,7 @@
 					</view>
 				</view>
 			</view>
+			<button @click="cancelHandle">取消</button>
 			<button @click="commitHandle">确定</button>
 		</div>
 	</div>
@@ -172,6 +173,10 @@
 			
 			
 				})
+			},
+			cancelHandle(){
+
+			     this.isGood = false	
 			},
 			lotteryEnd(angle) {
 				if (angle > 0 && angle < 45) {
@@ -352,6 +357,7 @@
 			button {
 				width: 20%;
                 margin-top: 30rpx;
+				display: inline-block;
 			}
 			
 		}
