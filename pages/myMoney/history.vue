@@ -6,11 +6,11 @@
           {{ item.remark }}
         </view>
         <view class="timer">
-          {{ item.clsj }}
+          {{ item.clsj }}     
         </view>
       </view>
-      <view class="right" :class="{ isMoreMoney: item.ismore || item.zjjjfs == '-'}" >
-        {{item.zjjjfs}}{{ item.clje }}
+      <view class="right" :class="{ isMoreMoney: item.zjjjfs === '+' }">
+       {{item.zjjjfs}}{{ item.clje }}
       </view>
     </view>
   </view>
