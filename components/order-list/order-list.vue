@@ -43,7 +43,7 @@
 								<!--拼团不成功返利 -->
 								<button v-show="!!item.flmx" class=" status fl-card">未拼中返利￥{{item.flmx}}</button>
 								
-								<view v-show="item.zffs == 'jfdh'" class=" status fl-card">积分兑换商品</view>
+								<button v-show="item.zffs == 'jfdh'" class=" status fl-card">积分兑换商品</button>
 							</view>
 							<view class="">
 								

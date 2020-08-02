@@ -142,12 +142,12 @@ import { checkLogin, getUrlParam, getWxInfo } from "../../util.js";
 			},
 			gotoIntegral() {
 				console.log(33333)
-				// uni.navigateTo({
-				// 	url: '/pages/integral/exchange'
-				// })
-				uni.switchTab({
-					 url: '/pages/groupBuy/groupBuy'
-				});
+				uni.navigateTo({
+					url: '/pages/integral/exchange'
+				})
+				// uni.switchTab({
+				// 	 url: '/pages/groupBuy/groupBuy'
+				// });
 			},
 			goNewGoods() {
 				uni.navigateTo({
