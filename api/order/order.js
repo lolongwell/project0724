@@ -17,13 +17,13 @@ let orderAPI = {
 		return h.postJson(`rest/tbDdController/dd_datagrid`, o);
 	},
 	
-	// 支付-创建订单
+	// 支付-创建订单-商品
 	createOrder(d) {
 		d = JSON.stringify(d);
 		return h.postJson(`rest/tbDdController`, d);
 	},
-	// 支付-创建积分订单
-	createJfOrder(d) {
+	// 支付-创建订单-转盘积分订单
+	createZPOrder(d) {
 		d = JSON.stringify(d);
 		return h.postJson(`rest/tbJfddController`, d);
 	},
