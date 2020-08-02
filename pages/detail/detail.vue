@@ -195,11 +195,11 @@ export default {
       method: [
         {
           name: "微信",
-          id: "wxzf",
+          value: "wxzf",
         },
         {
           name: "余额支付",
-          id: "yezf",
+          value: "yezf",
         },
       ],
       index: 0,
@@ -324,15 +324,15 @@ export default {
       });
 
       // 获取支付方式字典数据
-      this.getDicData("zffs").then((res) => {
-        console.log("res支付方hi", res);
-        this.method = res.data.data.map((item) => {
-          return {
-            name: item.typename,
-            value: item.typecode,
-          };
-        });
-      });
+      // this.getDicData("zffs").then((res) => {
+      //   console.log("res支付方hi", res);
+      //   this.method = res.data.data.map((item) => {
+      //     return {
+      //       name: item.typename,
+      //       value: item.typecode,
+      //     };
+      //   });
+      // });
     },
 
     // 抽屉
