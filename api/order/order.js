@@ -148,6 +148,21 @@ let orderAPI = {
 	payAndUpdateOrder(d) {
 		return h.postJson(`rest/tbDdController/updateDdSuccess?id=${d.id}&payid=${d.payid}`, {});
 	},
+
+	jfspOrderList(d) {
+		let o = {
+			jfsp: d,
+			dataGrid: {
+				// "field": "id,spfl,name",
+				"page": 1,
+				"rows": 1000,
+				"order": "desc",
+				"sort": "createDate"
+			}
+		}
+		o = JSON.stringify(o);
+		return h.postJson(`rest/tbJfddController/jfsp_datagrid`, o);
+	},
 }
 
 export default orderAPI;
