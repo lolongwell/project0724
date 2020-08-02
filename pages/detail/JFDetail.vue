@@ -32,7 +32,7 @@
 		</view>
 
 		<view class="purchase">
-			<view class="left">账户积分：0.00</view>
+			<view class="left">账户积分：{{hyjf}}</view>
 			<view class="right" @click="purchase">提交订单</view>
 		</view>
 
@@ -62,7 +62,8 @@
 							</view>
 						</view>
 						<view class="right ">
-							<span class="select-btn" :class="{'type-active':i === typeIndex}" v-for="(item,i) in paydetail.guige" @click="typeChange(item.name,item.id,i)">{{item.name}}</span>
+							<span class="select-btn" :class="{'type-active':i === typeIndex}" v-for="(item,i) in product.spJgList" :key="i"
+							 @click="typeChange(item.spgg,item.id,item.jg,i)">{{item.spgg}}</span>
 						</view>
 					</view>
 
@@ -87,10 +88,9 @@
 						<view class="right">
 							<view class="uni-list">
 								<view class="uni-list-cell">
-
 									<view class="uni-list-cell-db">
-										<picker @change="addressChange" :value="index" :range="paydetail.address">
-											<view class="uni-input">{{paydetail.address[index]}}</view>
+										<picker mode="selector" @change="addressChange" :value="index" :range="address" placeholder="请选择收货地址">
+											<view class="uni-input">{{address[index]}}</view>
 										</picker>
 									</view>
 								</view>
@@ -114,11 +114,13 @@
 import ProductAPI from "../../api/product/product";
 import CartAPI from "../../api/cart/cart";
 import uniNumberBox from "@/components/uni-number-box.vue";
+import orderAPI from "../../api/order/order";
 import { mapState } from "vuex";
 export default {
   data() {
     return {
-      // indicatorDots: true,
+			// indicatorDots: true,
+			hyjf: '0.00',
       autoplay: true,
       interval: 5000,
       duration: 200,
@@ -171,8 +173,9 @@ export default {
             id: 2,
           },
         ],
-        address: ["中国1", "中国1", "中国1", "中国1"],
-      },
+        address: ['请选择收货地址'],
+			},
+			address: ['请选择收货地址'],
       method: [
         {
           name: "微信",
@@ -184,7 +187,21 @@ export default {
         },
       ],
       index: 0,
-      typeIndex: -1, // 规格初始索引
+			typeIndex: -1, // 规格初始索引
+			addressList: [],
+			form: {
+				addressId: "", // 地址
+        ddjf: 0, // 订单金额
+        realname: "", //用户名
+        jfspId: "", //商品id
+        spjf: 0, // 单价
+        spgg: "", // 规格
+        spmc: "", // 名称
+        spsl: 1, // 数量
+        userId: uni.getStorageSync('userid'), //用户id
+        zffs: "jfdh", // 支付方式
+        wczt: "0", //
+			}
     };
   },
   components: {
@@ -192,10 +209,14 @@ export default {
   },
   onLoad(option) {
     console.log("idididid", option);
-    this.goodID = option.id;
+		this.goodID = option.id;
+		this.form.jfspId = option.id;
     if (option.source) this.hideSource = true;
   },
   onShow(option) {
+		if (uni.getStorageSync('hyjf')) {
+			this.hyjf = uni.getStorageSync('hyjf')
+		}
     this.loadData(this.goodID);
     this.specSelected = null;
   },
@@ -249,12 +270,28 @@ export default {
         this.$_log("积分详情：", res.data.obj);
         this.product = res.data.obj;
         // this.img = getApp().globalData.BASE_URL + this.product.sppic
-        this.img = '/yplg/' + this.product.sppic;
+				this.img = '/yplg/' + this.product.sppic;
+				this.form.spjf = res.data.obj.spjf
+				this.form.spmc = res.data.obj.spmc
         console.log("this.product", this.product);
         this.article = this.product.spjs;
       });
     },
-
+ // 获取地址
+    getAdress() {
+      let id = uni.getStorageSync('userid');
+      let o = {
+        userId: id
+      };
+      orderAPI.getAddressList(o).then((res) => {
+        this.addressList = res.data.obj.results;
+        this.addressList.forEach((item) => {
+          this.address.push(item.address + item.detail);
+        });
+        // this.form.addressId = this.addressList[0].id;
+        console.log("收货地址", res.data.obj.results);
+      });
+    },
     // 抽屉
     toggleSpec() {
       if (this.specClass === "show") {
@@ -268,23 +305,38 @@ export default {
     },
     //立即兑换
     payHandle() {
-      // 验证积分是否够、表单验证
+			// 验证积分是否够、表单验证
+			orderAPI.createJfOrder(this.form).then((res) => {
+				console.log('积分兑换', res)
+				if (res.data.data.wczt == 0) {
+					// 更新积分
+
+					uni.showToast({
+						title: '拼团成功！',
+						duration: 1500
+					});
+					setTimeout(() => {
+						uni.navigateBack();
+					}, 1500)
+				}
+			})
     },
     // 选择商品规格
     typeChange(val, id, index) {
-      this.typeIndex = index;
+			this.typeIndex = index;
+			this.form.spgg = val;
       console.log("this.typeIndex", this.typeIndex);
       console.log("规格", val);
       console.log("规格id", id);
     },
     //选择数量
     numberChange(e) {
-      this.number = e.number;
+      this.form.spsl = e.number;
     },
     // 选择地址
     addressChange(e) {
-      console.log("picker发送选择改变，携带值为", e.target.value);
-      this.index = e.target.value;
+			this.index = e.target.value;
+      this.form.addressId = this.addressList[this.index - 1].id;
     },
     changeGMFS() {
       if (this.specSelected) this.product.price = this.specSelected.jg;
@@ -365,7 +417,8 @@ export default {
       // 	this.showTokenInvalidMsg();
       // 	return;
       // }
-      this.toggleSpec();
+			this.toggleSpec();
+			this.getAdress()
     },
     showTokenInvalidMsg() {
       let pages = getCurrentPages();

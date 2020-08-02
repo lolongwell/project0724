@@ -5,7 +5,7 @@
       :key="index"
       @click="goJFDetail(item.id)"
     >
-      <img class="pic" :src="item.sppic" alt="" />
+      <img class="pic" :src="'/yplg/' + item.sppic" alt="" />
       <view class="detail">
         <view class="fl">
           <text> {{ item.spmc }} </text>
