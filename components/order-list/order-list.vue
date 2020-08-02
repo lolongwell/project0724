@@ -11,7 +11,7 @@
 					</view>
 					<view class="middle">
 						<view class="price">
-							 {{'¥' + item.spdj || item.spjf}}
+							 {{item.zffs == 'jfdh' ? item.spjf : '¥' + item.spdj}}
 							<span v-show="item.spsl">x {{item.spsl}}</span>
 						</view>
 						<!-- todo：这里只有拼团信息状态才有 -->
@@ -41,7 +41,9 @@
 								<!-- 已提货 -->
 								<button v-show="item.thfs === '1' && item.flmx === null" class="status yth-card">已提货</button>
 								<!--拼团不成功返利 -->
-								<button v-show="item.flmx !== null" class=" status fl-card">未拼中返利￥{{item.flmx}}</button>
+								<button v-show="!!item.flmx" class=" status fl-card">未拼中返利￥{{item.flmx}}</button>
+								
+								<view v-show="item.zffs == 'jfdh'" class=" status fl-card">积分兑换商品</view>
 							</view>
 							<view class="">
 								

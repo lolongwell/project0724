@@ -9,8 +9,8 @@
           {{ item.clsj }}
         </view>
       </view>
-      <view class="right" :class="{ isMoreMoney: item.ismore }">
-        {{ item.clje }}
+      <view class="right" :class="{ isMoreMoney: item.ismore || item.zjjjfs == '-'}" >
+        {{item.zjjjfs}}{{ item.clje }}
       </view>
     </view>
   </view>
