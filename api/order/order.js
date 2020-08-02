@@ -22,6 +22,11 @@ let orderAPI = {
 		d = JSON.stringify(d);
 		return h.postJson(`rest/tbDdController`, d);
 	},
+	// 支付-创建订单-积分
+	createJfOrder(d) {
+		d = JSON.stringify(d);
+		return h.postJson(`rest/tbJfddController`, d);
+	},
 	// 支付-创建订单-转盘积分订单
 	createZPOrder(d) {
 		d = JSON.stringify(d);
