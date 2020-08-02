@@ -101,7 +101,7 @@ import { checkLogin, getUrlParam, getWxInfo } from "../../util.js";
 			},
 		},
 		onLoad() {
-			checkLogin()
+			// checkLogin()
 		},
 		onShow() {
 			this.getModules();
