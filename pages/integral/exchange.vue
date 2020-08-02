@@ -53,7 +53,10 @@
 		},
 		methods: {
 			getGoodList() {
-				productAPI.integralList("jfspfl").then((res) => {
+				let o = {
+					jfspfl:1
+				}
+				productAPI.integralList(o).then((res) => {
 					this.intergralList = res.data.obj.results
 					console.log('this.intergralList', this.intergralList)
 				});
