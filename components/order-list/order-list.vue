@@ -23,8 +23,10 @@
 						<!-- todo:这里要区分：拼团信息卡片不能点击；待收货写死点击；已完成也是卡片不能点击 -->
 						<!-- <button class="status" v-for="(val,i) in item.status">{{val}}</button> -->
 						<!-- 拼团信息：卡片 -->
-						<button v-if="item.wczt === '0'" class="status ptz-card">未拼中返：2000</button>
-
+						<button v-if="item.wczt === '0'" class="status ptz-card">未拼中返：￥{{item.flmx}}</button>
+						<!-- 待付款 -->
+						<button v-if="item.wczt === '1'" class="status ptz-card" @click="goPay(item.spId)">待付款</button>
+                          
 						<!-- 待收货 -->
 						<view class="dsh-btn-box" v-else-if="item.wczt === '2'">
 							<button class="status " v-for="(items,index) in thfsList" @click="thHandle(items.value,item.id)">{{items.name}}</button>
@@ -154,6 +156,13 @@
 					}
 				});
 			},
+			// 待付款
+			goPay(id){
+				alert(id)
+				uni.navigateTo({
+				   url: '/pages/detail/detail?id=' + id
+				});
+			},
 			getList() {
 				// 1.判断是否登录，没有登录就跳进登录页面
 				// 2.获取当前需要的订单入参
@@ -214,6 +223,9 @@
 					.bottom {
 						flex: 1;
 						font-size: 14px;
+						button{
+							// font-size: $font-base + 10rpx;
+						}
 					}
 
 					.middle {
@@ -269,7 +281,7 @@
 						.status {
 							height: 50rpx;
 							line-height: 50rpx;
-							font-size: 10rpx;
+							font-size:30rpx;
 							margin-right: 10rpx;
 							color: #fff;
 							background-color: $my-color;
