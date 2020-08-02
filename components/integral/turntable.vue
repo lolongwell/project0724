@@ -34,6 +34,7 @@
 					</view>
 				</view>
 			</view>
+			<button @click="cancelHandle">取消</button>
 			<button @click="commitHandle">确定</button>
 		</div>
 	</div>
@@ -172,6 +173,38 @@
 			
 			
 				})
+			},
+			commitHandle() {
+				
+				if(this.addressId === ''){
+				   uni.showToast({
+				   	title: `请选择收货地址`,
+				   	duration: 1000
+				   })
+				   return
+				}
+				// 提交
+				let o = {
+					userId: uni.getStorageSync('userid'),
+					zpspfl: '1',
+					jfspId: this.zjspList.id,
+					zffs: 'cjdh',
+					addressId: this.addressId
+				}
+				orderAPI.createZPOrder(o).then(res => {
+					uni.showToast({
+						title: `订单完成`,
+						duration: 1000
+					});
+					this.isGood = false
+				
+			
+			
+				})
+			},
+			cancelHandle(){
+
+			     this.isGood = false	
 			},
 			lotteryEnd(angle) {
 				if (angle > 0 && angle < 45) {
@@ -353,6 +386,7 @@
 			button {
 				width: 20%;
                 margin-top: 30rpx;
+				display: inline-block;
 			}
 			
 		}
@@ -360,7 +394,7 @@
 		.mb-box {
 			width: 100%;
 			height: 100%;
-			background: #sss;
+			// background: #555555;
 		}
 	}
 </style>
