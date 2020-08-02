@@ -24,7 +24,7 @@
 			<span>{{integral}}</span>
 		</view>
 		<view class="turntable">
-			<turntable></turntable>
+			<turntable @updateIntegral="updateIntegral"></turntable>
 		</view>
 		<view class="exchange-list-box">
 			<exchange-list :intergralList="intergralList"></exchange-list>
@@ -60,6 +60,9 @@
 					this.intergralList = res.data.obj.results
 					console.log('this.intergralList', this.intergralList)
 				});
+			},
+			updateIntegral(val) {
+				this.integral = val
 			}
 		}
 	};

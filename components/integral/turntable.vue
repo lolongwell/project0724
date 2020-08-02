@@ -142,7 +142,7 @@
 				userAPI.updateJfByUser(o).then((res) => {
 					uni.setStorageSync('hyjf', res.data.data.hyjf)
 					this.$store.commit('integralUpdate',res.data.data.hyjf)
-
+					this.$emit('updateIntegral', res.data.data.hyjf)
 				})
 			},
 			commitHandle() {
@@ -238,9 +238,10 @@
 						jfspId: this.zjspList.id
 					}
 					userAPI.updateJfByUser(o).then((res) => {
+						console.log('更新积分', res)
 						uni.setStorageSync('hyjf', res.data.data.hyjf)
 						this.$store.commit('integralUpdate',res.data.data.hyjf)
-						
+						this.$emit('updateIntegral', res.data.data.hyjf)
 					})
 				}
 

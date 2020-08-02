@@ -200,10 +200,16 @@
 					if (this.orderStatus == 3) {
 						let o = {
 							userId: id,
-							zffs: 'jfdh'
+							zffs: 'jfdh',
+							wczt: '3'
 						}
 						orderAPI.jfspOrderList(o).then(res => {
 							console.log('积分商品兑换列表', res)
+							if (res.statusCode == 200) {
+								let jfList = res.data.obj.results
+								this.goodsList = this.goodsList.concat(jfList)
+								this.$store.commit('orderListUpdate', this.goodsList)
+							}
 						})
 					}
 				})

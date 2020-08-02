@@ -11,7 +11,7 @@
 					</view>
 					<view class="middle">
 						<view class="price">
-							¥ {{item.spdj}}
+							 {{'¥' + item.spdj || item.spjf}}
 							<span v-show="item.spsl">x {{item.spsl}}</span>
 						</view>
 						<!-- todo：这里只有拼团信息状态才有 -->
