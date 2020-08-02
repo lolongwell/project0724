@@ -272,7 +272,7 @@ export default {
         this.$_log("积分详情：", res.data.obj);
         this.product = res.data.obj;
         // this.img = getApp().globalData.BASE_URL + this.product.sppic
-				this.img = '/yplg/' + this.product.sppic;
+				this.img = this.product.sppic;
 				this.form.spjf = res.data.obj.spjf
 				this.form.spmc = res.data.obj.spmc
         console.log("this.product", this.product);
@@ -322,7 +322,7 @@ export default {
 						console.log('更新个人积分', res)
 						this.getUserInfo()
 						uni.showToast({
-							title: '拼团成功！',
+							title: '兑换成功！',
 							duration: 1500
 						});
 						setTimeout(() => {

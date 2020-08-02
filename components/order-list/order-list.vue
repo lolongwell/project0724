@@ -41,7 +41,7 @@
 								<!-- 已提货 -->
 								<button v-show="item.thfs === '1' && item.flmx === null" class="status yth-card">已提货</button>
 								<!--拼团不成功返利 -->
-								<button v-show="item.flmx !== null" class=" status fl-card">已购物返利￥{{item.flmx}}</button>
+								<button v-show="item.flmx !== null" class=" status fl-card">未拼中返利￥{{item.flmx}}</button>
 							</view>
 							<view class="">
 								
@@ -284,7 +284,7 @@
 						.status {
 							height: 100%;
 							// line-height: 50rpx;
-							font-size:30rpx;
+							font-size:28rpx;
 							line-height: 40rpx;
 							margin-right: 10rpx;
 							text-align: left;
