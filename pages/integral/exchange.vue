@@ -15,7 +15,7 @@
 				</view>
 			</view>
 			<view class="right ">
-				<image class="img"  src="../../static/images/default.png" mode=""></image>
+				<image class="img"  src="../../static/banners/cj.png" mode=""></image>
 			</view>
 
 		</view>
