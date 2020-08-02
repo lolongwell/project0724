@@ -158,7 +158,7 @@
 			},
 			// 待付款
 			goPay(id){
-				alert(id)
+		
 				uni.navigateTo({
 				   url: '/pages/detail/detail?id=' + id
 				});
@@ -223,8 +223,10 @@
 					.bottom {
 						flex: 1;
 						font-size: 14px;
+						flex-wrap: wrap;
 						button{
 							// font-size: $font-base + 10rpx;
+							
 						}
 					}
 
@@ -255,7 +257,7 @@
 
 						.dsh-btn-box {
 							display: flex;
-
+                            flex-wrap: wrap;
 
 
 							button {
@@ -274,15 +276,18 @@
 							display: flex;
 
 							.status {
-								flex: 1
+								flex: 1;
+								flex-wrap: wrap;
 							}
 						}
 
 						.status {
-							height: 50rpx;
-							line-height: 50rpx;
+							height: 100%;
+							// line-height: 50rpx;
 							font-size:30rpx;
+							line-height: 40rpx;
 							margin-right: 10rpx;
+							text-align: left;
 							color: #fff;
 							background-color: $my-color;
 						}

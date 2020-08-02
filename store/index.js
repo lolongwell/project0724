@@ -23,7 +23,7 @@ const state = {
 	cartData: [],
 	addressList: [],
 	balance: '0.00', // 余额
-	integral: 0, //, 积分
+	integral:  uni.getStorageSync('hyjf'), //, 积分
 	orderList: [], //订单信息
 	orderDetails: [], //订单详情
 	orderStatus: 0, //订单状态
