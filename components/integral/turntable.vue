@@ -381,12 +381,17 @@
 			transform: translate(-50%, -50%);
 			background-color: #fff;
 			opacity: 1;
-			font-size: $font-base + 10rpx;
-             
+			font-size: $font-base;
+            padding: 40rpx;
 			button {
 				width: 20%;
+				height: 50rpx;
+				line-height: 50rpx;
                 margin-top: 30rpx;
 				display: inline-block;
+				font-size: $font-base;
+				margin-right: 10rpx;
+				// padding: ;
 			}
 			
 		}
