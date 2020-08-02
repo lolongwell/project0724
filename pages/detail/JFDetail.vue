@@ -42,7 +42,7 @@
 				<view class="product-intro">
 					<view class="left">
 						<!-- <image :src="product.sppic" mode=""></image> -->
-						<image :src="img" mode=""></image>
+						<img :src="img" mode=""></img>
 					</view>
 					<view class="right">
 						<view class="r-name item">
@@ -270,7 +270,7 @@ export default {
         this.$_log("积分详情：", res.data.obj);
         this.product = res.data.obj;
         // this.img = getApp().globalData.BASE_URL + this.product.sppic
-				this.img = this.product.sppic;
+				this.img = '/yplg/' + this.product.sppic;
 				this.form.spjf = res.data.obj.spjf
 				this.form.spmc = res.data.obj.spmc
         console.log("this.product", this.product);
@@ -331,17 +331,6 @@ export default {
           setTimeout(() => {
             uni.navigateBack();
           }, 1500)
-					// userAPI.updateJfByUser(this.form).then((res) => {
-					// 	console.log('更新个人积分', res)
-					// 	this.getUserInfo()
-					// 	uni.showToast({
-					// 		title: '兑换成功！',
-					// 		duration: 1500
-					// 	});
-					// 	setTimeout(() => {
-					// 		uni.navigateBack();
-					// 	}, 1500)
-					// })
 				}
 			})
 		},
@@ -924,8 +913,8 @@ export default {
         }
 
         img {
-          width: 50rpx;
-          height: 50rpx;
+          width: 70px;
+          // height: 50rpx;
         }
       }
 

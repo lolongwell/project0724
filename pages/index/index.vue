@@ -128,7 +128,7 @@ import { checkLogin, getUrlParam, getWxInfo } from "../../util.js";
 					console.log('this.goodListData', this.goodListData)
 				});
 				productAPI.integralList("jfspfl").then((res) => {
-					let data = res.data.obj.results
+					let data = res.data.obj.results.filter(item => item.jfspfl == 1)
 					// data.forEach(v => {
 					// 	v.sppic = '/yplg/' + v.sppic
 					// })

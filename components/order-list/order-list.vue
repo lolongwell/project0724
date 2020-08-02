@@ -10,7 +10,7 @@
 						{{item.spmc}}
 					</view>
 					<view class="middle">
-						<view class="price" v-if="item.spdj">
+						<view class="price" v-if="item.spdj || item.zffs == 'jfdh'">
 							 {{item.zffs == 'jfdh' ? item.spjf : '¥' + item.spdj}}
 							<span v-show="item.spsl">x {{item.spsl}}</span>
 						</view>
