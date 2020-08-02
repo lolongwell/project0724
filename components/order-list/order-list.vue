@@ -87,8 +87,7 @@
 
 		watch: {
 			goodsList() {
-				console.log(333333)
-				console.log('改变了1111111111111111111',this.goodsList)
+			
 			}
 		},
 
@@ -104,8 +103,6 @@
 			// }
 		},
 		mounted() {
-			console.log('goodsList',this.goodsList)
-
 			// 获取地点数据-提货方式 
 			this.getDicData('thfs').then(res => {
 				this.thfsList = res.data.data.map(item => {
@@ -116,7 +113,6 @@
 				})
 			})
 
-			console.log('this.thfsList',this.thfsList)
 		},
 		methods: {
 			//点击提货方式：发送请求刷新列表
@@ -133,7 +129,6 @@
 							}
 							// 2.发送请求，刷新列表
 							orderAPI.updateOrder(th).then(res => {
-								console.log('es', res)
 								if (res.data.respCode === '0') {
 									uni.showToast({
 										title: '操作成功！',
