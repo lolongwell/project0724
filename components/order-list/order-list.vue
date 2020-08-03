@@ -11,7 +11,7 @@
 					</view>
 					<view class="middle">
 						<view class="price" v-if="item.spdj || item.zffs == 'jfdh'">
-							 {{item.zffs == 'jfdh' ? item.spjf : '¥' + item.spdj}}
+							{{item.zffs == 'jfdh' ? item.spjf : '¥' + item.spdj}}
 							<span v-show="item.spsl">x {{item.spsl}}</span>
 						</view>
 						<!-- todo：这里只有拼团信息状态才有 -->
@@ -26,7 +26,7 @@
 						<button v-if="item.wczt === '0'" class="status ptz-card">未拼中返：￥{{item.flmx}}</button>
 						<!-- 待付款 -->
 						<button v-if="item.wczt === '1'" class="status ptz-card" @click="goPay(item.spId)">待付款</button>
-                          
+
 						<!-- 待收货 -->
 						<view class="dsh-btn-box" v-else-if="item.wczt === '2'">
 							<button class="status " v-for="(items,index) in thfsList" @click="thHandle(items.value,item.id)">{{items.name}}</button>
@@ -42,12 +42,12 @@
 								<button v-show="item.thfs === '1' && item.flmx === null" class="status yth-card">已提货</button>
 								<!--拼团不成功返利 -->
 								<button v-show="!!item.flmx" class=" status fl-card">未拼中返利￥{{item.flmx}}</button>
-							
+
 								<button v-show="item.zffs == 'jfdh'" class=" status fl-card">积分兑换商品</button>
 								<button v-show="item.zffs == 'cjdh'" class=" status fl-card">抽奖商品</button>
 							</view>
 							<view class="">
-								
+
 							</view>
 						</view>
 						<!-- <button v-else-if="item.wczt === 3" class="status ywc-card">已购物返利33333：￥{{item.flmx}}</button> -->
@@ -88,7 +88,7 @@
 
 		watch: {
 			goodsList() {
-			
+
 			}
 		},
 
@@ -137,7 +137,19 @@
 									});
 									this.$store.commit('orderStatusUpdate', '2')
 									this.getList()
-
+									// 发送请求，更新积分
+									if (val === '2') {
+										// 更新积分
+										let o = {
+											userId: uni.getStorageSync('userid'),
+											thfs:'2',
+											id:id
+										}
+										userAPI.updateJfByUser(o).then((res) => {
+											uni.setStorageSync('hyjf', res.data.data.hyjf)
+											this.$store.commit('integralUpdate', res.data.data.hyjf)
+										})
+									}
 								} else {
 									uni.showToast({
 										title: '操作成功！',
@@ -145,8 +157,9 @@
 									});
 								}
 								// 3.todo:存入数据更新到全局
-								this.$store.state.commit('orderListUpdate',res.data.obj.results)
+								this.$store.state.commit('orderListUpdate', res.data.obj.results)
 							})
+
 
 						} else if (res.cancel) {
 							return;
@@ -155,10 +168,10 @@
 				});
 			},
 			// 待付款
-			goPay(id){
-		
+			goPay(id) {
+
 				uni.navigateTo({
-				   url: '/pages/detail/detail?id=' + id
+					url: '/pages/detail/detail?id=' + id
 				});
 			},
 			getList() {
@@ -222,9 +235,10 @@
 						flex: 1;
 						font-size: 14px;
 						flex-wrap: wrap;
-						button{
+
+						button {
 							// font-size: $font-base + 10rpx;
-							
+
 						}
 					}
 
@@ -255,7 +269,7 @@
 
 						.dsh-btn-box {
 							display: flex;
-                            flex-wrap: wrap;
+							flex-wrap: wrap;
 
 
 							button {
@@ -282,7 +296,7 @@
 						.status {
 							height: 100%;
 							// line-height: 50rpx;
-							font-size:28rpx;
+							font-size: 28rpx;
 							line-height: 40rpx;
 							margin-right: 10rpx;
 							text-align: left;
