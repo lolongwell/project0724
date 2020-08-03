@@ -171,6 +171,11 @@
 
 
 		},
+		onShow() {
+			this.getList()
+			//测试
+			this.$store.commit('orderListUpdate', this.goodsList)
+		},
 		computed: {
 			orderStatus() {
 				return this.$store.state.orderStatus
