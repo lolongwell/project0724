@@ -194,6 +194,9 @@
 					if (res.statusCode === 200) {
 						this.goodsList = res.data.obj.results
 						//4.更新全局orderList
+						this.goodsList.sort(function(a,b){
+							return a.wcsj < b.wcsj ? 1 : -1
+						})
 						this.$store.commit('orderListUpdate', this.goodsList)
 					}
 					// 积分订单
@@ -204,10 +207,12 @@
 							wczt: '3'
 						}
 						orderAPI.jfspOrderList(o).then(res => {
-							console.log('积分商品兑换列表', res)
 							if (res.statusCode == 200) {
 								let jfList = res.data.obj.results
 								this.goodsList = this.goodsList.concat(jfList)
+								this.goodsList.sort(function(a,b){
+									return a.wcsj < b.wcsj ? 1 : -1
+								})
 								this.$store.commit('orderListUpdate', this.goodsList)
 							}
 						})

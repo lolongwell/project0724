@@ -61,7 +61,8 @@
 			<view class="bottom">
 				<ul>
 					<li>订单编号：{{item.ddh}}</li>
-					<li>下单时间:{{item.fktime}}</li>
+					<li v-if="item.wczt === '3'">完成时间:{{item.wcsj}}</li>
+					<li v-else>下单时间:{{item.createDate}}</li>
 				</ul>
 			</view>
 		</view>
