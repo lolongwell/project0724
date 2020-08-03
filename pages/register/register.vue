@@ -161,17 +161,23 @@ export default {
       console.log("data", data);
       RegisterAPI.submitRegister(data).then((res) => {
         console.log("注册", res);
-        if (res.statusCode == 200) {
+        if (res.data.ok && res.data.data.token) {
           uni.showToast({
             title: "恭喜您，注册成功！",
-            duration: 1000,
+            duration: 1000
           });
           let token = res.data.data.token;
           this.$store.commit("login", token);
-          uni.getStorageSync("sex"),
-            setTimeout(() => {
-              window.location.href = "http://sjblake.cn/index.html";
-            }, 1500);
+          uni.getStorageSync("sex")
+          setTimeout(() => {
+            window.location.href = "http://sjblake.cn/index.html"
+          }, 1500);
+        } else {
+          uni.showToast({
+            title: res.data.message,
+            icon: 'none',
+            duration: 1000
+          });
         }
       });
     },
