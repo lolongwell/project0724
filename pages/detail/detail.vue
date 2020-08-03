@@ -113,14 +113,14 @@
 									</view>
 								</view>
 							</view>
-							<view  else  class="address-input">
+							<!-- <view  else  class="address-input">
 								<input type="text" :value="addressValue"  v-model="addressValue"    />
-							</view>
+							</view> -->
 						</view>
 						
 					</view>
 
-					<button @click="payHandle" class="pay-money">立即支付</button>
+					<button @click="payHandle" class="pay-money" :disabled="isPay" >立即支付</button>
 				</view>
 				<!-- <view v-if="specList.length" class="pick-size" @click="toggleSpec"> -->
 
@@ -171,6 +171,7 @@ export default {
       beforeChangeAction: "",
       shareList: [],
       picList: [],
+	  isPay:false,
       commentList: [],
       product: {},
       img: "",
@@ -227,7 +228,7 @@ export default {
         zffs: "", // 支付方式
         zjzt: "0", //
       },
-      addressList: [],
+      addressList: []
     };
   },
   components: {
@@ -242,6 +243,7 @@ export default {
 		this.getUserInfo()
     this.loadData(this.goodID);
     this.specSelected = null;
+	this.isPay = false
   },
   computed: {
     ...mapState(["status", "hasLogin", "cartData"]),
@@ -312,6 +314,7 @@ export default {
     },
     loadData(id) {
       // 获得商品详情
+
       const app = getApp();
       ProductAPI.goodsDetail(id).then((res) => {
         this.$_log("商品详www情：", res.data.obj);
@@ -370,7 +373,7 @@ export default {
         });
         return
       }
-
+       this.isPay = true
       // 获得入参
 			console.log(this.form)
       orderAPI.createOrder(this.form).then((res) => {
@@ -391,12 +394,16 @@ export default {
                 title: '拼团成功！',
                 duration: 1500
               });
+			   
               setTimeout(() => {
                 uni.navigateBack();
+				this.isPay = false
               }, 1500)
             }
           }
+		 
         }
+		
       });
 
       // 请求前查看余额是否充足
@@ -1215,5 +1222,9 @@ export default {
     border-radius: 4rpx;
     margin-right: 10rpx;
   }
+}
+
+uni-button[disabled]:not([type]), uni-button[disabled][type=default]{
+	background-color: rgba(0,0,0,.3)!important;
 }
 </style>
