@@ -25,7 +25,7 @@
 						<!-- 拼团信息：卡片 -->
 						<button v-if="item.wczt === '0'" class="status ptz-card">未拼中返：￥{{item.flmx}}</button>
 						<!-- 待付款 -->
-						<button v-if="item.wczt === '1'" class="status ptz-card" @click="goPay(item.spId)">待付款</button>
+						<button v-if="item.wczt === '1'" class="status ptz-card" @click="goPay(item.spmc,item.ddh,item.ddje,item.spId)">待付款</button>
 
 						<!-- 待收货 -->
 						<view class="dsh-btn-box" v-else-if="item.wczt === '2'">
@@ -143,8 +143,8 @@
 										// 更新积分
 										let o = {
 											userId: uni.getStorageSync('userid'),
-											thfs:'2',
-											id:id
+											thfs: '2',
+											id: id
 										}
 										userAPI.updateJfByUser(o).then((res) => {
 											uni.setStorageSync('hyjf', res.data.data.hyjf)
@@ -169,10 +169,18 @@
 				});
 			},
 			// 待付款
-			goPay(id) {
+			goPay(spmc,ddh,ddje,id) {
+				uni.setStorageSync('orderSource', '1')  // 1：商品订单；2：充值订单
+				uni.setStorageSync('orderDetail', JSON.stringify({
+				  spmc: spmc,
+				  ddh: ddh,
+				  ddje: ddje,
+				  method: 'wx'
+				}))
 
 				uni.navigateTo({
-					url: '/pages/detail/detail?id=' + id
+					// url: '/pages/order/detail?id=' + id,
+					url: `/pages/order/detail`,
 				});
 			},
 			getList() {
