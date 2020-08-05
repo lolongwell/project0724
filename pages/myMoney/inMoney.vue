@@ -124,6 +124,12 @@ export default {
 			if(res.data.data.code === 1000){
 				window.location.href = res.data.data.data.qr_code
 				
+			}else{
+				uni.showToast({
+					title: res.data.data.msg,
+					icon: 'none',
+					duration: 2000
+				});
 			}
 			
 		})
