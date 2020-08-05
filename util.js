@@ -115,10 +115,16 @@ export function payment(openid, orderInfo) {
 			}
 		} else {
 			uni.showToast({
-				title: res.data.data.msg,
+				title: '支付不成功',
 				icon: 'none',
 				duration: 2000
 			});
+			setTimeout(function() {
+				uni.navigateTo({
+					url:'/pages/my/my.vue'
+				})
+			}, 2000)
+
 		}
 
 

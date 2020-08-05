@@ -126,10 +126,15 @@ export default {
 				
 			}else{
 				uni.showToast({
-					title: res.data.data.msg,
+					title: '支付不成功',
 					icon: 'none',
 					duration: 2000
 				});
+				setTimeout(function() {
+					uni.navigateTo({
+						url:'../my/my'
+					})
+				}, 2000)
 			}
 			
 		})
