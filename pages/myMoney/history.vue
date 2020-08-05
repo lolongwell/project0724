@@ -1,6 +1,7 @@
 <template>
   <view class="history-box">
-    <view class="item" v-for="(item, index) in historyList" :key="index">
+    <uni-tab :dataSource="tabList" @handle='switchTab'></uni-tab>
+    <view class="item" v-for="(item, index) in activeList" :key="index">
       <view class="left">
         <view class="title">
           {{ item.remark }}
@@ -18,10 +19,22 @@
 
 <script>
 import userAPI from "@/api/user/user.js";
+import UniTab from '@/components/uni-tab/uni-tab.vue'
 export default {
   data() {
     return {
-      historyList: [],
+      historyList: [[],[],[]],
+      activeList: [],
+      tabList: [{
+          text: '商品'
+        },
+        {
+          text: '充值'
+        },
+        {
+          text: '提现'
+        }
+      ]
     };
   },
   onShow() {
@@ -34,11 +47,18 @@ export default {
         console.log('资金记录', res)
 				if (res.data.success) {
 					if (res.data.obj) {
-						this.historyList = res.data.obj.results
+            let data = res.data.obj.results
+						this.activeList = data.filter(v => v.zjclfs != 1 && v.zjclfs != 2 )
+						this.historyList[0] = data.filter(v => v.zjclfs != 1 && v.zjclfs != 2 )
+						this.historyList[1] = data.filter(v => v.zjclfs == 1 )
+						this.historyList[2] = data.filter(v => v.zjclfs == 2 )
 					}
 				}
 			});
     },
+    switchTab(val) {
+      this.activeList = this.historyList[val.index]
+    }
   },
 };
 </script>
