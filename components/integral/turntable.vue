@@ -238,8 +238,6 @@
 					this.zjspList = this.list[0]
 				}
 				// 判断商品类型
-				console.log('this.zjspList',this.zjspList)
-				console.log('this.zjspList',this.zjspList.zpspfl)
 				// 未中奖
 				if (this.zjspList.zpspfl === '0') {
 					// 提示
@@ -254,10 +252,7 @@
 						duration: 1000
 					});
 				
-						this.isGood = true
-					
-				
-
+						this.isGood = true				
 
 				} else {
 					uni.showToast({

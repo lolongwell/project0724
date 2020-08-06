@@ -322,7 +322,7 @@ export default {
         this.img = '/yplg/' + this.product.sppic;
         console.log(this.img);
 				this.article = this.product.spjs;
-				this.form.spdj = res.data.obj.ptjg
+				// this.form.spdj = res.data.obj.ptjg
 				this.form.spmc = res.data.obj.spmc
       });
 
@@ -415,6 +415,7 @@ export default {
     typeChange(val, id, jg, index) {
       this.typeIndex = index;
       this.product.ptjg = jg;
+	  this.form.spdj = jg
       this.form.spgg = val;
       console.log("this.typeIndex", this.typeIndex);
       console.log("规格", val);
