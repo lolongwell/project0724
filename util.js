@@ -147,6 +147,7 @@ export function onBridgeReady(data, orderInfo) {
 				let orderSource = uni.getStorageSync('orderSource')
 				console.log('111111111', orderSource)
 				let orderDetail = JSON.parse(uni.getStorageSync('orderDetail'))
+				console.log('==========orderDetail', orderDetail)
 				if (orderSource == 1) {
 					let o = {
 						id: orderDetail.id,
