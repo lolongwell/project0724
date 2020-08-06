@@ -176,7 +176,8 @@
 				uni.setStorageSync('orderDetail', JSON.stringify({
 				  spmc: spmc,
 				  ddh: ddh,
-				  ddje: ddje,
+					ddje: ddje,
+					id,
 				  method: 'wx'
 				}))
 
