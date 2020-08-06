@@ -33,107 +33,17 @@
 					}
 				],
 				goodsList: [
-					// {
-					// 	url: '../../static/images/default.png',
-					// 	spmc: '商品名1商品名1商品名1商品名1商品名1商品名1商品名1商品名1',
-					// 	spdj: '8000.00',
-					// 	ddh: '00001',
-					// 	fktime: '2020-2-2 10:30:30',
-					// 	spsl: 1,
-					// 	wczt: 0
-
-					// },
-					// {
-					// 	url: '../../static/images/default.png',
-					// 	spmc: '商品名1',
-					// 	spdj: '8000.00',
-					// 	ddh: '00001',
-					// 	fktime: '2020-2-2 10:30:30',
-					// 	wczt: 0
-					// },
-					// {
-					// 	url: '../../static/images/default.png',
-					// 	spmc: '商品名1',
-					// 	spdj: '8000.00',
-					// 	ddh: '00001',
-					// 	fktime: '2020-2-2 10:30:30',
-					// 	wczt: 0
-					// }
+					
 				],
 				goodsList1: [
-					// {
-					// 	url: '../../static/images/default.png',
-					// 	spmc: '商品名1商品名1商品名1商品名1商品名1商品名1商品名1商品名1',
-					// 	spdj: '8000.00',
-					// 	ddh: '00001',
-					// 	fktime: '2020-2-2 10:30:30',
-					// 	spsl: 1,
-					// 	wczt: 0
-
-					// },
-					// {
-					// 	url: '../../static/images/default.png',
-					// 	spmc: '商品名1',
-					// 	spdj: '8000.00',
-					// 	ddh: '00001',
-					// 	fktime: '2020-2-2 10:30:30',
-					// 	wczt: 0
-					// },
-					// {
-					// 	url: '../../static/images/default.png',
-					// 	spmc: '商品名1',
-					// 	spdj: '8000.00',
-					// 	ddh: '00001',
-					// 	fktime: '2020-2-2 10:30:30',
-					// 	wczt: 0
-					// }
+					
 				],
 				goodsList2: [],
 				goodsList3: [
-				// 	{
-				// 	url: '../../static/images/default.png',
-				// 	spmc: '商品名1',
-				// 	spdj: '8000.00',
-				// 	ddh: '00001',
-				// 	fktime: '2020-2-2 10:30:30',
-				// 	wczt: 2,
-
-				// 	// zjzt: 1 // 1提货 2兑换积分
-				// },
+				
 				],
 				goodsList4: [
-					// {
-					// 	url: '../../static/images/default.png',
-					// 	spmc: '商品名1商品名1商品名1商品名1商品名1商品名1商品名1商品名1',
-					// 	spdj: '8000.00',
-					// 	ddh: '00001',
-					// 	fktime: '2020-2-2 10:30:30',
-					// 	spsl: 1,
-					// 	wczt: 3,
-					// 	flmx: '',
-					// 	thfs: 1,
-					// 	zjzt: 1 // 1提货 2兑换积分
-
-					// },
-					// {
-					// 	url: '../../static/images/default.png',
-					// 	spmc: '商品名1',
-					// 	spdj: '8000.00',
-					// 	ddh: '00001',
-					// 	fktime: '2020-2-2 10:30:30',
-					// 	wczt: 3,
-					// 	thfs: 2,
-					// 	flmx: ''
-					// },
-					// {
-					// 	url: '../../static/images/default.png',
-					// 	spmc: '商品名1',
-					// 	spdj: '8000.00',
-					// 	ddh: '00001',
-					// 	fktime: '2020-2-2 10:30:30',
-					// 	wczt: 3,
-					// 	flmx: '194 + 95.00'
-					// }
+				
 				],
 				cureentStatus: 0 // 默认订单状态为拼团信息
 			}
@@ -146,25 +56,12 @@
 		watch: {
 			// 全局订单状态-状态改变了根据状态发送请求请求数据
 			orderStatus(val) {
-				console.log('订单状态改变了', val)
-				// 根据状态请求数据
-				if (this.orderStatus === 0) {
-					this.goodsList = this.goodsList1
-				} else if (this.orderStatus === 1) {
-					this.goodsList = this.goodsList2
-				} else if (this.orderStatus === 2) {
-					this.goodsList = this.goodsList3
-				} else {
-					this.goodsList = this.goodsList4
-				}
 				this.cureentStatus = this.orderStatus.index
 				this.getList()
 
 			}
 		},
 		mounted() {
-
-
 			this.getList()
 			//测试
 			this.$store.commit('orderListUpdate', this.goodsList)
@@ -182,9 +79,6 @@
 			}
 		},
 		methods: {
-
-
-
 			getList() {
 				// 1.判断是否登录，没有登录就跳进登录页面
 
@@ -199,9 +93,16 @@
 					if (res.statusCode === 200) {
 						this.goodsList = res.data.obj.results
 						//4.更新全局orderList
-						this.goodsList.sort(function(a,b){
-							return a.wcsj < b.wcsj ? 1 : -1
-						})
+						if(this.orderStatus === '3'){
+							this.goodsList.sort(function(a,b){
+								return a.wcsj < b.wcsj ? 1 : -1
+							})
+						}else{
+							this.goodsList.sort(function(a,b){
+								return a.createDate < b.createDate ? 1 : -1
+							})
+						}
+						
 						this.$store.commit('orderListUpdate', this.goodsList)
 					}
 					// 积分订单
@@ -218,6 +119,7 @@
 								this.goodsList.sort(function(a,b){
 									return a.wcsj < b.wcsj ? 1 : -1
 								})
+								console.log('this.goodsList',this.goodsList)
 								this.$store.commit('orderListUpdate', this.goodsList)
 							}
 						})

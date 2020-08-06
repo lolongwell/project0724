@@ -114,6 +114,8 @@
 					}
 				})
 			})
+			
+			// this.getList()
 
 		},
 		methods: {
@@ -192,9 +194,14 @@
 					wczt: '2' // 点击的是哪一种状态
 				}
 				//3.发送请求
+				console.log('orderStatus',this.orderStatus)
 				orderAPI.orderList(orderData).then(res => {
 					if (res.data.respCode === '0') {
 						this.goodsList = res.data.obj.results
+						this.goodsList.sort(function(a,b){
+							return a.wcsj < b.wcsj ? 1 : -1
+						})
+						console.log('this.goodsList111',this.goodsList)
 						//4.更新全局orderList
 						this.$store.commit('orderListUpdate', this.goodsList)
 					}
