@@ -97,6 +97,13 @@ import informationAPI from '@/api/infomation/infomation.js'
 					this.$api.msg('请输入开户行');
 					return;
 				}
+				if (this.form.txje > uni.getStorageSync('yue')) {
+					uni.showToast({
+						title: '余额不足!',
+						icon: 'none'
+					});
+					return
+				}
 				let data = JSON.parse(JSON.stringify(this.form));
 				console.log('提现', data)
 				// 提现-提交
